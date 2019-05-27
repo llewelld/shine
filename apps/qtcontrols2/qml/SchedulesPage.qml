@@ -17,16 +17,15 @@
  *      Michael Zanetti <michael_zanetti@gmx.net>
  */
 
-import QtQuick 2.3
+import QtQuick 2.4
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
-import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3
-import Ubuntu.Components.Popups 1.3
 import Hue 0.1
+import "PopupUtils.js" as PopupUtils
 
 ShinePage {
     id: root
-    title: "Alarms & Timers"
+    title: "Alarms and Timers"
     busy: schedules && schedules.count === 0 && schedules.busy
 
     property var lights: null
@@ -37,10 +36,9 @@ ShinePage {
     property bool pageActive: false
 
     Label {
-        anchors { left: parent.left; right: parent.right; margins: units.gu(2); verticalCenter: parent.verticalCenter }
+        anchors { left: parent.left; right: parent.right; margins: 8 * (2); verticalCenter: parent.verticalCenter }
         wrapMode: Text.WordWrap
         text: "No alarms or timers set up. You can create alarms and timers in the lights and scenes sections."
-        fontSize: "x-large"
         horizontalAlignment: Text.AlignHCenter
         visible: schedules.count === 0 && !root.busy
         z: 2
@@ -51,39 +49,41 @@ ShinePage {
         anchors.fill: parent
         model: schedules
 
-        delegate: ListItem {
-            leadingActions: ListItemActions {
-                actions: [
-                    Action {
-                        iconName: "delete"
-                        onTriggered: schedules.deleteSchedule(model.id)
-                    }
-                ]
-            }
-
-
-            RowLayout {
+        delegate: Item {
+            height: 6 * (8)
+            Row {
+                height: parent.height
                 anchors {
                     fill: parent
-                    leftMargin: units.gu(2)
-                    rightMargin: units.gu(2)
+                    leftMargin: 8 * (2)
+                    rightMargin: 8 * (2)
                 }
-                spacing: units.gu(1)
-                Icon {
-                    Layout.preferredHeight: units.gu(4)
-                    implicitWidth: height
-                    name: model.type == Schedule.TypeAlarm ? "alarm-clock" : "camera-self-timer"
+                spacing: 8 * (1)
+                Button {
+                    icon.source: "images/cross.svg"
+                    height: parent.height
+                    width: height
+                    onClicked: schedules.deleteSchedule(model.id)
                 }
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+
+                Image {
+                    height: parent.height - (8)
+                    width: height
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: model.type == Schedule.TypeAlarm ? "images/alarm-clock.svg" : "images/camera-self-timer.svg"
+                    sourceSize.height: height
+                    sourceSize.width: width
+                }
+                Column {
+                    width: parent.width
+                    anchors.verticalCenter: parent.verticalCenter
 
                     Label {
-                        Layout.fillWidth: true
+                        width: parent.width
                         text: model.name
                     }
                     Label {
-                        Layout.fillWidth: true
+                        width: parent.width
                         property string weekdays: model.weekdays
                         property string weekdaysString: {
                             var strings = new Array()

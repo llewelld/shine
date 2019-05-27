@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.1
 import Hue 0.1
+import "PopupUtils.js" as PopupUtils
 
 Page {
     id: root
@@ -16,46 +17,56 @@ Page {
     }
 
     header: ToolBar {
-        RowLayout {
+        Row {
              anchors.fill: parent
              ToolButton {
+                 id: backButton
                  text: "‹"
                  onClicked: pageStack.pop()
              }
              Label {
+                 anchors.verticalCenter: parent.verticalCenter
                  text: light.name
                  elide: Label.ElideRight
                  horizontalAlignment: Qt.AlignHCenter
                  verticalAlignment: Qt.AlignVCenter
-                 Layout.fillWidth: true
+                 width: parent.width - backButton.width - alarmButton.width - timerButton.width - menuButton.width
              }
              ToolButton {
+                 id: alarmButton
+                 icon.source: "images/alarm-clock.svg"
+                 onClicked: PopupUtils.open(Qt.resolvedUrl("CreateAlarmDialog.qml"), root, {light: root.light, schedules: root.schedules})
+             }
+             ToolButton {
+                 id: timerButton
+                 icon.source: "images/camera-self-timer.svg"
+                 onClicked: PopupUtils.open(Qt.resolvedUrl("CreateTimerDialog.qml"), root,  {light: root.light, schedules: root.schedules })
+             }
+             ToolButton {
+                 id: menuButton
                  text: qsTr("⋮")
                  onClicked: menu.open()
              }
          }
     }
 
-//    head {
-//        actions: [
-//            Action {
-//                iconName: "alarm-clock"
-//                onTriggered: {
-//                    PopupUtils.open(Qt.resolvedUrl("CreateAlarmDialog.qml"), root, {light: root.light, schedules: root.schedules})
-//                }
-//            },
-//            Action {
-//                iconName: "camera-self-timer"
-//                onTriggered: PopupUtils.open(Qt.resolvedUrl("CreateTimerDialog.qml"), root,  {light: root.light, schedules: root.schedules })
-//            }
-//        ]
-//    }
+    Menu {
+        id: menu
+        MenuItem {
+            text: "Alarm"
+            onClicked: PopupUtils.open(Qt.resolvedUrl("CreateAlarmDialog.qml"), root, {light: root.light, schedules: root.schedules})
+        }
+        MenuItem {
+            text: "Timer"
+            onClicked: PopupUtils.open(Qt.resolvedUrl("CreateTimerDialog.qml"), root,  {light: root.light, schedules: root.schedules })
+        }
+    }
 
     Connections {
         target: root.light
         onStateChanged: {
             brightnessSlider.value = root.light.bri;
-            effectSelector.selectedIndex = effectSelector.findIndex();
+            effectSelector.currentIndex = effectSelector.findIndex();
             if (!colorPicker.pressed || !colorPicker.active) {
                 colorPicker.color = root.light.color;
             }
@@ -85,7 +96,7 @@ Page {
                 Image {
                     anchors.fill: parent
                     anchors.margins: 8 * (1)
-                    source: "torch-off"
+                    source: "images/a19_filled.svg"
                 }
             }
             Slider {
@@ -105,30 +116,32 @@ Page {
                 Image {
                     anchors.fill: parent
                     anchors.margins: 8 * (1)
-                    source: "torch-on"
+                    source: "images/a19_outline.svg"
                 }
             }
 
         }
 
-//        RowLayout {
-//            spacing: 8 * (2)
-//            Layout.fillWidth: true
-//            Repeater {
-//                model: LightRecipeModel {}
-//                ColorButton {
-//                    Layout.preferredHeight: width
-//                    Layout.fillWidth: true
-//                    source: "images/" + model.name + ".svg"
+        Row {
+            spacing: 8 * (2)
+            width: parent.width
+            height: 24 * (2)
+            Repeater {
+                id: recipes
+                model: LightRecipeModel {}
+                ColorButton {
+                    height: parent.height
+                    width: height
+                    source: "images/" + model.name + ".svg"
 
-//                    onClicked: {
-//                        light.color = model.color
-//                        light.bri = model.bri
-//                        light.on = true;
-//                    }
-//                }
-//            }
-//        }
+                    onClicked: {
+                        light.color = model.color
+                        light.bri = model.bri
+                        light.on = true;
+                    }
+                }
+            }
+        }
         ColorPicker {
             id: colorPicker
             Layout.fillWidth: true
@@ -170,41 +183,42 @@ Page {
                 width: 8 * (.5)
                 color: "transparent"
                 border.color: "black"
-                border.width: units.dp(2)
+                border.width: 8 * (2)
             }
         }
 
-//        ItemSelector {
-//            id: effectSelector
-//            Layout.fillWidth: true
-//            model: ListModel {
-//                id: effectModel
-//                ListElement { name: "No effect"; value: "none" }
-//                ListElement { name: "Color loop"; value: "colorloop" }
-//            }
-//            selectedIndex: findIndex()
+        ComboBox {
+            id: effectSelector
+            Layout.fillWidth: true
+            textRole: "name"
+            model: ListModel {
+                id: effectModel
+                ListElement { name: "No effect"; value: "none" }
+                ListElement { name: "Color loop"; value: "colorloop" }
+            }
+            currentIndex: findIndex()
 
-//            function findIndex() {
-//                if (!light) {
-//                    return 0;
-//                }
+            function findIndex() {
+                if (!light) {
+                    return 0;
+                }
 
-//                for (var i = 0; i < effectModel.count; i++) {
-//                    if (effectModel.get(i).value == light.effect) {
-//                        return i;
-//                    }
-//                }
-//                return 0;
-//            }
+                for (var i = 0; i < effectModel.count; i++) {
+                    if (effectModel.get(i).value == light.effect) {
+                        return i;
+                    }
+                }
+                return 0;
+            }
 
-//            onSelectedIndexChanged: {
-//                light.effect = effectModel.get(selectedIndex).value;
-//            }
+            onCurrentIndexChanged: {
+                light.effect = effectModel.get(currentIndex).value;
+            }
 
-//            delegate: OptionSelectorDelegate {
-//                text: name
-//            }
-//        }
+            delegate: ItemDelegate {
+                text: name
+            }
+        }
 
     }
 

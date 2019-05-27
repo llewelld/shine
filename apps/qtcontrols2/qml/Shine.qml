@@ -80,20 +80,64 @@ ApplicationWindow {
                 text: "Scenes"
                 onClicked: pageStack.replace(scenesPage)
             }
+            MenuItem {
+                text: "Alarms and Timers"
+                onClicked: pageStack.replace(schedulesPage)
+            }
+            MenuItem {
+                text: "Switches"
+                onClicked: pageStack.replace(sensorsPage)
+            }
+            MenuItem {
+                text: "Rules"
+                onClicked: pageStack.replace(rulesPage)
+            }
+            MenuItem {
+                text: "Bridge control"
+                onClicked: pageStack.replace(bridgeInfoPage)
+            }
         }
 
         initialItem: LightsPage {
             id: lightsPage
-            anchors.fill: parent
             lights: lights
             groups: groups
             schedules: schedules
+            visible: pageStack.currentItem == lightsPage
         }
         ScenesPage {
             id: scenesPage
             lights: lights
             scenes: scenes
             schedules: schedules
+            visible: pageStack.currentItem == scenesPage
+        }
+        SchedulesPage {
+            id: schedulesPage
+            lights: lights
+            schedules: schedules
+            scenes: scenes
+            groups: groups
+            visible: pageStack.currentItem == schedulesPage
+        }
+        SensorsPage {
+            id: sensorsPage
+            sensors: sensors
+            rules: rules
+            lights: lights
+            groups: groups
+            scenes: scenes
+            visible: pageStack.currentItem == sensorsPage
+        }
+        RulesPage {
+            id: rulesPage
+            rules: rules
+            visible: pageStack.currentItem == rulesPage
+        }
+        BridgeInfoPage {
+            id: bridgeInfoPage
+            lights: lights
+            visible: pageStack.currentItem == bridgeInfoPage
         }
         //        }
     //        Tab {
@@ -151,39 +195,37 @@ ApplicationWindow {
 
     Lights {
         id: lights
-        autoRefresh: true// (lightsTab.isCurrentItem && lightsPageStack.currentItem == lightsPage)
-//                     || bigColorPicker.visible
+        autoRefresh: true //(pageStack.currentItem == lightsPage) || bigColorPicker.visible
     }
 
     Groups {
         id: groups
-        autoRefresh: (tabs.selectedTab == lightsTab && lightsPageStack.currentPage == lightsPage) ||
-                     bigColorPicker.visible
+        autoRefresh: true //(pageStack.currentItem == lightsPage) || bigColorPicker.visible
     }
 
     Scenes {
         id: scenes
-        autoRefresh: (tabs.selectedTab == scenesTab || tabs.selectedTab == sensorsTab) && !bigColorPicker.visible
+        autoRefresh: true //(pageStack.currentItem == scenesPage || pageStack.currentItem == sensorsPage) && !bigColorPicker.visible
     }
 
     Schedules {
         id: schedules
-        autoRefresh: tabs.selectedTab == schedulesTab && !bigColorPicker.visible
+        autoRefresh: true //(pageStack.currentItem == schedulesPage) && !bigColorPicker.visible
     }
 
     Configuration {
         id: bridgeConfig
-        autoRefresh: tabs.selectedTab == bridgeInfoTab && !bigColorPicker.visible
+        autoRefresh: true //(pageStack.currentItem == bridgeInfoPage) && !bigColorPicker.visible
     }
 
     Sensors {
         id: sensors
-        autoRefresh: tabs.selectedTab == sensorsTab && !bigColorPicker.visible
+        autoRefresh: true //(pageStack.currentItem == sensorsPage) && !bigColorPicker.visible
     }
 
     Rules {
         id: rules
-        autoRefresh: tabs.selectedTab == sensorsTab && !bigColorPicker.visible
+        autoRefresh: true //(pageStack.currentItem == rulesPage) && !bigColorPicker.visible
     }
 
     Settings {
@@ -245,12 +287,12 @@ ApplicationWindow {
     Column {
         anchors { left: parent.left; right: parent.right }
         anchors.verticalCenter: parent.verticalCenter
-        spacing: units.gu(5)
+        spacing: 8 * (5)
         visible: searchingSpinner.running
         BusyIndicator {
             id: searchingSpinner
             anchors.horizontalCenter: parent.horizontalCenter
-            height: units.gu(5)
+            height: 8 * (5)
             width: height
             running: !HueBridge.discoveryError && !HueBridge.bridgeFound
         }
@@ -261,10 +303,10 @@ ApplicationWindow {
         }
     }
 
-//    BigColorPicker {
-//        id: bigColorPicker
-//        anchors.fill: parent
-//        visible: root.orientation == "landscape"
-//        lights: lights
-//    }
+    BigColorPicker {
+        id: bigColorPicker
+        anchors.fill: parent
+        visible: root.orientation == "landscape"
+        lights: lights
+    }
 }

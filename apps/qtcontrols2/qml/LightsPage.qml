@@ -21,10 +21,12 @@ import QtQuick 2.5
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 import Hue 0.1
+import "PopupUtils.js" as PopupUtils
 
 ShinePage {
     id: root
     title: "Lights"
+    busy: lights && lights.count === 0 && lights.busy
 
     property alias lights: lightsFilterModel.lights
     property var groups: null
@@ -34,28 +36,11 @@ ShinePage {
         ListElement { text: "add"; image: "add" }
     }
     onToolButtonClicked: {
-        var comp = Qt.createComponent(Qt.resolvedUrl("CreateDialog.qml"));
-        var popup = comp.createObject(root, {mode: "group", lights: root.lights})
+        var popup = PopupUtils.open(Qt.resolvedUrl("CreateDialog.qml"), root, {mode: "group", lights: root.lights})
         popup.accepted.connect(function(name, lightsList) {
             groups.createGroup(name, lightsList);
         })
-        popup.open()
     }
-
-//    head {
-//        actions: [
-//            Action {
-//                text: "group"
-//                iconName: "add"
-//                onTriggered: {
-//                    var popup = PopupUtils.open(Qt.resolvedUrl("CreateDialog.qml"), root, {mode: "group", lights: root.lights})
-//                    popup.accepted.connect(function(name, lightsList) {
-//                        groups.createGroup(name, lightsList);
-//                    })
-//                }
-//            }
-//        ]
-//    }
 
     Item { // wrap flickable to disable header fancyness
         anchors.fill: parent
@@ -70,13 +55,6 @@ ShinePage {
             Column {
                 id: mainColumn
                 anchors { left: parent.left; right: parent.right }
-
-                add: Transition {
-                    NumberAnimation { properties: "opacity"; from: 0 }
-                }
-                move: Transition {
-                    NumberAnimation { properties: "x,y" }
-                }
 
                 Label {
                     text: "Groups"

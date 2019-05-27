@@ -8,6 +8,7 @@ KeyStore::KeyStore(QObject *parent): QObject(parent),
 QString KeyStore::apiKey() const
 {
     qDebug() << "reading from" << m_settings.fileName();
+    qDebug() << "API key: " << m_settings.value("apiKey").toString();
     return m_settings.value("apiKey").toString();
 }
 

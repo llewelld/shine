@@ -1,10 +1,10 @@
-import QtQuick 2.4
+import QtQuick 2.5
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
-import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3
 import Hue 0.1
+import "PopupUtils.js" as PopupUtils
 
-Page {
+ShinePage {
     id: root
     title: sensor.name
 
@@ -18,17 +18,6 @@ Page {
     SensorsFilterModel {
         sensors: root.sensors
 
-    }
-
-    head {
-        actions: [
-            Action {
-                iconName: "save"
-                onTriggered: {
-                    root.saveRules()
-                }
-            }
-        ]
     }
 
     RulesFilterModel {
@@ -319,7 +308,7 @@ Page {
     ColumnLayout {
         anchors.fill: parent
         id: actionSelection
-        spacing: units.gu(1)
+        spacing: 8 * (1)
 
         Loader {
             id: sensorLoader
@@ -339,18 +328,25 @@ Page {
             }
         }
 
-        ItemSelector {
+        Button {
+            icon.name: "save"
+            onClicked: {
+                root.saveRules()
+            }
+        }
+
+        ComboBox {
             id: lightsOrSceneSelector
-//            model: ["Toggle lights", "Switch lights", "Activate scenes", "Dim Up", "Dim Down", "Set sleep timer"]
+            //            model: ["Toggle lights", "Switch lights", "Activate scenes", "Dim Up", "Dim Down", "Set sleep timer"]
             model: ["Toggle lights", "Switch lights", "Activate scenes", "Dim Up", "Dim Down"]
         }
+
         Item {
             id: recipeSelector
             Layout.fillWidth: true
-            Layout.preferredHeight: (width - units.gu(6)) / 4
+            Layout.preferredHeight: (width - 8 * (6)) / 4
             visible: lightsOrSceneSelector.selectedIndex == 1
             opacity: lightsOrSceneSelector.currentlyExpanded ? 0 : 1
-            Behavior on opacity { UbuntuNumberAnimation {} }
 
             property var recipes: []
             function toggleRecipe(name) {
@@ -373,8 +369,8 @@ Page {
             }
 
             RowLayout {
-                anchors.fill: parent; anchors.margins: units.gu(1)
-                spacing: units.gu(2)
+                anchors.fill: parent; anchors.margins: 8 * (1)
+                spacing: 8 * (2)
                 Repeater {
                     model: LightRecipeModel {
                         id: lightRecipeModel
@@ -385,12 +381,11 @@ Page {
                         source: "images/" + model.name + ".svg"
                         onClicked: recipeSelector.toggleRecipe(model.name)
 
-                        Icon {
+                        Image {
                             anchors { right: parent.right; bottom: parent.bottom }
                             height: parent.height / 2
                             width: height
-                            name: "tick"
-                            color: UbuntuColors.green
+                            source: "images/tick.svg"
 
                             visible: {
                                 for (var i = 0; i < recipeSelector.recipes.length; i++) {
@@ -409,12 +404,11 @@ Page {
                     source: "image://theme/torch-off"
                     onClicked: recipeSelector.toggleRecipe("off")
 
-                    Icon {
+                    Image {
                         anchors { right: parent.right; bottom: parent.bottom }
                         height: parent.height / 2
                         width: height
-                        name: "tick"
-                        color: UbuntuColors.green
+                        source: "images/tick.svg"
 
                         visible: {
                             for (var i = 0; i < recipeSelector.recipes.length; i++) {
@@ -437,7 +431,6 @@ Page {
             Layout.fillHeight: true
             visible: lightsOrSceneSelector.selectedIndex !== 2
             opacity: lightsOrSceneSelector.currentlyExpanded ? 0 : 1
-            Behavior on opacity { UbuntuNumberAnimation {} }
         }
 
         ListView {
@@ -448,7 +441,6 @@ Page {
             clip: true
             visible: lightsOrSceneSelector.selectedIndex == 2
             opacity: lightsOrSceneSelector.currentlyExpanded ? 0 : 1
-            Behavior on opacity { UbuntuNumberAnimation {} }
 
             property var selectedScenes: []
             model: scenesFilterModel
@@ -457,19 +449,19 @@ Page {
                 scenes: root.scenes
                 hideOtherApps: true
             }
-            delegate: ListItem {
-                height: units.gu(5)
-                RowLayout {
-                    anchors { fill: parent; leftMargin: units.gu(2); rightMargin: units.gu(2); topMargin: units.gu(1); bottomMargin: units.gu(1) }
+            delegate: MouseArea {
+                height: 8 * (5)
+                Row {
+                    anchors { fill: parent; leftMargin: 8 * (2); rightMargin: 8 * (2); topMargin: 8 * (1); bottomMargin: 8 * (1) }
                     Label {
                         Layout.fillWidth: true
                         text: model.name
                     }
-                    Icon {
+                    Image {
                         id: useSceneCheckBox
                         Layout.fillHeight: true
                         Layout.preferredWidth: height
-                        name: "tick"
+                        source: "images/tick.svg"
                         visible: {
                             print("evaluating visible for", model.name, scenesListView.selectedScenes.length)
                             for (var i = 0; i < scenesListView.selectedScenes.length; i++) {
@@ -516,24 +508,22 @@ Page {
             anchors.fill: parent
             color: "black"
             opacity: busyTimer.running ? 0.7 : 0
-            Behavior on opacity { UbuntuNumberAnimation {} }
         }
         Column {
             width: parent.width
             anchors.centerIn: parent
-            spacing: units.gu(5)
-            ActivityIndicator {
+            spacing: 8 * (5)
+            BusyIndicator {
                 anchors.horizontalCenter: parent.horizontalCenter
                 running: parent.visible
             }
             Label {
-                width: parent.width - units.gu(8)
+                width: parent.width - 8 * (8)
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "white"
                 text: "Please wait while the configuration is saved to the bridge..."
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
-                fontSize: "large"
             }
 
         }
@@ -688,9 +678,9 @@ Page {
                 }
                 Column {
                     anchors.verticalCenter: parent.verticalCenter
-                    spacing: units.gu(1)
+                    spacing: 8 * (1)
                     Row {
-                        spacing: units.gu(1)
+                        spacing: 8 * (1)
                         CheckBox {
                             id: pressCheckBox
                             checked: true
@@ -704,7 +694,7 @@ Page {
                         }
                     }
                     Row {
-                        spacing: units.gu(1)
+                        spacing: 8 * (1)
                         CheckBox {
                             id: holdCheckBox
                             onClicked: {

@@ -32,10 +32,10 @@ Rectangle {
         lights: root.lights
     }
 
-    RowLayout {
+    Row {
         anchors.fill: parent
-        anchors.margins: units.gu(1)
-        spacing: units.gu(1)
+        anchors.margins: 8 * (1)
+        spacing: 8 * (1)
         ColorPicker {
             id: bigColorPicker
             Layout.fillHeight: true
@@ -45,8 +45,8 @@ Rectangle {
             touchDelegate: Rectangle {
                 id: lightDelegate
                 color: light && light.reachable ? (light.on ? "blue" : "gray") : "red"
-                height: units.gu(5)
-                width: units.gu(5)
+                height: 8 * (5)
+                width: 8 * (5)
                 property var point: light ? bigColorPicker.calculateXy(light.color) : undefined
 //                radius: "medium"
                 opacity: light && light.reachable ? 1 : .5
@@ -54,7 +54,7 @@ Rectangle {
                     id: label
                     color: "white"
                     anchors.centerIn: parent
-                    text: light && light.id
+                    text: light ? light.id : ""
                 }
 
                 property var light
@@ -63,9 +63,9 @@ Rectangle {
 
         ListView {
             Layout.fillHeight: true
-            Layout.preferredWidth: units.gu(20)
+            Layout.preferredWidth: 8 * (20)
             model: root.lights
-            spacing: units.gu(1)
+            spacing: 8 * (1)
             delegate: RowLayout {
                 CheckBox {
                     checked: true

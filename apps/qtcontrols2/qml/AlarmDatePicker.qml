@@ -1,53 +1,56 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
-import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
-import Ubuntu.Components.Pickers 1.3
-import Ubuntu.Components.ListItems 1.3
+import QtQuick.Dialogs 1.2
+import QtQuick.Controls 2.1
+import "PopupUtils.js" as PopupUtils
 
 Column {
     id: root
-    spacing: units.gu(1)
+    spacing: 8 * (1)
+    width: parent.width
 
     property var date: new Date()
     property alias recurring: recurringSwitch.checked
-    property string weekdays: "01111100"
+    property string weekdays: "X1111100X"
 
     property int margins: 0
 
     function showPastTimeError() {
-        PopupUtils.open(pastTimeError)
+        PopupUtils.openComponent(pastTimeError, root, {})
     }
 
-    ListItem {
-        highlightColor: color
-        RowLayout {
-            anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: root.margins; rightMargin: root.margins }
-            Label {
-                Layout.fillWidth: true
-                text: "Recurring alarm"
-            }
-            Switch {
-                id: recurringSwitch
-            }
+    Row {
+        anchors { left: parent.left; right: parent.right; leftMargin: root.margins; rightMargin: root.margins }
+        Label {
+            anchors.verticalCenter: parent.verticalCenter
+            text: "Recurring alarm"
+            width: parent.width - recurringSwitch.width
+        }
+        Switch {
+            anchors.verticalCenter: parent.verticalCenter
+            id: recurringSwitch
         }
     }
 
-    ListItem {
-        RowLayout {
+    Button {
+        width: parent.width
+        Row {
             anchors.fill: parent
             anchors { leftMargin: root.margins; rightMargin: root.margins }
             Label {
-                Layout.fillWidth: true
-                text: root.recurring ? i18n.tr("Time") : i18n.tr("Date & Time")
+                anchors.verticalCenter: parent.verticalCenter
+                text: root.recurring ? "Time" : "Date & Time"
+                width: parent.width - timeLabel.width
             }
             Label {
+                id: timeLabel
+                anchors.verticalCenter: parent.verticalCenter
                 text: "" + (root.recurring ? "" : Qt.formatDate(root.date)) + " " + Qt.formatTime(root.date)
             }
         }
 
         onClicked: {
-            var popup = PopupUtils.open(dateTimePicker, root, {date: root.date})
+            var popup = PopupUtils.openComponent(dateTimePicker, root, {date: root.date})
             popup.closed.connect(function(date) {
                 root.date = date
             })
@@ -56,39 +59,38 @@ Column {
             id: dateTimePicker
             Dialog {
                 id: dtp
-                title: root.recurring ? i18n.tr("Time") : i18n.tr("Date & Time")
+                title: root.recurring ? "Time" : "Date & Time"
+                width: parent.width
                 signal closed(var date)
 
                 property var date: new Date()
 
-                DatePicker {
-                    id: datePicker
-                    date: dtp.date
-                    visible: !root.recurring
+
+                Row {
+                    DatePicker {
+                        id: datePicker
+                        date: dtp.date
+                        showDate: !root.recurring
+                    }
                 }
 
-                DatePicker {
-                    id: timePicker
-                    mode: "Hours|Minutes"
-                    date: dtp.date
-                }
-
-                Button {
-                    text: i18n.tr("OK")
-                    onClicked: {
-                        var mixedDate = datePicker.date;
-                        mixedDate.setHours(timePicker.date.getHours())
-                        mixedDate.setMinutes(timePicker.date.getMinutes())
-                        dtp.closed(mixedDate)
-                        PopupUtils.close(dtp)
+                footer: DialogButtonBox {
+                    Button {
+                        text: "OK"
+                        onClicked: {
+                            var mixedDate = datePicker.date;
+                            dtp.closed(mixedDate)
+                            PopupUtils.close(dtp)
+                        }
                     }
                 }
             }
         }
     }
 
-    ListItem {
+    Button {
         id: recurrenceSelector
+        width: parent.width
 
         states: [
             State {
@@ -100,25 +102,27 @@ Column {
             Transition {
                 from: "*"
                 to: "*"
-                UbuntuNumberAnimation { properties: "height,opacity" }
+                NumberAnimation { properties: "height,opacity" }
             }
         ]
-        ColumnLayout {
+        Row {
             anchors.verticalCenter: parent.verticalCenter
             anchors { left: parent.left; right: parent.right; leftMargin: root.margins; rightMargin: root.margins }
             Label {
                 text: "Recurrence"
+                width: parent.width - weedayListLabel.width
             }
             Label {
+                id: weedayListLabel
                 text: {
                     var strings = new Array()
-                    if (weekdays[1] == "1") strings.push("Mon")
-                    if (weekdays[2] == "1") strings.push("Tue")
-                    if (weekdays[3] == "1") strings.push("Wed")
-                    if (weekdays[4] == "1") strings.push("Thu")
-                    if (weekdays[5] == "1") strings.push("Fri")
-                    if (weekdays[6] == "1") strings.push("Sat")
-                    if (weekdays[7] == "1") strings.push("Sun")
+                    if (root.weekdays[1] == "1") strings.push("Mon")
+                    if (root.weekdays[2] == "1") strings.push("Tue")
+                    if (root.weekdays[3] == "1") strings.push("Wed")
+                    if (root.weekdays[4] == "1") strings.push("Thu")
+                    if (root.weekdays[5] == "1") strings.push("Fri")
+                    if (root.weekdays[6] == "1") strings.push("Sat")
+                    if (root.weekdays[7] == "1") strings.push("Sun")
                     return strings.join(", ")
                 }
 
@@ -126,9 +130,9 @@ Column {
         }
 
         onClicked: {
-            var popup = PopupUtils.open(recurrancePicker, root)
+            var popup = PopupUtils.openComponent(recurrancePicker, root, {weekdays: root.weekdays})
             popup.closed.connect(function(weekdays) {
-                recurrenceSelector.weekdays = weekdays;
+                root.weekdays = weekdays;
             })
         }
 
@@ -137,30 +141,34 @@ Column {
 
             Dialog {
                 id: rp
-                title: i18n.tr("Days")
+                title: "Days"
                 signal closed(string weekdays)
+                property string weekdays
+                width: parent.width
+                height: parent.height
 
-                RowLayout { CheckBox { id: cbMonday; checked: recurrenceSelector.weekdays[1] == "1" } Label { Layout.fillWidth: true; text: "Monday"} }
-                RowLayout { CheckBox { id: cbTuesday; checked: recurrenceSelector.weekdays[2] == "1" } Label { Layout.fillWidth: true; text: "Tuesday"} }
-                RowLayout { CheckBox { id: cbWednesday; checked: recurrenceSelector.weekdays[3] == "1" } Label { Layout.fillWidth: true; text: "Wednesday"} }
-                RowLayout { CheckBox { id: cbThursday; checked: recurrenceSelector.weekdays[4] == "1" } Label { Layout.fillWidth: true; text: "Thursday"} }
-                RowLayout { CheckBox { id: cbFriday; checked: recurrenceSelector.weekdays[5] == "1" } Label { Layout.fillWidth: true; text: "Friday"} }
-                RowLayout { CheckBox { id: cbSaturday; checked: recurrenceSelector.weekdays[6] == "1" } Label { Layout.fillWidth: true; text: "Saturday"} }
-                RowLayout { CheckBox { id: cbSunday; checked: recurrenceSelector.weekdays[7] == "1" } Label { Layout.fillWidth: true; text: "Sunday"} }
+                function toggleDay(day) {
+                    weekdays = weekdays.substr(0, day) + (weekdays[day] === "1" ? '0' : '1') + weekdays.substr(day - 8)
+                }
 
-                Button {
-                    text: i18n.tr("OK")
-                    onClicked: {
-                        var weekdays = "0";
-                        weekdays += cbMonday.checked ? "1" : "0"
-                        weekdays += cbTuesday.checked ? "1" : "0"
-                        weekdays += cbWednesday.checked ? "1" : "0"
-                        weekdays += cbThursday.checked ? "1" : "0"
-                        weekdays += cbFriday.checked ? "1" : "0"
-                        weekdays += cbSaturday.checked ? "1" : "0"
-                        weekdays += cbSunday.checked ? "1" : "0"
-                        rp.closed(weekdays)
-                        PopupUtils.close(rp);
+                Flow {
+                    width: parent.width
+                    CheckBox { checked: weekdays[1] === "1"; checkable: false; onClicked: toggleDay(1); text: "Monday" }
+                    CheckBox { checked: weekdays[2] === "1"; checkable: false; onClicked: toggleDay(2); text: "Tuesday" }
+                    CheckBox { checked: weekdays[3] === "1"; checkable: false; onClicked: toggleDay(3); text: "Wednesday" }
+                    CheckBox { checked: weekdays[4] === "1"; checkable: false; onClicked: toggleDay(4); text: "Thursday" }
+                    CheckBox { checked: weekdays[5] === "1"; checkable: false; onClicked: toggleDay(5); text: "Friday" }
+                    CheckBox { checked: weekdays[6] === "1"; checkable: false; onClicked: toggleDay(6); text: "Saturday" }
+                    CheckBox { checked: weekdays[7] === "1"; checkable: false; onClicked: toggleDay(7); text: "Sunday" }
+                }
+
+                footer: DialogButtonBox {
+                    Button {
+                        text: "OK"
+                        onClicked: {
+                            rp.closed(weekdays)
+                            PopupUtils.close(rp);
+                        }
                     }
                 }
             }
@@ -172,11 +180,16 @@ Column {
         Dialog {
             id: dialog
             title: "Invalid Time"
-            text: "The selected time is in the past. Please select a time in the future."
-            Button {
-                color: UbuntuColors.orange
-                text: "OK"
-                onClicked: PopupUtils.close(dialog)
+            Column {
+                Label {
+                    text: "The selected time is in the past. Please select a time in the future."
+                }
+            }
+            footer: DialogButtonBox {
+                Button {
+                    text: "OK"
+                    onClicked: PopupUtils.close(dialog)
+                }
             }
         }
     }

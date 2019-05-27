@@ -1,6 +1,7 @@
-import QtQuick 2.4
-import QtQuick.Layouts 1.1
-import Ubuntu.Components 1.3
+import QtQuick 2.3
+import QtQuick.Controls 2.1
+import Hue 0.1
+import "PopupUtils.js" as PopupUtils
 
 ListView {
     id: root
@@ -43,19 +44,16 @@ ListView {
         target: root.lights
         onCountChanged: lightsAndGroups.refresh();
     }
-    delegate: ListItem {
-        height: units.gu(5)
-        RowLayout {
-            anchors { fill: parent; leftMargin: units.gu(2); rightMargin: units.gu(2); topMargin: units.gu(1); bottomMargin: units.gu(1) }
+    delegate: MouseArea {
+        height: 8 * (5)
+        Row {
+            anchors { fill: parent; leftMargin: 8 * (2); rightMargin: 8 * (2); topMargin: 8 * (1); bottomMargin: 8 * (1) }
             Label {
                 text: model.name
-                Layout.fillWidth: true
             }
-            Icon {
-                name: "tick"
+            Image {
+                source: "images/tick.svg"
                 visible: root.currentIndex == index
-                Layout.fillHeight: true
-                Layout.preferredWidth: height
             }
         }
         onClicked: root.currentIndex = index

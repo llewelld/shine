@@ -72,5 +72,12 @@
         <file>qml/images/tap_outline_18.svg</file>
         <file>qml/images/tap_outline_34.svg</file>
         <file>qml/ThinDivider.qml</file>
+        <file>qml/PopupUtils.js</file>
+        <file>qml/images/scene_outline.svg</file>
+        <file>qml/images/cross.svg</file>
+        <file>qml/images/tick.svg</file>
+        <file>qml/DatePicker.qml</file>
+        <file>qml/images/alarm-clock.svg</file>
+        <file>qml/images/camera-self-timer.svg</file>
     </qresource>
 </RCC>

@@ -20,6 +20,7 @@
 import QtQuick 2.3
 import QtQuick.Controls 2.1
 import Hue 0.1
+import "PopupUtils.js" as PopupUtils
 
 ItemDelegate {
     id: root
@@ -31,10 +32,7 @@ ItemDelegate {
     onClicked: {
         pageStack.push(Qt.resolvedUrl("LightDetailsPage.qml"), {light: root.light, schedules: root.schedules})
     }
-    onPressAndHold: {
-        PopupUtils.open(renameDialog, this)
-        root.light.alert = "lselect"
-    }
+    onPressAndHold: actionMenu.open()
 
     Connections {
         target: root.light
@@ -46,34 +44,32 @@ ItemDelegate {
         }
     }
 
-//    leadingActions: root.light.isGroup && root.light.id !== 0 ? deleteAction : null
-//    ListItemActions {
-//        id: deleteAction
-//        actions: [
-//            Action {
-//                iconName: "delete"
-//                onTriggered: groups.deleteGroup(groups.get(index).id)
-//            }
-//        ]
-//    }
-//    trailingActions: ListItemActions {
-//        actions: [
-//            Action {
-//                iconName: "alarm-clock"
-//                onTriggered: {
-//                    PopupUtils.open(Qt.resolvedUrl("CreateAlarmDialog.qml"), root, {light: root.light, schedules: root.schedules})
-//                }
-//            },
-//            Action {
-//                iconName: "camera-self-timer"
-//                onTriggered: PopupUtils.open(Qt.resolvedUrl("CreateTimerDialog.qml"), root, {light: root.light, schedules: root.schedules })
-//            },
-//            Action {
-//                iconName: "edit"
-//                onTriggered: root.onPressAndHold()
-//            }
-//        ]
-//    }
+    Menu {
+        id: actionMenu
+        MenuItem {
+            text: "Edit"
+            onTriggered: {
+                PopupUtils.openComponent(renameDialog, this, {})
+                root.light.alert = "lselect"
+            }
+        }
+        MenuItem {
+            text: "Alarm clock"
+            onTriggered: {
+                PopupUtils.open(Qt.resolvedUrl("CreateAlarmDialog.qml"), root, {light: root.light, schedules: root.schedules})
+            }
+        }
+        MenuItem {
+            text: "Camera self timer"
+            onTriggered: PopupUtils.open(Qt.resolvedUrl("CreateTimerDialog.qml"), root, {light: root.light, schedules: root.schedules })
+        }
+        MenuItem {
+            id: deleteAction
+            text: "Delete"
+            onTriggered: groups.deleteGroup(groups.get(index).id)
+            enabled: root.light && root.light.isGroup && root.light.id !== 0
+        }
+    }
 
     Row {
         id: mainRow
@@ -176,19 +172,26 @@ ItemDelegate {
         Dialog {
             id: rd
             title: "Rename %1".arg(root.light.isGroup ? "Group" : "Light")
-//            text: "Please enter the new name for the %1".arg(root.light.isGroup ? "Group" : "Light")
-            TextField {
-                id: renameTextField
-                width: parent.width - okButton.width - parent.spacing
-                text: light ? light.name : ""
+            Column {
+                width: parent.width
+                Label {
+                    text: "Please enter the new name for the %1".arg(root.light.isGroup ? "Group" : "Light")
+                }
+                TextField {
+                    id: renameTextField
+                    text: light ? light.name : ""
+                    width: parent.width
+                }
             }
-            Button {
-                id: okButton
-                text: "OK"
-                onClicked: {
-                    root.light.alert = "none"
-                    root.light.name = renameTextField.text
-                    PopupUtils.close(rd)
+            footer: DialogButtonBox {
+                Button {
+                    id: okButton
+                    text: "OK"
+                    onClicked: {
+                        root.light.alert = "none"
+                        root.light.name = renameTextField.text
+                        PopupUtils.close(rd)
+                    }
                 }
             }
         }

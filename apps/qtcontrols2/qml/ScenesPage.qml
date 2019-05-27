@@ -21,6 +21,7 @@ import QtQuick 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.1
 import Hue 0.1
+import "PopupUtils.js" as PopupUtils
 
 ShinePage {
     id: root
@@ -31,98 +32,122 @@ ShinePage {
     property var scenes: null
     property var schedules: null
 
+    toolButtons: ListModel {
+        ListElement { text: "settings"; image: "add" }
+        ListElement { text: "add"; image: "add" }
+    }
+    onToolButtonClicked: {
+        switch (index) {
+        case 0:
+            PopupUtils.openComponent(sceneSettingsComponent, root, {})
+            break
+        case 1:
+            var popup = PopupUtils.open(Qt.resolvedUrl("EditSceneDialog.qml"), root, {title: "Create Scene", lights: root.lights})
+            popup.accepted.connect(function(name, lightsList) {
+                scenes.createScene(name, lightsList);
+            })
+            break
+        }
+    }
+
     Label {
-        anchors { left: parent.left; right: parent.right; margins: units.gu(2); verticalCenter: parent.verticalCenter }
+        anchors { left: parent.left; right: parent.right; margins: 8 * (2); verticalCenter: parent.verticalCenter }
         wrapMode: Text.WordWrap
         text: "No scenes created. You can create scenes by using the + button in the header."
-//        fontSize: "x-large"
         horizontalAlignment: Text.AlignHCenter
         visible: scenes.count === 0 && !root.busy
         z: 2
     }
 
-//    head {
-//        actions: [
-//            Action {
-//                iconName: "settings"
-//                onTriggered: PopupUtils.open(sceneSettingsComponent, root)
-//            },
-//            Action {
-//                iconName: "add"
-//                onTriggered: {
-//                    var popup = PopupUtils.open(Qt.resolvedUrl("EditSceneDialog.qml"), root, {title: i18n.tr("Create Scene"), lights: root.lights})
-//                    popup.accepted.connect(function(name, lightsList) {
-//                        scenes.createScene(name, lightsList);
-//                    })
-//                }
-//            }
-
-//        ]
-//    }
-
-    ScenesFilterModel {
-        id: scenesFilterModel
-        scenes: root.scenes
-        hideOtherApps: settings.hideScenesByOtherApps
-    }
-
-    ListView {
+    Column {
         anchors.fill: parent
-        model: scenesFilterModel
+        ScenesFilterModel {
+            id: scenesFilterModel
+            scenes: root.scenes
+            hideOtherApps: settings.hideScenesByOtherApps
+        }
 
-        delegate: ItemDelegate {
-            property var scene: scenesFilterModel.get(index)
-//            trailingActions: ListItemActions {
-//                actions: [
-//                    Action {
-//                        iconName: "alarm-clock"
-//                        onTriggered: PopupUtils.open(Qt.resolvedUrl("CreateAlarmDialog.qml"), root, {scene: scenesFilterModel.get(index), schedules: root.schedules } )
-//                    },
-//                    Action {
-//                        iconName: "edit"
-//                        onTriggered: {
-//                            var checkedLights = [];
-//                            for (var i = 0; i < scene.lightsCount; i++) {
-//                                checkedLights.push(scene.light(i))
-//                            }
+        ListView {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: root.height
+            model: scenesFilterModel
 
-//                            var popup = PopupUtils.open(Qt.resolvedUrl("EditSceneDialog.qml"), root, {title: i18n.tr("Edit scene"), lights: root.lights, checkedLights: checkedLights, name: scene.name})
-//                            popup.accepted.connect(function(name, lightsList) {
-//                                scenes.updateScene(scene.id, name, lightsList);
-//                            })
-//                        }
-//                    }
-//                ]
-//            }
+            delegate: ItemDelegate {
+                property var scene: scenesFilterModel.get(index)
+                width: parent.width
+                height: 60
 
-            RowLayout {
-                anchors { fill: parent; leftMargin: units.gu(2); rightMargin: units.gu(2) }
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                Row {
+                    anchors { fill: parent; leftMargin: 8 * (2); rightMargin: 8 * (2) }
+                    spacing: 8 * (1)
+                    Image {
+                        id: icon
+                        height: parent.height - 8 * (2)
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: height
+                        source: "images/scene_outline.svg"
 
-                    Label {
-                        Layout.fillWidth: true
-                        text: model.name
+                        sourceSize.width: width
+                        sourceSize.height: height
                     }
 
-                    RowLayout {
-                        Layout.fillWidth: true
+                    Column {
+                        anchors.verticalCenter: parent.verticalCenter
+                        Label {
+                            width: parent.width
+                            text: model.name
+                        }
 
-                        Repeater {
-                            model: root.lights.count > 0 && scene ? scene.lightsCount : 0
-                            Label {
-                                text: scene ? lights.findLight(scene.light(index)).name : ""
+                        Row {
+                            Repeater {
+                                model: root.lights.count > 0 && scene ? scene.lightsCount : 0
+                                Label {
+                                    text: scene ? lights.findLight(scene.light(index)).name : ""
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            onClicked: {
-                scenes.recallScene(scene.id)
+                onClicked: {
+                    scenes.recallScene(scene.id)
+                }
+                onPressAndHold: actionMenu.open()
+
+                Menu {
+                    id: actionMenu
+                    MenuItem {
+                        text: "Edit"
+                        onTriggered: {
+                            var checkedLights = [];
+                            for (var i = 0; i < scene.lightsCount; i++) {
+                                checkedLights.push(scene.light(i))
+                            }
+                            var popup = PopupUtils.open(Qt.resolvedUrl("EditSceneDialog.qml"), root, {title: "Edit scene", lights: root.lights, checkedLights: checkedLights, name: scene.name})
+                            popup.accepted.connect(function(name, lightsList) {
+                                scenes.updateScene(scene.id, name, lightsList);
+                            })
+                        }
+                    }
+                    MenuItem {
+                        text: "Alarm clock"
+                        onTriggered: {
+                            PopupUtils.open(Qt.resolvedUrl("CreateAlarmDialog.qml"), root, {scene: scenesFilterModel.get(index), schedules: root.schedules } )
+                        }
+                    }
+                    MenuItem {
+                        id: deleteAction
+                        text: "Delete"
+                        onTriggered: scenes.deleteScene(scene.id)
+                    }
+                }
+
+
+
             }
         }
+
     }
 
     Component {
@@ -130,23 +155,27 @@ ShinePage {
         Dialog {
             id: sceneSettingsDialog
             title: "Scene settings"
-            RowLayout {
-                CheckBox {
-                    id: showOtherApps
-                    checked: !settings.hideScenesByOtherApps
-                }
-                Label {
-                    color: "black"
-                    text: "Show scenes created by other apps"
-                    wrapMode: Text.WordWrap
-                    Layout.fillWidth: true
+            Column {
+                RowLayout {
+                    CheckBox {
+                        id: showOtherApps
+                        checked: !settings.hideScenesByOtherApps
+                    }
+                    Label {
+                        color: "black"
+                        text: "Show scenes created by other apps"
+                        wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
+                    }
                 }
             }
-            Button {
-                text: "OK"
-                onClicked: {
-                    settings.hideScenesByOtherApps = !showOtherApps.checked
-                    PopupUtils.close(sceneSettingsDialog)
+            footer: DialogButtonBox {
+                Button {
+                    text: "OK"
+                    onClicked: {
+                        settings.hideScenesByOtherApps = !showOtherApps.checked
+                        PopupUtils.close(sceneSettingsDialog)
+                    }
                 }
             }
         }

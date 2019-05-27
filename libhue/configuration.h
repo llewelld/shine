@@ -35,6 +35,7 @@ class Configuration: public HueObject
     Q_PROPERTY(QString swVersion READ swVersion NOTIFY changed)
     Q_PROPERTY(UpdateState updateState READ updateState NOTIFY changed)
     Q_PROPERTY(QString swUpdateReleaseNotes READ swUpdateReleaseNotes NOTIFY changed)
+    Q_PROPERTY(QString timezone READ timezone WRITE setTimezone NOTIFY timezoneChanged)
 
 public:
     enum UpdateState {
@@ -53,6 +54,7 @@ public:
     QString swVersion() const;
     UpdateState updateState() const;
     QString swUpdateReleaseNotes() const;
+    QString timezone() const;
 
 public slots:
     void refresh();
@@ -60,14 +62,17 @@ public slots:
     void checkForUpdate();
     void performUpdate();
     void pressLinkButton();
+    void setTimezone(const QString & timezone);
 
 signals:
     void changed();
+    void timezoneChanged();
 
 private slots:
     void responseReceived(int id, const QVariant &data);
     void checkForUpdateReply(int id, const QVariant &data);
     void performUpdateReply(int id, const QVariant &data);
+    void setTimezoneReply(int id, const QVariant &response);
 
 private:
     QString m_name;
@@ -75,6 +80,7 @@ private:
     QString m_swVersion;
     UpdateState m_updateState;
     QString m_url;
+    QString m_timezone;
 };
 
 #endif

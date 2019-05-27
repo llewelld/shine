@@ -1,8 +1,9 @@
 import QtQuick 2.4
-import Ubuntu.Components 1.3
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 import Hue 0.1
-Page {
+
+ShinePage {
     id: root
 
     title: "Bridge control"
@@ -11,8 +12,8 @@ Page {
 
     GridLayout {
         anchors.fill: parent
-        anchors.margins: units.gu(2)
-        rowSpacing: units.gu(1)
+        anchors.margins: 8 * (2)
+        rowSpacing: 8 * (1)
         columns: 2
         SettingsLabel {
             text: "Bridge name:"
@@ -31,6 +32,28 @@ Page {
         }
         SettingsLabel {
             text: bridgeConfig.connectedToPortal ? "Connected" : "Not connected"
+        }
+        SettingsLabel {
+            text: "Timezone:"
+        }
+        SettingsLabel {
+            text: bridgeConfig.timezone
+            MouseArea {
+                anchors.fill: parent
+                onClicked: timezoneMenu.open()
+            }
+
+            Menu {
+                id: timezoneMenu
+                MenuItem {
+                    text: "Europe/London"
+                    onClicked: bridgeConfig.timezone = "Europe/London"
+                }
+                MenuItem {
+                    text: "Europe/Helsinki"
+                    onClicked: bridgeConfig.timezone = "Europe/Helsinki"
+                }
+            }
         }
         SettingsLabel {
             text: "Update Status:"
@@ -54,7 +77,6 @@ Page {
                 width: parent.width
                 anchors.verticalCenter: parent.verticalCenter
                 visible: bridgeConfig.updateState === Configuration.UpdateStateReadyToUpdate
-                color: UbuntuColors.green
                 enabled: bridgeConfig.connectedToPortal
                 onClicked: {
                     bridgeConfig.performUpdate();
@@ -95,7 +117,6 @@ Page {
                 text: "Search for new devices..."
                 width: parent.width
                 visible: !searchLabel.searching
-                color: UbuntuColors.green
                 onClicked: {
                     root.lights.searchForNewLights();
                     searchLabel.searchTime = new Date(new Date().getTime() + 30000);

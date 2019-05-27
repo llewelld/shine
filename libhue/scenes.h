@@ -48,6 +48,7 @@ public:
 public slots:
     Q_INVOKABLE void createScene(const QString &name, const QList<int> &lights);
     Q_INVOKABLE void updateScene(const QString &id, const QString &name, const QList<int> &lights);
+    Q_INVOKABLE void deleteScene(const QString &id);
 
     void refresh();
 
@@ -58,6 +59,7 @@ private slots:
     void scenesReceived(int id, const QVariant &variant);
     void sceneNameChanged();
 //    void groupLightsChanged();
+    void deleteSceneFinished(int id, const QVariant &variant);
 
 private:
     Scene* createSceneInternal(const QString &id, const QString &name, const QList<int> lights);
