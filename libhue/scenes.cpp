@@ -219,3 +219,28 @@ void Scenes::recallSceneFinished(int id, const QVariant &variant)
     Q_UNUSED(id)
     qDebug() << "scene recalled" << variant;
 }
+
+void Scenes::deleteScene(const QString &id)
+{
+    HueBridgeConnection::instance()->deleteResource("scenes/" + id, this, "deleteSceneFinished");
+}
+
+void Scenes::deleteSceneFinished(int id, const QVariant &response)
+{
+    Q_UNUSED(id)
+    qDebug() << "got deleteScene result" << response;
+
+    QVariantMap result = response.toList().first().toMap();
+
+    if (result.contains("success")) {
+        QString success = result.value("success").toString();
+        if (success.contains("/scenes/")) {
+            QString sceneId = success.mid(success.indexOf("/scenes/") + 8);
+            sceneId = sceneId.left(sceneId.indexOf(" deleted"));
+
+            //TODO: could be deleted without refrshing
+            refresh();
+        }
+    }
+}
+

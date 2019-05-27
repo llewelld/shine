@@ -25,7 +25,8 @@
 
 Configuration::Configuration(QObject *parent):
     HueObject(parent),
-    m_connectedToPortal(false)
+    m_connectedToPortal(false),
+    m_timezone("unknown")
 {
 }
 
@@ -76,6 +77,17 @@ void Configuration::setName(const QString &name)
     }
 }
 
+void Configuration::setTimezone(const QString &timezone)
+{
+    if (m_timezone == timezone) {
+        return;
+    }
+
+    QVariantMap params;
+    params.insert("timezone", timezone);
+    HueBridgeConnection::instance()->put("config", params, this, "setTimezoneReply");
+}
+
 bool Configuration::connectedToPortal() const
 {
     return m_connectedToPortal;
@@ -96,10 +108,15 @@ QString Configuration::swUpdateReleaseNotes() const
     return m_url;
 }
 
+QString Configuration::timezone() const
+{
+    return m_timezone;
+}
+
 void Configuration::responseReceived(int id, const QVariant &data)
 {
     Q_UNUSED(id)
-//    qDebug() << "got config response" << data;
+    qDebug() << "got config response" << data;
 
     QVariantMap resultMap = data.toMap();
     m_name = resultMap.value("name").toString();
@@ -107,6 +124,12 @@ void Configuration::responseReceived(int id, const QVariant &data)
     m_updateState = (Configuration::UpdateState)resultMap.value("swupdate").toMap().value("updatestate").toInt();
     m_url = resultMap.value("swupdate").toMap().value("url").toString();
     m_connectedToPortal = resultMap.value("portalstate").toMap().value("signedon").toBool();
+    QString timezone = resultMap.value("timezone").toString();
+    if (m_timezone != timezone) {
+        m_timezone = timezone;
+        emit timezoneChanged();
+    }
+    qDebug() << "TIMEZONE " << timezone;
     emit changed();
 }
 
@@ -122,4 +145,25 @@ void Configuration::performUpdateReply(int id, const QVariant &data)
     qDebug() << "Update started:" << data;
 
     refresh();
+}
+
+void Configuration::setTimezoneReply(int id, const QVariant &response)
+{
+    Q_UNUSED(id)
+    qDebug() << "got setTimezone result" << response;
+
+    QVariantMap result = response.toList().first().toMap();
+
+    if (result.contains("success")) {
+        QVariantMap successMap = result.value("success").toMap();
+        if (successMap.contains("/config/timezone")) {
+            QString timezone = successMap.value("/config/timezone").toString();
+            if (m_timezone != timezone) {
+                m_timezone = timezone;
+                emit timezoneChanged();
+            }
+
+            //refresh();
+        }
+    }
 }
