@@ -14,6 +14,7 @@ groups.h \
 huebridgeconnection.h \
 huemodel.h \
 hueobject.h \
+iconMap.h \
 light.h \
 lightinterface.h \
 lightsfiltermodel.h \
