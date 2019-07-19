@@ -4,3 +4,9 @@
 .kdev4/
 build/
 shine.kdev4
+
+# Sailfish specific ignores
+# These are either intermediate or created by the generate.sh script
+apps/sailfish/resources/
+apps/sailfish/qml/images/
+apps/sailfish/icons/
