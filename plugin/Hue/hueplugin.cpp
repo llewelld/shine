@@ -38,6 +38,7 @@
 #include "../../libhue/rule.h"
 #include "../../libhue/rules.h"
 #include "../../libhue/rulesfiltermodel.h"
+#include "../../libhue/consistency.h"
 
 #if QT_VERSION >= 0x050000
 #include <QtQml/qqml.h>
@@ -80,6 +81,7 @@ void HuePlugin::registerTypes(const char *uri)
     qmlRegisterType<Rules>(uri, 0, 1, "Rules");
     qmlRegisterType<RulesFilterModel>(uri, 0, 1, "RulesFilterModel");
     qmlRegisterUncreatableType<Rule>(uri, 0, 1, "Rule", "Cannot create Rule objects. Get them from the Rules model.");
+    qmlRegisterType<Consistency>(uri, 0, 1, "Consistency");
 }
 
 

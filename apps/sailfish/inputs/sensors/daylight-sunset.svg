@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32px"
+   height="32px"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="daylight-sunset.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="3200"
+     inkscape:window-height="1739"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="7.375"
+     inkscape:cx="16"
+     inkscape:cy="16"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg14" />
+  <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title2">routinesSunset</title>
+  <desc
+     id="desc4">Created with Sketch.</desc>
+  <defs
+     id="defs6" />
+  <g
+     id="g12"
+     transform="translate(0,-2.0001)"
+     style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1">
+    <g
+       id="g10"
+       style="fill:#101010">
+      <path
+         d="m 9.2217,23.0001 c 0.778,-3.446 3.522,-6 6.778,-6 3.256,0 6,2.554 6.779,6 z m 6.778,-8 c 4.637,0 8.454,3.836 8.947,8.89 0.057,0.591 -0.406,1.11 -1.001,1.11 H 8.0547 c -0.596,0 -1.059,-0.519 -1.001,-1.11 0.492,-5.054 4.31,-8.89 8.946,-8.89 z m 15.0003,5 c 0.55,0 1,0.45 1,1 0,0.55 -0.45,1 -1,1 h -4 c -0.55,0 -1,-0.45 -1,-1 0,-0.55 0.45,-1 1,-1 z m -26,0 c 0.55,0 1,0.45 1,1 0,0.55 -0.45,1 -1,1 H 1 c -0.55,0 -1,-0.45 -1,-1 0,-0.55 0.45,-1 1,-1 z m 18.7061,-4.4658 c -0.389,0.389 -1.025,0.389 -1.414,0 -0.39,-0.389 -0.39,-1.025 0,-1.414 l 2.828,-2.828 c 0.389,-0.39 1.025,-0.39 1.414,0 0.389,0.388 0.389,1.025 0,1.414 z m -15.586,0 -2.828,-2.828 c -0.39,-0.389 -0.39,-1.026 0,-1.414 0.389,-0.39 1.025,-0.39 1.414,0 l 2.828,2.828 c 0.389,0.389 0.389,1.025 0,1.414 -0.389,0.389 -1.025,0.389 -1.414,0 z M 18.293,9.298 c 0.391,-0.391 1.023,-0.391 1.414,0 0.391,0.391 0.391,1.023 0,1.414 l -2.995,2.995 c -0.391,0.391 -1.023,0.391 -1.414,0 l -2.995,-2.995 c -0.391,-0.391 -0.391,-1.023 0,-1.414 0.195,-0.195 0.451,-0.293 0.707,-0.293 0.256,0 0.512,0.098 0.707,0.293 L 15.001,10.582 14.999,7 c 0,-0.552 0.447,-1 1,-1 0.552,0 1,0.447 1,1 l 0.002,3.59 z"
+         id="path8"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

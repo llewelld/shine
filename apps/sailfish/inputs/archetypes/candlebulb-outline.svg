@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32px"
+   height="32px"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="candlebulb-outline.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>bulbCandle</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="793"
+     inkscape:window-height="524"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="7.375"
+     inkscape:cx="16"
+     inkscape:cy="16"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg14" />
+  <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title2">bulbCandle</title>
+  <desc
+     id="desc4">Created with Sketch.</desc>
+  <defs
+     id="defs6" />
+  <g
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     id="g12"
+     style="fill:none;stroke:#000000;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none">
+    <g
+       fill="#101010"
+       id="g10"
+       style="fill:none;stroke:#000000;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         d="M20.9687,16.446 C19.9217,16.738 18.2487,17 15.9997,17 C13.7507,17 12.0777,16.738 11.0307,16.446 C11.3497,11.207 14.1167,4 15.9997,4 C17.8827,4 20.6507,11.207 20.9687,16.446 Z M20.998,17.4694 C20.998,17.5124 21,17.5574 21,17.5994 C21,20.0734 20.239,21.8274 19.27,22.7874 C18.373,22.9144 17.279,22.9994 16,22.9994 C14.721,22.9994 13.627,22.9144 12.729,22.7874 C11.761,21.8274 11,20.0734 11,17.5994 C11,17.5574 11.002,17.5124 11.002,17.4694 C12.549,17.8664 14.62,17.9994 16,17.9994 C17.38,17.9994 19.451,17.8664 20.998,17.4694 Z M13.5,23.8903 C14.367,23.9693 15.322,23.9993 16,23.9993 C16.678,23.9993 17.633,23.9693 18.5,23.8903 L18.083,26.3753 C18.061,26.5503 17.973,26.7123 17.833,26.8343 L17.444,27.1733 C17.418,27.1973 17.393,27.2213 17.37,27.2463 L16.959,27.7143 C16.801,27.8943 16.56,27.9993 16.305,27.9993 L16,27.9993 L15.695,27.9993 C15.44,27.9993 15.199,27.8943 15.041,27.7143 L14.63,27.2463 C14.607,27.2213 14.582,27.1973 14.556,27.1733 L14.167,26.8343 C14.027,26.7123 13.939,26.5503 13.917,26.3753 L13.5,23.8903 Z"
+         id="path8"
+         style="fill:none;stroke:#000000;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+</svg>

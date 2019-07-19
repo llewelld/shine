@@ -25,10 +25,12 @@
 #include <QTimer>
 
 class Group;
+class Consistency;
 
 class Groups : public HueModel
 {
     Q_OBJECT
+    Q_PROPERTY(Consistency *consistency MEMBER m_consistency)
 public:
     enum Roles {
         RoleId = Qt::UserRole,
@@ -52,24 +54,27 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     QHash<int, QByteArray> roleNames() const;
     Q_INVOKABLE Group* get(int index) const;
-    Q_INVOKABLE Group *findGroup(int id) const;
+    Q_INVOKABLE Group* findGroup(int id) const;
 
     bool busy() const;
 
 public slots:
     Q_INVOKABLE void createGroup(const QString &name, const QList<int> &lights);
+    Q_INVOKABLE void updateGroup(const QString &id, const QString &name, const QList<int> &lights);
     Q_INVOKABLE void deleteGroup(int id);
 
     void refresh();
 
 private slots:
     void createGroupFinished(int id, const QVariant &variant);
+    void updateGroupFinished(int id, const QVariant &variant);
     void deleteGroupFinished(int id, const QVariant &variant);
     void lightsReceived(int id, const QVariant &variant);
     void groupsReceived(int id, const QVariant &variant);
     void groupDescriptionChanged();
     void groupStateChanged();
     void groupLightsChanged();
+    void groupOnChanged();
 
 private:
     Group* createGroupInternal(int id, const QString &name);
@@ -78,6 +83,7 @@ private:
     QHash<int, bool> m_lights;
     QList<Group*> m_list;
     bool m_busy;
+    Consistency *m_consistency;
 };
 
 #endif // GROUPS_H

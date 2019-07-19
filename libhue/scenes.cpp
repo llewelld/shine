@@ -19,15 +19,19 @@
 
 #include "scenes.h"
 #include "scene.h"
+#include "consistency.h"
 
 #include "huebridgeconnection.h"
 
 #include <QDebug>
 #include <QUuid>
+#include <QDateTime>
 
 Scenes::Scenes(QObject *parent):
     HueModel(parent),
-    m_busy(false)
+    m_busy(false),
+    m_consistency(nullptr)
+
 {
 #if QT_VERSION < 0x050000
     setRoleNames(roleNames());
@@ -161,7 +165,10 @@ void Scenes::sceneNameChanged()
 
 void Scenes::createScene(const QString &name, const QList<int> &lights)
 {
+    qDebug() << "create scene" << name << lights;
     const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+
+    qsrand(QDateTime::currentMSecsSinceEpoch() % UINT_MAX);
 
     QString randomString;
     for(int i=0; i < 10; ++i) {
@@ -169,12 +176,17 @@ void Scenes::createScene(const QString &name, const QList<int> &lights)
         QChar nextChar = possibleCharacters.at(index);
         randomString.append(nextChar);
     }
-    updateScene("shine" + randomString, name, lights);
+    sendScene("shine" + randomString, name, lights, false);
 }
 
 void Scenes::updateScene(const QString &id, const QString &name, const QList<int> &lights)
 {
-    qDebug() << "create scene" << name << lights;
+    sendScene(id, name, lights, true);
+}
+
+void Scenes::sendScene(const QString &id, const QString &name, const QList<int> &lights, bool storelightstate)
+{
+    qDebug() << "update scene" << name << lights;
     QVariantMap params;
     QVariantList lightsList;
     foreach (int lightId, lights) {
@@ -184,6 +196,9 @@ void Scenes::updateScene(const QString &id, const QString &name, const QList<int
     qDebug() << "lightslist" << lightsList;
     params.insert("name", name);
     params.insert("lights", lightsList);
+    if (storelightstate) {
+        params.insert("storelightstate", true);
+    }
     HueBridgeConnection::instance()->put("scenes/" + id, params, this, "createSceneFinished");
 }
 
@@ -218,6 +233,11 @@ void Scenes::recallSceneFinished(int id, const QVariant &variant)
 {
     Q_UNUSED(id)
     qDebug() << "scene recalled" << variant;
+    QVariantMap result = variant.toList().first().toMap();
+
+    if (m_consistency && result.contains("success")) {
+        m_consistency->remoteRefresh();
+    }
 }
 
 void Scenes::deleteScene(const QString &id)

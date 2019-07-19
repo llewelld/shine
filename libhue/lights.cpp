@@ -19,6 +19,7 @@
 
 #include "lights.h"
 #include "light.h"
+#include "consistency.h"
 
 #include <QDebug>
 #include <QIcon>
@@ -30,7 +31,8 @@ IconMap* IconMap::s_instance = NULL;
 
 Lights::Lights(QObject *parent) :
     HueModel(parent),
-    m_busy(false)
+    m_busy(false),
+    m_consistency(nullptr)
 {
 #if QT_VERSION < 0x050000
     setRoleNames(roleNames());
@@ -83,6 +85,8 @@ QVariant Lights::data(const QModelIndex &index, int role) const
         return QIcon(iconMap->getIcon(light->modelId(), false));
     case RoleIconOutline:
         return QIcon(iconMap->getIcon(light->modelId(), true));
+    case RoleArchetype:
+        return light->archetype();
     }
 
     return QVariant();
@@ -106,6 +110,9 @@ QHash<int, QByteArray> Lights::roleNames() const
     roles.insert(RoleEffect, "effect");
     roles.insert(RoleColorMode, "colormode");
     roles.insert(RoleReachable, "reachable");
+    roles.insert(RoleIcon, "icon");
+    roles.insert(RoleIconOutline, "iconoutline");
+    roles.insert(RoleArchetype, "archetype");
     return roles;
 }
 
@@ -146,7 +153,7 @@ void Lights::refresh()
 
 void Lights::lightsReceived(int id, const QVariant &variant)
 {
-    qDebug() << "lightsResponse" << variant;
+    //qDebug() << "lightsReceived: " << variant;
     Q_UNUSED(id)
     QVariantMap lights = variant.toMap();
 
@@ -169,13 +176,20 @@ void Lights::lightsReceived(int id, const QVariant &variant)
     // Update existing lights's name and keep track of newly added lights
     QList <Light*> newLights;
     foreach (const QString &lightId, lights.keys()) {
+        QVariantMap configMap = lights.value(lightId).toMap().value("config").toMap();
+        qDebug() << "Found light configMap: " << configMap;
+        QString archetype = sanitiseArtefact(configMap.value("archetype").toString());
+        qDebug() << "Found light archetype: " << archetype;
+
         Light *light = findLight(lightId.toInt());
         if (light) {
             light->m_name = lights.value(lightId).toMap().value("name").toString();
             light->m_modelId = lights.value(lightId).toMap().value("modelid").toString();
+            light->m_archetype = archetype;
         } else {
             light = createLight(lightId.toInt(), lights.value(lightId).toMap().value("name").toString());
             light->m_modelId = lights.value(lightId).toMap().value("modelid").toString();
+            light->m_archetype = archetype;
             newLights.append(light);
         }
         qDebug() << "have modelid" << light->m_modelId;
@@ -192,6 +206,50 @@ void Lights::lightsReceived(int id, const QVariant &variant)
 
     m_busy = false;
     emit busyChanged();
+}
+
+QString Lights::sanitiseArtefact(const QString &artefact)
+{
+    // All of the artefacts supported
+    static const QStringList artefacts = {
+        "bollard",
+        "candlebulb",
+        "ceilinground",
+        "ceilingsquare",
+        "classicbulb",
+        "doublespot",
+        "flexiblelamp",
+        "floodbulb",
+        "floorlantern",
+        "floorshade",
+        "groundspot",
+        "huebloom",
+        "huego",
+        "hueiris",
+        "huelightstrip",
+        "hueplay",
+        "pendantlong",
+        "pendantround",
+        "recessedceiling",
+        "recessedfloor",
+        "singlespot",
+        "spotbulb",
+        "sultanbulb",
+        "tableshade",
+        "tablewash",
+        "walllantern",
+        "wallshade",
+        "wallspot"
+    };
+
+    QString result;
+    if (artefacts.contains(artefact)) {
+        result = artefact;
+    }
+    else {
+        result = QStringLiteral("");
+    }
+    return result;
 }
 
 void Lights::lightDescriptionChanged()
@@ -216,6 +274,7 @@ void Lights::lightDescriptionChanged()
 
 void Lights::lightStateChanged()
 {
+    qDebug() << "Responding to lightStateChanged signal";
     Light *light = static_cast<Light*>(sender());
     int idx = m_list.indexOf(light);
     QModelIndex modelIndex = index(idx);
@@ -231,12 +290,49 @@ void Lights::lightStateChanged()
             << RoleAlert
             << RoleEffect
             << RoleColorMode
+            << RoleIcon
+            << RoleIconOutline
+            << RoleArchetype
             << RoleReachable;
 
     emit dataChanged(modelIndex, modelIndex, roles);
 #else
     emit dataChanged(modelIndex, modelIndex);
 #endif
+}
+
+void Lights::lightOnChanged()
+{
+    qDebug() << "Responding to lightOnChanged signal";
+    Light *light = static_cast<Light*>(sender());
+    int idx = m_list.indexOf(light);
+    QModelIndex modelIndex = index(idx);
+
+#if QT_VERSION >= 0x050000
+    QVector<int> roles = QVector<int>()
+            << RoleOn
+            << RoleBrightness
+            << RoleHue
+            << RoleSaturation
+            << RoleXY
+            << RoleCt
+            << RoleAlert
+            << RoleEffect
+            << RoleColorMode
+            << RoleIcon
+            << RoleIconOutline
+            << RoleArchetype
+            << RoleReachable;
+
+    emit dataChanged(modelIndex, modelIndex, roles);
+#else
+    emit dataChanged(modelIndex, modelIndex);
+#endif
+    qDebug() << "Light changed signal received, thinking about propagating: " << light->id();
+    if (m_consistency) {
+        qDebug() << "Propagating";
+        m_consistency->propagateLight(light->id());
+    }
 }
 
 void Lights::searchStarted(int id, const QVariant &response)
@@ -256,6 +352,7 @@ Light *Lights::createLight(int id, const QString &name)
     connect(light, SIGNAL(swversionChanged()), this, SLOT(lightDescriptionChanged()));
 
     connect(light, SIGNAL(stateChanged()), this, SLOT(lightStateChanged()));
+    connect(light, SIGNAL(onChanged()), this, SLOT(lightOnChanged()));
 
     return light;
 }

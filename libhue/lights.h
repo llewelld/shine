@@ -26,10 +26,12 @@
 #include <QTimer>
 
 class Light;
+class Consistency;
 
 class Lights : public HueModel
 {
     Q_OBJECT
+    Q_PROPERTY(Consistency *consistency MEMBER m_consistency)
 public:
     enum Roles {
         RoleId = Qt::UserRole,
@@ -48,7 +50,8 @@ public:
         RoleColorMode,
         RoleReachable,
         RoleIcon,
-        RoleIconOutline
+        RoleIconOutline,
+        RoleArchetype
     };
 
     explicit Lights(QObject *parent = 0);
@@ -70,6 +73,7 @@ private slots:
     void lightsReceived(int id, const QVariant &variant);
     void lightDescriptionChanged();
     void lightStateChanged();
+    void lightOnChanged();
     void searchStarted(int id, const QVariant &response);
 
 signals:
@@ -78,11 +82,13 @@ signals:
 private:
     Light* createLight(int id, const QString &name);
     void parseStateMap(Light *light, const QVariantMap &stateMap);
+    QString sanitiseArtefact(const QString &artefact);
 
 private:
     QList<Light*> m_list;
     bool m_busy;
     IconMap *iconMap;
+    Consistency *m_consistency;
 };
 
 #endif // LIGHTS_H

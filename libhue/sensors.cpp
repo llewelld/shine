@@ -27,6 +27,10 @@
 #include <QColor>
 #include <QCoreApplication>
 
+//TODO: Remove this include
+#include <QJsonDocument>
+
+
 Sensors::Sensors(QObject *parent):
     HueModel(parent),
     m_busy(false)
@@ -213,16 +217,34 @@ void Sensors::sensorDeleted(int id, const QVariant &response)
 
 void Sensors::sensorsReceived(int id, const QVariant &variant)
 {
-//    qDebug() << "**** sensors received" << variant;
+    QVariant variantNonConst = variant;
+    const QByteArray response = "{\"1\": {\"state\": {\"daylight\": false,\"lastupdated\": \"2014-06-27T07:38:51\"},\"config\": {\"on\": true,\"long\": \"none\",\"lat\": \"none\",\"sunriseoffset\": 50,\"sunsetoffset\": 50},\"name\": \"Daylight\",\"type\": \"Daylight\",\"modelid\": \"PHDL00\",\"manufacturername\": \"Philips\",\"swversion\": \"1.0\"},\"2\": {\"state\": {\"buttonevent\": 0,\"lastupdated\": \"none\"},\"config\": {\"on\": true},\"name\": \"Tap Switch 2\",\"type\": \"ZGPSwitch\",\"modelid\": \"ZGPSWITCH\",\"manufacturername\": \"Philips\",\"uniqueid\": \"00:00:00:00:00:40:03:50-f2\"},\"3\": {\"state\": {\"buttonevent\": 0,\"lastupdated\": \"none\"},\"config\": {\"on\": true, \"battery\": 80, \"alert\": \"none\"},\"name\": \"Dimmer Switch 3\",\"type\": \"ZLLSwitch\",\"modelid\": \"RWL021\",\"manufacturername\": \"Philips\",\"uniqueid\": \"00:00:00:00:00:40:03:50-f3\"},\"4\": {\"state\": {\"status\": 5,\"lastupdated\": \"none\"},\"config\": {\"on\": true},\"name\": \"Generic Switch 4\",\"type\": \"CLIPGenericStatus\",\"modelid\": \"CLIPGENERICSTATUS\",\"manufacturername\": \"NotPhilips\",\"uniqueid\": \"00:00:00:00:00:40:03:50-f3\",\"swversion\": \"1.0\"}}";
+    QJsonParseError error;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(response, &error);
+    if (error.error != QJsonParseError::NoError) {
+        qWarning() << "error parsing get response:" << error.errorString() << response;
+    } else {
+        variantNonConst = jsonDoc.toVariant();
+    }
+
+
+
+
+    qDebug() << "Initial sensor count " << m_list.count();
+
+    qDebug() << "**** sensors received" << variantNonConst;
     Q_UNUSED(id)
-    QVariantMap sensors = variant.toMap();
+    QVariantMap sensors = variantNonConst.toMap();
     QList<Sensor*> removedSensors;
     Sensor *sensor = NULL;
+    qDebug() << "Loading " << m_list.size() << " sensors";
     for (int i=0; i<m_list.size(); i++){
         sensor = m_list[i];
         if (!sensors.contains(sensor->id())) {
+            qDebug() << "Removing sensor " << sensor->id();
             removedSensors.append(sensor);
         } else {
+            qDebug() << "Updating sensor " << sensor->id();
             QVariantMap sensorMap = sensors.value(sensor->id()).toMap();
             sensor->setName(sensorMap.value("name").toString());
             sensor->setStateMap(sensorMap.value("state").toMap());
@@ -241,6 +263,7 @@ void Sensors::sensorsReceived(int id, const QVariant &variant)
         Sensor *sensor = findSensor(sensorId);
         QVariantMap sensorMap = sensors.value(sensorId).toMap();
         if (!sensor) {
+            qDebug() << "Adding sensor " << sensorId;
             sensor = new Sensor(sensorId, sensorMap.value("name").toString(), this);
             sensor->setType(Sensor::typeStringToType(sensorMap.value("type").toString()));
             sensor->setStateMap(sensorMap.value("state").toMap());
@@ -253,6 +276,7 @@ void Sensors::sensorsReceived(int id, const QVariant &variant)
             endInsertRows();
         }
     }
+    qDebug() << "Final sensor count " << m_list.count();
     m_busy = false;
     emit busyChanged();
 }

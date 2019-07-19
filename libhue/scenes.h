@@ -23,10 +23,12 @@
 #include "huemodel.h"
 
 class Scene;
+class Consistency;
 
 class Scenes: public HueModel
 {
     Q_OBJECT
+    Q_PROPERTY(Consistency *consistency MEMBER m_consistency)
 public:
     enum Roles {
         RoleId = Qt::UserRole,
@@ -60,12 +62,14 @@ private slots:
     void sceneNameChanged();
 //    void groupLightsChanged();
     void deleteSceneFinished(int id, const QVariant &variant);
+    void sendScene(const QString &id, const QString &name, const QList<int> &lights, bool storelightstate);
 
 private:
     Scene* createSceneInternal(const QString &id, const QString &name, const QList<int> lights);
 
     QList<Scene*> m_list;
     bool m_busy;
+    Consistency *m_consistency;
 };
 
 #endif // SCENES_H

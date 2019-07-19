@@ -37,7 +37,7 @@ class LightInterface: public HueObject
     Q_PROPERTY(int id READ id CONSTANT)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 
-    Q_PROPERTY(bool on READ on WRITE setOn NOTIFY stateChanged)
+    Q_PROPERTY(bool on READ on WRITE setOn NOTIFY onChanged)
     Q_PROPERTY(quint8 bri READ bri WRITE setBri NOTIFY stateChanged)
     Q_PROPERTY(quint16 hue READ hue NOTIFY stateChanged)
     Q_PROPERTY(quint8 sat READ sat NOTIFY stateChanged)
@@ -82,6 +82,8 @@ public:
 
     virtual bool isGroup() const { return false; }
 
+    virtual void setOnLocal(bool on) = 0;
+
 public slots:
     virtual void setOn(bool on) = 0;
     virtual void setBri(quint8 bri) = 0;
@@ -97,6 +99,7 @@ signals:
     void nameChanged();
     void stateChanged();
     void writeOperationFinished();
+    void onChanged();
 };
 
 #endif

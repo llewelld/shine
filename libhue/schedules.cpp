@@ -156,6 +156,21 @@ void Schedules::createTimerForGroup(const QString &name, int groupId, bool on, q
     createScheduleForGroup(name, groupId, on, bri, color, timeString);
 }
 
+void Schedules::createTimerForScene(const QString &name, const QString &sceneId, const QDateTime &timeFromNow, int repeat)
+{
+    QString timeString;
+    if (repeat >= 0) {
+        timeString += "R";
+        if (repeat > 0) {
+            timeString += QString::number(repeat);
+        }
+        timeString += "/";
+    }
+    timeString += "PT" + timeFromNow.toString("hh:mm:ss");
+
+    createAlarmForScene(name, sceneId, timeString);
+}
+
 void Schedules::createSingleAlarmForLight(const QString &name, int lightId, bool on, quint8 bri, const QColor &color, const QDateTime &dateTime)
 {
     createScheduleForLight(name, lightId, on, bri, color, dateTime.toString(Qt::ISODate));
@@ -226,25 +241,35 @@ void Schedules::createSchedule(const QString &name, const QVariantMap &command, 
 
 void Schedules::schedulesReceived(int id, const QVariant &variant)
 {
-//    qDebug() << "**** schedules received" << variant;
+    //qDebug() << "**** schedules received" << variant;
     Q_UNUSED(id)
     QVariantMap schedules = variant.toMap();
     QList<Schedule*> removedSchedules;
     foreach (Schedule *schedule, m_list) {
         if (!schedules.contains(schedule->id())) {
-//            qDebug() << "removing schedule" << schedule->id();
+            qDebug() << "removing schedule" << schedule->id();
             removedSchedules.append(schedule);
         } else {
-//            qDebug() << "updating schedule" << schedule->id();
+            qDebug() << "ALARM: updating schedule" << schedule->id();
             QVariantMap scheduleMap = schedules.value(schedule->id()).toMap();
-            schedule->setName(scheduleMap.value("name").toString());
+            schedule->setNameLocal(scheduleMap.value("name").toString());
             schedule->setEnabled(scheduleMap.value("status").toString() == "enabled");
             schedule->setAutoDelete(scheduleMap.value("autodelete").toBool());
-            schedule->setDateTime(scheduleMap.value("time").toDateTime());
+            //qDebug() << "ALARM date:      " << scheduleMap.value("time");
+            //qDebug() << "ALARM converted: " << scheduleMap.value("time").toDateTime();
+            QString timeString = scheduleMap.value("localtime").toString();
+            schedule->applyTimeStringLocal(timeString);
+
+            if (scheduleMap.contains("starttime")) {
+                QDateTime dateTime = scheduleMap.value("starttime").toDateTime();
+                dateTime.setTimeSpec(Qt::TimeSpec::UTC);
+                qDebug() << "setDateTimeFinished starttime converted to: " << dateTime.toString();
+                schedule->setStartTime(dateTime);
+            }
         }
     }
 
-//    qDebug() << removedSchedules.count() << "schedules removed";
+    qDebug() << removedSchedules.count() << "schedules removed";
     foreach (Schedule *schedule, removedSchedules) {
         int index = m_list.indexOf(schedule);
         beginRemoveRows(QModelIndex(), index, index);
@@ -259,21 +284,13 @@ void Schedules::schedulesReceived(int id, const QVariant &variant)
             schedule->setEnabled(scheduleMap.value("status").toString() == "enabled");
             schedule->setAutoDelete(scheduleMap.value("autodelete").toBool());
             QString timeString = scheduleMap.value("localtime").toString();
-            if (timeString.startsWith("W")) {
-                schedule->setRecurring(true);
-                timeString = timeString.right(timeString.length() - 1);
-                schedule->setWeekdays(QString("0%1").arg(timeString.left(3).toInt(), 7, 2, QChar('0')));
-                timeString = timeString.right(timeString.length() - 5);
-                QDateTime dateTime = QDateTime::fromMSecsSinceEpoch(0);
-                dateTime.setTime(QTime::fromString(timeString));
-                schedule->setDateTime(dateTime);
-            } else if (timeString.contains("PT")){
-                schedule->setType(Schedule::TypeTimer);
-                QDateTime dateTime = QDateTime::fromMSecsSinceEpoch(0);
-                dateTime.setTime(QTime::fromString(timeString.remove("PT")));
-                schedule->setDateTime(dateTime);
-            } else {
-                schedule->setDateTime(scheduleMap.value("localtime").toDateTime());
+            schedule->applyTimeStringLocal(timeString);
+
+            if (scheduleMap.contains("starttime")) {
+                QDateTime dateTime = scheduleMap.value("starttime").toDateTime();
+                dateTime.setTimeSpec(Qt::TimeSpec::UTC);
+                qDebug() << "setDateTimeFinished starttime converted to: " << dateTime.toString();
+                schedule->setStartTime(dateTime);
             }
         }
     }
@@ -292,6 +309,8 @@ Schedule *Schedules::createScheduleInternal(const QString &id, const QString &na
 {
     Schedule *schedule = new Schedule(id, name, this);
 
+    connect(schedule, SIGNAL(nameChanged()), this, SLOT(scheduleNameChanged()));
+
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(schedule);
     endInsertRows();
@@ -306,7 +325,7 @@ void Schedules::createScheduleFinished(int id, const QVariant &response)
     QVariantMap result = response.toList().first().toMap();
 
     if (result.contains("success")) {
-        //TODO: could be added without refrshing, but we don't know the name at this point.
+        //TODO: could be added without refreshing, but we don't know the name at this point.
         //TODO: might be best to ctor groups/lights with id only and make them fetch their own info.
         refresh();
     }
@@ -324,3 +343,53 @@ void Schedules::deleteScheduleFinished(int id, const QVariant &response)
         refresh();
     }
 }
+
+void Schedules::updateAlarmSchedule(const QString &id, const QString &name, const QDateTime &dateTime, bool recurring, const QString &weekdays)
+{
+    QVariantMap params;
+    params.insert("name", name);
+    QString timeString;
+    if (recurring) {
+        timeString = "W" + QString::number(weekdays.toInt(0, 2)) + "/T" + dateTime.time().toString();
+    }
+    else {
+        timeString = dateTime.toString(Qt::ISODate);
+    }
+    params.insert("localtime", timeString);
+
+    HueBridgeConnection::instance()->put("schedules/" + id, params, this, "updateAlarmFinished");
+}
+
+void Schedules::updateAlarmFinished(int id, const QVariant &response)
+{
+    Q_UNUSED(id)
+    qDebug() << "got updateScene result" << response;
+
+    QVariantMap result = response.toList().first().toMap();
+
+    if (result.contains("success")) {
+
+
+
+        //TODO: could be added without refreshing, but we don't know the name at this point.
+        //TODO: might be best to ctor groups/lights with id only and make them fetch their own info.
+        refresh();
+    }
+}
+
+void Schedules::scheduleNameChanged()
+{
+    Schedule *schedule = static_cast<Schedule*>(sender());
+    int idx = m_list.indexOf(schedule);
+    QModelIndex modelIndex = index(idx);
+
+#if QT_VERSION >= 0x050000
+    QVector<int> roles = QVector<int>()
+            << RoleName;
+
+    emit dataChanged(modelIndex, modelIndex, roles);
+#else
+    emit dataChanged(modelIndex, modelIndex);
+#endif
+}
+

@@ -72,6 +72,14 @@ void Group::setOn(bool on)
     HueBridgeConnection::instance()->put("groups/" + QString::number(m_id) + "/action", params, this, "setStateFinished");
 }
 
+void Group::setOnLocal(bool on)
+{
+    if (m_on != on) {
+        m_on = on;
+        emit onChanged();
+    }
+}
+
 quint8 Group::bri() const
 {
     return m_bri;
@@ -258,6 +266,26 @@ QList<int> Group::lightIds() const
     return m_lightIds;
 }
 
+void Group::setLightIds(QList<int> lights)
+{
+    bool differ = false;
+    if (m_lightIds.size() != lights.size()) {
+        differ = true;
+    }
+    else {
+        QSet<int> set = lights.toSet();
+        set.unite(m_lightIds.toSet());
+        if (set.size() != m_lightIds.size()) {
+            differ = true;
+        }
+    }
+
+    if (differ) {
+        m_lightIds = lights;
+        emit lightsChanged();
+    }
+}
+
 bool Group::isGroup() const
 {
     return true;
@@ -270,6 +298,7 @@ void Group::refresh()
 
 void Group::responseReceived(int id, const QVariant &response)
 {
+    //qDebug() << "group responseReceived" << response;
     Q_UNUSED(id)
 
     m_lightIds.clear();
@@ -282,8 +311,11 @@ void Group::responseReceived(int id, const QVariant &response)
 
     emit lightsChanged();
 
+    QVariantMap state = attributes.value("state").toMap();
+    setOnLocal(state.value("all_on").toBool());
+
     QVariantMap action = attributes.value("action").toMap();
-    m_on = action.value("on").toBool();
+    //m_on = action.value("on").toBool();
     m_bri = action.value("bri").toUInt();
     m_hue = action.value("hue").toUInt();
     m_sat = action.value("sat").toUInt();
@@ -327,7 +359,7 @@ void Group::setStateFinished(int id, const QVariant &response)
         if (result.contains("success")) {
             QVariantMap successMap = result.value("success").toMap();
             if (successMap.contains("/groups/" + QString::number(m_id) + "/action/on")) {
-                m_on = successMap.value("/groups/" + QString::number(m_id) + "/action/on").toBool();
+                setOnLocal(successMap.value("/groups/" + QString::number(m_id) + "/action/on").toBool());
             }
             if (successMap.contains("/groups/" + QString::number(m_id) + "/action/hue")) {
                 m_hue = successMap.value("/groups/" + QString::number(m_id) + "/action/hue").toInt();
@@ -412,3 +444,17 @@ void Group::timeout()
         setStateFinished(m_busyStateChangeId, QVariant());
     }
 }
+
+int Group::lightsCount() const
+{
+    return m_lightIds.count();
+}
+
+int Group::light(int index) const
+{
+    if (index < 0 || index >= m_lightIds.count()) {
+        return -1;
+    }
+    return m_lightIds.at(index);
+}
+

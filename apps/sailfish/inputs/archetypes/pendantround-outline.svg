@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32px"
+   height="32px"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="pendantround-outline.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>archetypesPendantRound</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="3200"
+     inkscape:window-height="1739"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="7.375"
+     inkscape:cx="16"
+     inkscape:cy="16"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg14" />
+  <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title2">archetypesPendantRound</title>
+  <desc
+     id="desc4">Created with Sketch.</desc>
+  <defs
+     id="defs6" />
+  <g
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     id="g12"
+     style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none">
+    <g
+       fill="#101010"
+       id="g10"
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         d="M23.163,22.244 C19.233,23.252 12.778,23.252 8.845,22.244 C4.966,21.25 5.085,19.668 9.014,18.709 C12.889,17.764 19.1,17.764 22.978,18.709 C26.912,19.668 27.038,21.25 23.163,22.244 M27.925,14.002 C27.633,13.252 26.44,12.532 24.378,11.962 C22.308,11.391 19.684,11.076 17,11.014 L17,6.749 L17,6.469 C17,6.21 16.553,6 16,6 C15.447,6 15,6.21 15,6.469 L15,6.749 L15,11.014 C12.312,11.076 9.685,11.39 7.615,11.962 C5.553,12.532 4.367,13.252 4.075,14.002 C4.022,14.129 4,14.249 4,14.377 L4,21.627 C4,21.754 4.022,21.882 4.075,22.002 C4.36,22.722 5.463,23.419 7.412,23.981 C12.13,25.34 19.878,25.34 24.595,23.981 C26.537,23.419 27.64,22.722 27.925,22.002 C27.977,21.882 28,21.754 28,21.627 L28,14.377 C28,14.249 27.977,14.129 27.925,14.002"
+         id="path8"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+</svg>

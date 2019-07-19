@@ -98,6 +98,19 @@ void Light::setSwversion(const QString &swversion)
     }
 }
 
+QString Light::archetype() const
+{
+    return m_archetype;
+}
+
+void Light::setArchetype(const QString &archetype)
+{
+    if (m_archetype != archetype) {
+        m_archetype = archetype;
+        emit autoRefreshChanged();
+    }
+}
+
 bool Light::on() const
 {
     return m_on;
@@ -109,6 +122,16 @@ void Light::setOn(bool on)
         QVariantMap params;
         params.insert("on", on);
         HueBridgeConnection::instance()->put("lights/" + QString::number(m_id) + "/state", params, this, "setStateFinished");
+    }
+}
+
+void Light::setOnLocal(bool on)
+{
+    qDebug() << "Light setOnLocal: " << m_id << " set to " << on;
+    if (m_on != on) {
+        m_on = on;
+        qDebug() << "Emitting onChanged signal for light: " << m_id;
+        emit onChanged();
     }
 }
 
@@ -313,6 +336,7 @@ void Light::setReachable(bool reachable)
 
 void Light::responseReceived(int id, const QVariant &response)
 {
+    qDebug() << "Light responseReceived: " << response;
     Q_UNUSED(id)
     QVariantMap attributes = response.toMap();
 
@@ -321,7 +345,7 @@ void Light::responseReceived(int id, const QVariant &response)
     setSwversion(attributes.value("swversion").toString());
 
     QVariantMap stateMap = attributes.value("state").toMap();
-    m_on = stateMap.value("on").toBool();
+    setOnLocal(stateMap.value("on").toBool());
     m_bri = stateMap.value("bri").toInt();
     m_hue = stateMap.value("hue").toInt();
     m_sat = stateMap.value("sat").toInt();
@@ -365,7 +389,7 @@ void Light::setStateFinished(int id, const QVariant &response)
         if (result.contains("success")) {
             QVariantMap successMap = result.value("success").toMap();
             if (successMap.contains("/lights/" + QString::number(m_id) + "/state/on")) {
-                m_on = successMap.value("/lights/" + QString::number(m_id) + "/state/on").toBool();
+                setOnLocal(successMap.value("/lights/" + QString::number(m_id) + "/state/on").toBool());
             }
             if (successMap.contains("/lights/" + QString::number(m_id) + "/state/hue")) {
                 m_hue = successMap.value("/lights/" + QString::number(m_id) + "/state/hue").toInt();

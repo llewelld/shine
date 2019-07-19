@@ -33,6 +33,7 @@ class Light: public LightInterface
     Q_PROPERTY(QString modelId READ modelId NOTIFY modelIdChanged)
     Q_PROPERTY(QString type READ type NOTIFY typeChanged)
     Q_PROPERTY(QString swversion READ swversion NOTIFY swversionChanged)
+    Q_PROPERTY(QString archetype READ archetype NOTIFY archetypeChanged)
 
 public:
     Light(int id, const QString &name, QObject *parent = 0);
@@ -51,6 +52,9 @@ public:
     QString swversion() const;
     void setSwversion(const QString &swversion);
 
+    QString archetype() const;
+    void setArchetype(const QString &archetype);
+
     // LightInterface implementation
     bool on() const;
     quint8 bri() const;
@@ -63,6 +67,7 @@ public:
     QString effect() const;
     ColorMode colorMode() const;
     bool reachable() const;
+    void setOnLocal(bool on);
 
 public slots:
     void refresh();
@@ -81,6 +86,7 @@ signals:
     void modelIdChanged();
     void typeChanged();
     void swversionChanged();
+    void archetypeChanged();
 
 private slots:
     void responseReceived(int id, const QVariant &response);
@@ -98,6 +104,7 @@ private:
     QString m_modelId;
     QString m_type;
     QString m_swversion;
+    QString m_archetype;
 
     bool m_on;
     quint8 m_bri;

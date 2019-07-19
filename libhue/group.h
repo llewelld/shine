@@ -31,6 +31,7 @@ class Group: public LightInterface
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(int lightsCount READ lightsCount NOTIFY lightsChanged)
 
 public:
     Group(int id, const QString &name, QObject *parent = 0);
@@ -54,8 +55,13 @@ public:
     bool reachable() const;
 
     QList<int> lightIds() const;
+    void setLightIds(QList<int> lights);
 
     bool isGroup() const;
+    int lightsCount() const;
+    Q_INVOKABLE int light(int index) const;
+
+    void setOnLocal(bool on);
 
 public slots:
     void refresh();

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="33px"
+   height="32px"
+   viewBox="0 0 33 32"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="huebloom-outline.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>heroesBloom</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="3200"
+     inkscape:window-height="1739"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="7.375"
+     inkscape:cx="16.5"
+     inkscape:cy="16"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg14" />
+  <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title2">heroesBloom</title>
+  <desc
+     id="desc4">Created with Sketch.</desc>
+  <defs
+     id="defs6" />
+  <g
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     id="g12"
+     style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none">
+    <g
+       fill="#101010"
+       id="g10"
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         d="M25.6928374,24.5571163 C23.645743,23.6311163 19.2446901,21.0341163 15.1664944,16.9531163 C10.9583562,12.7441163 8.28353956,8.31911625 7.45690528,6.32711625 C7.29597648,5.93911625 7.63782524,5.54211625 8.04564481,5.64411625 C8.61439318,5.78511625 9.37105842,6.05811625 10.3266357,6.57711625 C15.6472817,9.45811625 22.5862118,16.3801163 25.478932,21.6931163 C25.9877069,22.6261163 26.2525897,23.4031163 26.3815327,24.0051163 C26.4674946,24.3991163 26.0586755,24.7231163 25.6928374,24.5571163 M26.7963491,20.9751163 C23.7486975,15.3791163 16.6448404,8.29311625 11.0413195,5.25711625 C9.34207125,4.33711625 7.99566692,4.00011625 7.02509632,4.00011625 C7.02509632,4.00011625 6.40936873,3.98911625 5.93557834,4.18111625 C4.69312803,4.71711625 4.01142962,6.18811625 4.01142962,9.41511625 C4.01142962,13.3511163 5.65070438,17.1881163 8.20057627,20.3441163 L4.1753571,26.4151163 C3.72255743,27.0801163 4.19934649,27.9811163 5.00299094,27.9791163 L11.6030709,27.9561163 C12.269776,27.9541163 12.8915009,27.6201163 13.2603377,27.0661163 L14.2648933,25.5581163 C16.914721,27.0961163 19.8154376,28.0001163 22.6381888,28.0001163 C25.0401261,28.0001163 26.5794451,27.4211163 27.5740051,26.4111163 C28.1587464,25.8641163 28.3416655,23.8161163 26.7963491,20.9751163"
+         id="path8"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+</svg>

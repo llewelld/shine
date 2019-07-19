@@ -19,6 +19,7 @@
 
 #include "groups.h"
 #include "group.h"
+#include "consistency.h"
 
 #include "huebridgeconnection.h"
 
@@ -26,7 +27,8 @@
 
 Groups::Groups(QObject *parent)
     : HueModel(parent),
-      m_busy(false)
+      m_busy(false),
+      m_consistency(nullptr)
 {
 #if QT_VERSION < 0x050000
     setRoleNames(roleNames());
@@ -36,6 +38,11 @@ Groups::Groups(QObject *parent)
 int Groups::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
+    return m_list.count();
+}
+
+int Groups::count() const
+{
     return m_list.count();
 }
 
@@ -119,7 +126,8 @@ void Groups::refresh()
 
 void Groups::groupsReceived(int id, const QVariant &variant)
 {
-//    qDebug() << "groups receied" << variant;
+    //qDebug() << "groups received" << variant;
+    qDebug() << "groups count" << m_list.size();
 
     Q_UNUSED(id)
 
@@ -146,11 +154,14 @@ void Groups::groupsReceived(int id, const QVariant &variant)
         endRemoveRows();
     }
 
+    qDebug() << "groups count" << m_list.size();
     foreach (const QString &groupId, groups.keys()) {
         Group* group = findGroup(groupId.toInt());
         if (!group) {
+            qDebug() << "Creating group";
             group = createGroupInternal(groupId.toInt(), groups.value(groupId).toMap().value("name").toString());
         }
+        qDebug() << "Parsing group: " << group->id();
         parseStateMap(group, groups.value(groupId).toMap().value("action").toMap());
         group->m_on = false;
         QList<int> lightIds;
@@ -211,6 +222,34 @@ void Groups::groupStateChanged()
 #endif
 }
 
+void Groups::groupOnChanged()
+{
+    Group *group = static_cast<Group*>(sender());
+    int idx = m_list.indexOf(group);
+    QModelIndex modelIndex = index(idx);
+
+#if QT_VERSION >= 0x050000
+    QVector<int> roles = QVector<int>()
+            << RoleOn
+            << RoleBrightness
+            << RoleHue
+            << RoleSaturation
+            << RoleXY
+            << RoleAlert
+            << RoleEffect
+            << RoleColorMode
+            << RoleReachable;
+
+    emit dataChanged(modelIndex, modelIndex, roles);
+#else
+    emit dataChanged(modelIndex, modelIndex);
+#endif
+
+    if (m_consistency) {
+        m_consistency->propagateGroup(group->id());
+    }
+}
+
 void Groups::groupLightsChanged()
 {
     Group *group = static_cast<Group*>(sender());
@@ -240,12 +279,28 @@ void Groups::createGroup(const QString &name, const QList<int> &lights)
     HueBridgeConnection::instance()->post("groups", params, this, "createGroupFinished");
 }
 
+void Groups::updateGroup(const QString &id, const QString &name, const QList<int> &lights)
+{
+    qDebug() << "update group" << id << name << lights;
+    QVariantMap params;
+    QVariantList lightsList;
+    foreach (int lightId, lights) {
+        qDebug() << "got light" << lightId;
+        lightsList.append(QString::number(lightId));
+    }
+    qDebug() << "lightslist" << lightsList;
+    params.insert("name", name);
+    params.insert("lights", lightsList);
+    HueBridgeConnection::instance()->put("groups/" + id, params, this, "updateGroupFinished");
+}
+
 Group *Groups::createGroupInternal(int id, const QString &name)
 {
     Group *group = new Group(id, name, this);
 
     connect(group, SIGNAL(nameChanged()), this, SLOT(groupDescriptionChanged()));
     connect(group, SIGNAL(stateChanged()), this, SLOT(groupStateChanged()));
+    connect(group, SIGNAL(onChanged()), this, SLOT(groupOnChanged()));
     connect(group, SIGNAL(lightsChanged()), this, SLOT(groupLightsChanged()));
 
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
@@ -266,6 +321,54 @@ void Groups::createGroupFinished(int id, const QVariant &response)
         if (successMap.contains("id")) {
             QString groupId = successMap.value("id").toString();
             groupId = groupId.mid(groupId.lastIndexOf("/") + 1);
+
+            //TODO: could be added without refrshing, but we don't know the name at this point.
+            //TODO: might be best to ctor groups/lights with id only and make them fetch their own info.
+            refresh();
+        }
+    }
+}
+
+void Groups::updateGroupFinished(int id, const QVariant &response)
+{
+    Q_UNUSED(id)
+    qDebug() << "got updateGroup result" << response;
+
+    QVariantList list = response.toList();
+    foreach(QVariant item, list) {
+        QVariantMap result = item.toMap();
+        if (result.contains("success")) {
+            QVariantMap successMap = result.value("success").toMap();
+            foreach(QString key, successMap.keys()) {
+                if (key.endsWith("/name")) {
+                    QStringList tokens = key.split("/", QString::SkipEmptyParts);
+                    if (tokens.size() == 3) {
+                        int id = tokens[1].toInt();
+                        QString name = successMap.value(key).toString();
+
+                        Group* group = findGroup(id);
+                        if (group) {
+                            group->setName(name);
+                        }
+                    }
+                }
+
+                if (key.endsWith("/lights")) {
+                    QStringList tokens = key.split("/", QString::SkipEmptyParts);
+                    if (tokens.size() == 3) {
+                        int id = tokens[1].toInt();
+                        QVariantList lights = successMap.value(key).toList();
+                        QList<int> lightIds;
+                        foreach (QVariant light, lights) {
+                            lightIds.append(light.toString().toInt());
+                        }
+                        Group* group = findGroup(id);
+                        if (group) {
+                            group->setLightIds(lightIds);
+                        }
+                    }
+                }
+            }
 
             //TODO: could be added without refrshing, but we don't know the name at this point.
             //TODO: might be best to ctor groups/lights with id only and make them fetch their own info.

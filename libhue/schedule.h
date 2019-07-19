@@ -31,12 +31,13 @@ class Schedule: public QObject
     Q_ENUMS(Type)
     Q_PROPERTY(QString id READ id CONSTANT)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(Type type READ type NOTIFY typeChanged)
-    Q_PROPERTY(QDateTime dateTime READ dateTime NOTIFY dateTimeChanged)
-    Q_PROPERTY(QString weekdays READ weekdays NOTIFY weekdaysChanged)
+    Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(QDateTime dateTime READ dateTime WRITE setDateTime NOTIFY dateTimeChanged)
+    Q_PROPERTY(QDateTime startTime READ startTime WRITE setStartTime NOTIFY startTimeChanged)
+    Q_PROPERTY(QString weekdays READ weekdays WRITE setWeekdays NOTIFY weekdaysChanged)
     Q_PROPERTY(bool enabled READ enabled NOTIFY enabledChanged)
     Q_PROPERTY(bool autodelete READ autodelete NOTIFY autodeleteChanged)
-    Q_PROPERTY(bool recurring READ recurring NOTIFY recurringChanged)
+    Q_PROPERTY(bool recurring READ recurring WRITE setRecurring NOTIFY recurringChanged)
 
 public:
     enum Type {
@@ -50,15 +51,24 @@ public:
 
     QString name() const;
     void setName(const QString &name);
+    void setNameLocal(const QString &name);
 
     Type type() const;
     void setType(Type type);
+    void setTypeLocal(Type type);
 
     QDateTime dateTime() const;
     void setDateTime(const QDateTime &dateTime);
+    void setDateTimeLocal(const QDateTime &dateTime);
+    Q_INVOKABLE void setDateTimeRecurring(Type type, const QDateTime &dateTime, const QString &weekdays, bool recurring);
+
+    QDateTime startTime() const;
+    void setStartTime(const QDateTime &startTime);
+    Q_INVOKABLE QDateTime remaining() const;
 
     QString weekdays() const;
     void setWeekdays(const QString &weekdays);
+    void setWeekdaysLocal(const QString &weekdays);
 
     bool enabled() const;
     void setEnabled(bool enabled);
@@ -68,14 +78,20 @@ public:
 
     bool recurring() const;
     void setRecurring(bool recurring);
+    void setRecurringLocal(bool recurring);
+
+    void applyTimeStringLocal(QString &localtime);
 
 public slots:
     void refresh();
+    void setNameFinished(int id, const QVariant &response);
+    void setDateTimeFinished(int id, const QVariant &response);
 
 signals:
     void nameChanged();
     void typeChanged();
     void dateTimeChanged();
+    void startTimeChanged();
     void weekdaysChanged();
     void enabledChanged();
     void autodeleteChanged();
@@ -88,10 +104,14 @@ private slots:
 //    void setStateFinished(int id, const QVariant &response);
 
 private:
+    void sendDateTime(Type type, const QDateTime &dateTime, const QString &weekdays, bool recurring);
+
+private:
     QString m_id;
     QString m_name;
     Type m_type;
     QDateTime m_dateTime;
+    QDateTime m_startTime;
     QString m_weekdays;
     bool m_enabled;
     bool m_autodelete;

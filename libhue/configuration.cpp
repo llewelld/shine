@@ -116,7 +116,7 @@ QString Configuration::timezone() const
 void Configuration::responseReceived(int id, const QVariant &data)
 {
     Q_UNUSED(id)
-    qDebug() << "got config response" << data;
+    //qDebug() << "got config response" << data;
 
     QVariantMap resultMap = data.toMap();
     m_name = resultMap.value("name").toString();

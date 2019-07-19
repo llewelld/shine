@@ -56,9 +56,11 @@ public slots:
     Q_INVOKABLE void createSingleAlarmForGroup(const QString &name, int groupId, bool on, quint8 bri, const QColor &color, const QDateTime &dateTime);
     Q_INVOKABLE void createSingleAlarmForGroup(const QString &name, int groupId, bool on, quint8 bri, const QColor &color, const QDateTime &time, const QString &weekdays);
 
+    Q_INVOKABLE void createTimerForScene(const QString &name, const QString &sceneId, const QDateTime &timeFromNow, int repeat = -1);
     Q_INVOKABLE void createTimerForLight(const QString &name, int lightId, bool on, quint8 bri, const QColor &color, const QDateTime &timeFromNow, int repeat = -1);
     Q_INVOKABLE void createTimerForGroup(const QString &name, int groupId, bool on, quint8 bri, const QColor &color, const QDateTime &timeFromNow, int repeat = -1);
 
+    Q_INVOKABLE void updateAlarmSchedule(const QString &id, const QString &name, const QDateTime &dateTime, bool recurring, const QString &weekdays);
     Q_INVOKABLE void deleteSchedule(const QString &id);
 
     void refresh();
@@ -71,10 +73,12 @@ private slots:
     void createScheduleForLight(const QString &name, int lightId, bool on, quint8 bri, const QColor &color, const QString &timeString);
     void createScheduleForGroup(const QString &name, int groupId, bool on, quint8 bri, const QColor &color, const QString &timeString);
     void createSchedule(const QString &name, const QVariantMap &command, const QString &timeString);
+    void scheduleNameChanged();
 
     void createScheduleFinished(int id, const QVariant &variant);
     void deleteScheduleFinished(int id, const QVariant &variant);
     void schedulesReceived(int id, const QVariant &variant);
+    void updateAlarmFinished(int id, const QVariant &response);
 
 private:
     Schedule* createScheduleInternal(const QString &id, const QString &name);

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="64"
+   viewBox="0 0 64 64"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="icon-m-scenes.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>uicontrolsScenes</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="3200"
+     inkscape:window-height="1739"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="7.375"
+     inkscape:cx="-62.711864"
+     inkscape:cy="16"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg14" />
+  <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title2">uicontrolsScenes</title>
+  <desc
+     id="desc4">Created with Sketch.</desc>
+  <defs
+     id="defs6" />
+  <g
+     id="g12"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.38709687;stroke-miterlimit:4;stroke-dasharray:none"
+     transform="matrix(2.5833327,0,0,2.5833327,-9.3328065,-9.3335737)">
+    <g
+       id="g10"
+       style="fill:none;stroke:#000000;stroke-width:0.38709687;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         d="m 21.6748,20.3261 c -0.778,-0.783 -0.775,-2.049 0.008,-2.828 0.783,-0.778 2.05,-0.776 2.829,0.008 0.778,0.783 0.774,2.049 -0.009,2.829 -0.783,0.778 -2.049,0.774 -2.828,-0.009 m 1.367,-9.267 c 1.105,0.004 1.997,0.902 1.994,2.006 -0.003,1.105 -0.901,1.998 -2.006,1.994 -1.104,-0.003 -1.997,-0.9 -1.994,-2.004 0.003,-1.105 0.902,-1.999 2.006,-1.996 m -4.113,13.972 c -1.105,-0.004 -1.997,-0.901 -1.994,-2.006 0.003,-1.104 0.901,-1.998 2.006,-1.994 1.104,0.003 1.997,0.9 1.994,2.005 -0.003,1.104 -0.902,1.998 -2.006,1.995 m -1.423,-17.484 c 0.783,-0.779 2.05,-0.776 2.829,0.008 0.778,0.784 0.776,2.049 -0.009,2.829 -0.783,0.778 -2.048,0.775 -2.828,-0.008 -0.778,-0.783 -0.775,-2.05 0.008,-2.829 m -4.446,3.417 c -1.105,-0.003 -1.997,-0.902 -1.994,-2.006 0.003,-1.105 0.901,-1.997 2.005,-1.994 1.105,0.003 1.998,0.901 1.995,2.006 -0.003,1.104 -0.902,1.997 -2.006,1.994 m 2.929,-6.964 c -6.622,0.006 -11.989,5.376 -11.989,12 l 0.003,1.257 c 0.003,1.651 1.89,2.59 3.209,1.596 l 0.877,-0.66 c 1.208,-0.911 2.957,-0.201 3.183,1.294 0.744,4.927 1.667,8.513 6.728,8.513 5,0 10,-5 10,-12 0,-6 -4.145,-12.007 -12.011,-12"
+         id="path8"
+         style="fill:none;stroke:#000000;stroke-width:0.38709687;stroke-miterlimit:4;stroke-dasharray:none"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>
