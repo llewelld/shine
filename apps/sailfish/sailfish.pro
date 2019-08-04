@@ -49,6 +49,13 @@ DISTFILES += \
     qml/components/IconSwitch.qml \
     qml/components/IconPressable.qml \
     qml/components/LightsAndGroupsList.qml \
+    qml/components/SwitchOnOffList.qml \
+    qml/components/ScenesList.qml \
+    qml/components/SensorBridge.qml \
+    qml/components/SensorTap.qml \
+    qml/components/SensorDimmer.qml \
+    qml/components/SensorGeneric.qml \
+    qml/utils/SensorUtils.js \
     qml/cover/LargeItem.qml \
     qml/harbour-scintillon.qml \
     qml/pages/BridgeInfoPage.qml \
@@ -65,7 +72,8 @@ DISTFILES += \
     qml/pages/ScenesAdd.qml \
     qml/pages/GroupsAdd.qml \
     qml/pages/AlarmAdd.qml \
-    qml/pages/CountdownAdd.qml
+    qml/pages/CountdownAdd.qml \
+    qml/pages/RulePage.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172 256x256
 

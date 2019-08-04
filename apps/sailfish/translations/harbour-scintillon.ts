@@ -299,10 +299,38 @@
     </message>
 </context>
 <context>
+    <name>RulePage</name>
+    <message>
+        <location filename="../qml/pages/RulePage.qml" line="48"/>
+        <source>Rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RulePage.qml" line="53"/>
+        <source>Rule name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RulePage.qml" line="62"/>
+        <source>Conditions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RulePage.qml" line="79"/>
+        <source>Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RulesPage</name>
     <message>
         <location filename="../qml/pages/RulesPage.qml" line="22"/>
         <source>Rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RulesPage.qml" line="60"/>
+        <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -378,12 +406,7 @@
 <context>
     <name>SensorPage</name>
     <message>
-        <location filename="../qml/pages/SensorPage.qml" line="55"/>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SensorPage.qml" line="63"/>
+        <location filename="../qml/pages/SensorPage.qml" line="77"/>
         <source>Action</source>
         <translation type="unfinished"></translation>
     </message>

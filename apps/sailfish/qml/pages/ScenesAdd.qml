@@ -19,11 +19,11 @@ Dialog {
     canAccept: (name.length > 0) && (lightsSelected > 0)
 
     Component.onCompleted: {
-        print("completed", root.checkedLights)
+        console.log("completed", root.checkedLights)
         if (root.checkedLights) {
             lightsSelected = 0
             for (var i = 0; i < root.checkedLights.length; i++) {
-                print("checked light:", root.checkedLights[i])
+                console.log("checked light:", root.checkedLights[i])
                 lightsCheckboxes.itemAt(root.checkedLights[i] - 1).checked = true
                 lightsSelected++
             }
@@ -107,9 +107,9 @@ Dialog {
         var lightsList = new Array;
         for (var i = 0; i < lightsCheckboxes.count; ++i) {
             if (lightsCheckboxes.model.get(i).checked) {
-                print("adding light", i)
+                console.log("adding light", i)
                 lightsList.push(lights.get(i).id);
-                print("list is now", lightsList.length)
+                console.log("list is now", lightsList.length)
             }
         }
         if (sceneid.length > 0) {

@@ -3,9 +3,10 @@ import Sailfish.Silica 1.0
 import Hue 0.1
 import harbour.scintillon.settings 1.0
 
-ListView {
+ColumnView {
     id: root
     currentIndex: -1
+    itemHeight: Theme.itemSizeSmall
 
     property var lights: null
     property var groups: null

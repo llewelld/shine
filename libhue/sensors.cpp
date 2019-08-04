@@ -198,6 +198,11 @@ void Sensors::refresh()
     HueBridgeConnection::instance()->get("sensors", this, "sensorsReceived");
     m_busy = true;
     emit busyChanged();
+#ifdef HUE_EMULATE
+    sensorsReceived(0, QJsonDocument::fromJson(
+                        "{\"1\": {\"state\": {\"daylight\": false,\"lastupdated\": \"2014-06-27T07:38:51\"},\"config\": {\"on\": true,\"long\": \"none\",\"lat\": \"none\",\"sunriseoffset\": 50,\"sunsetoffset\": 50},\"name\": \"Daylight\",\"type\": \"Daylight\",\"modelid\": \"PHDL00\",\"manufacturername\": \"Philips\",\"swversion\": \"1.0\"},\"2\": {\"state\": {\"buttonevent\": 0,\"lastupdated\": \"none\"},\"config\": {\"on\": true},\"name\": \"Tap Switch 2\",\"type\": \"ZGPSwitch\",\"modelid\": \"ZGPSWITCH\",\"manufacturername\": \"Philips\",\"uniqueid\": \"00:00:00:00:00:40:03:50-f2\"},\"3\": {\"state\": {\"buttonevent\": 0,\"lastupdated\": \"none\"},\"config\": {\"on\": true, \"battery\": 80, \"alert\": \"none\"},\"name\": \"Dimmer Switch 3\",\"type\": \"ZLLSwitch\",\"modelid\": \"RWL021\",\"manufacturername\": \"Philips\",\"uniqueid\": \"00:00:00:00:00:40:03:50-f3\"},\"4\": {\"state\": {\"status\": 5,\"lastupdated\": \"none\"},\"config\": {\"on\": true},\"name\": \"Generic Switch 4\",\"type\": \"CLIPGenericStatus\",\"modelid\": \"CLIPGENERICSTATUS\",\"manufacturername\": \"NotPhilips\",\"uniqueid\": \"00:00:00:00:00:40:03:50-f3\",\"swversion\": \"1.0\"}}",
+                        nullptr).toVariant());
+#endif // HUE_EMULATE
 }
 
 void Sensors::sensorDeleted(int id, const QVariant &response)
@@ -217,24 +222,11 @@ void Sensors::sensorDeleted(int id, const QVariant &response)
 
 void Sensors::sensorsReceived(int id, const QVariant &variant)
 {
-    QVariant variantNonConst = variant;
-    const QByteArray response = "{\"1\": {\"state\": {\"daylight\": false,\"lastupdated\": \"2014-06-27T07:38:51\"},\"config\": {\"on\": true,\"long\": \"none\",\"lat\": \"none\",\"sunriseoffset\": 50,\"sunsetoffset\": 50},\"name\": \"Daylight\",\"type\": \"Daylight\",\"modelid\": \"PHDL00\",\"manufacturername\": \"Philips\",\"swversion\": \"1.0\"},\"2\": {\"state\": {\"buttonevent\": 0,\"lastupdated\": \"none\"},\"config\": {\"on\": true},\"name\": \"Tap Switch 2\",\"type\": \"ZGPSwitch\",\"modelid\": \"ZGPSWITCH\",\"manufacturername\": \"Philips\",\"uniqueid\": \"00:00:00:00:00:40:03:50-f2\"},\"3\": {\"state\": {\"buttonevent\": 0,\"lastupdated\": \"none\"},\"config\": {\"on\": true, \"battery\": 80, \"alert\": \"none\"},\"name\": \"Dimmer Switch 3\",\"type\": \"ZLLSwitch\",\"modelid\": \"RWL021\",\"manufacturername\": \"Philips\",\"uniqueid\": \"00:00:00:00:00:40:03:50-f3\"},\"4\": {\"state\": {\"status\": 5,\"lastupdated\": \"none\"},\"config\": {\"on\": true},\"name\": \"Generic Switch 4\",\"type\": \"CLIPGenericStatus\",\"modelid\": \"CLIPGENERICSTATUS\",\"manufacturername\": \"NotPhilips\",\"uniqueid\": \"00:00:00:00:00:40:03:50-f3\",\"swversion\": \"1.0\"}}";
-    QJsonParseError error;
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(response, &error);
-    if (error.error != QJsonParseError::NoError) {
-        qWarning() << "error parsing get response:" << error.errorString() << response;
-    } else {
-        variantNonConst = jsonDoc.toVariant();
-    }
-
-
-
-
     qDebug() << "Initial sensor count " << m_list.count();
 
-    qDebug() << "**** sensors received" << variantNonConst;
+    qDebug() << "**** sensors received" << variant;
     Q_UNUSED(id)
-    QVariantMap sensors = variantNonConst.toMap();
+    QVariantMap sensors = variant.toMap();
     QList<Sensor*> removedSensors;
     Sensor *sensor = NULL;
     qDebug() << "Loading " << m_list.size() << " sensors";

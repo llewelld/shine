@@ -169,6 +169,7 @@ Page {
 
     RulesPage {
         id: rulesPage
+        rules: rules
     }
 
     Configuration {

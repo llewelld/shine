@@ -57,7 +57,7 @@ generate 32 32 "icon-cover-journey-finish icon-cover-journey-start"
 generate 32 32 "icon-s-alarm icon-s-bright icon-s-countdown icon-s-dim"
 
 # Generate medium icons
-generate 64 64 "bulbGroup bulbGroup-outline bulbsSultan bulbsSultan-outline icon-m-alarm icon-m-countdown icon-m-scene icon-m-scene-outline icon-m-weekday icon-m-lights icon-m-scenes icon-m-switches icon-m-alarms icon-m-rules icon-m-bridge"
+generate 64 64 "bulbGroup bulbGroup-outline bulbsSultan bulbsSultan-outline icon-m-alarm icon-m-countdown icon-m-scene icon-m-scene-outline icon-m-weekday icon-m-lights icon-m-scenes icon-m-switches icon-m-alarms icon-m-rules icon-m-bridge icon-m-rule"
 
 # Archetypes
 archetype 64 64 "classicbulb sultanbulb spotbulb floodbulb candlebulb huebloom hueiris huego huelightstrip hueplay groundspot bollard tablewash tableshade floorshade floorlantern flexiblelamp recessedfloor walllantern wallshade wallspot pendantround pendantlong ceilinground ceilingsquare singlespot doublespot recessedceiling"

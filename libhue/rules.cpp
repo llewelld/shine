@@ -151,7 +151,7 @@ QVariantList Rules::createDaylightConditions(int daylightSensorId, bool day)
     QVariantMap daylightCondition;
     daylightCondition.insert("address", "/sensors/" + QString::number(daylightSensorId) + "/state/daylight");
     daylightCondition.insert("operator", "eq");
-    daylightCondition.insert("value", day);
+    daylightCondition.insert("value", day ? "true" : "false");
     conditions.append(daylightCondition);
 
     return conditions;

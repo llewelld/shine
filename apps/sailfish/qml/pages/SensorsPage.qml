@@ -30,7 +30,7 @@ Page {
             shownTypes: Sensor.TypeZGPSwitch
                         | Sensor.TypeDaylight
                         | Sensor.TypeZLLSwitch
-                        | Sensor.TypeAll
+                       // | Sensor.TypeAll
         }
 
         delegate: ListItem {

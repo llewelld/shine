@@ -28,6 +28,9 @@
 #include <QVariantMap>
 #include <QPointer>
 
+//#define HUE_EMULATE (1)
+#undef HUE_EMULATE
+
 class QNetworkAccessManager;
 class QNetworkReply;
 

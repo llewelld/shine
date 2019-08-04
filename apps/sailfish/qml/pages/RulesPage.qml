@@ -25,9 +25,42 @@ Page {
         model: rules
 
         delegate: ListItem {
-            Label {
-                text: model.name
-                anchors.verticalCenter: parent.verticalCenter
+            id: ruleItem
+            menu: rulesMenuComponent
+            highlighted: rulePressable.highlighted
+
+            Row {
+                x: Theme.horizontalPageMargin
+                height: Theme.itemSizeSmall
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                spacing: 0
+
+                IconPressable {
+                    id: rulePressable
+                    width: parent.width
+                    height: Theme.itemSizeSmall
+                    sourceOn: Qt.resolvedUrl("image://scintillon/icon-m-rule")
+                    sourceOff: sourceOn
+                    icon.color: "white"
+                    icon.width: Theme.iconSizeMedium
+                    icon.height: icon.width
+                    text: model.name
+
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("RulePage.qml"), {ruleid: model.id, rules: rules, name: model.name})
+                    }
+                    onPressAndHold: ruleItem.openMenu()
+                }
+            }
+
+            Component {
+                id: rulesMenuComponent
+                ContextMenu {
+                    MenuItem {
+                        text: qsTr("Delete")
+                        onClicked: rules.deleteRule(model.id)
+                    }
+                }
             }
         }
     }
