@@ -2,6 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../components"
 import Hue 0.1
+import "../utils/ColourUtils.js" as Utils
 
 Page {
     id: root
@@ -12,37 +13,24 @@ Page {
 
     allowedOrientations: Orientation.All
 
-    function interpolateColour(from, to, x) {
-        return Qt.rgba((from.r + (x * (to.r - from.r))), (from.g + (x * (to.g - from.g))), (from.b + (x * (to.b - from.b))), (from.a + (x * (to.a - from.a))))
-    }
-
-    function calculateLightColor(item) {
-        var rgb
-        if (item.colormode === LightInterface.ColorModeCT) {
-            var x = (item.ct - 153) / (500.0 - 153.0)
-            console.log("Colour CT x: " + x)
-            if (x < 0.5) {
-                // Interpolate between #efffff and #ffffea
-                rgb = interpolateColour(Qt.rgba(0.937, 1.0, 1.0, 1.0), Qt.rgba(1.0, 1.0, 0.918, 1.0), x * 2.0)
-            } else {
-                // Interpolate between #ffffea and #ffd649
-                rgb = interpolateColour(Qt.rgba(1.0, 1.0, 0.918, 1.0), Qt.rgba(1.0, 0.839, 0.286, 1.0), (x - 0.5) * 2.0)
-            }
-        } else {
-            rgb = item.color
-        }
-        return interpolateColour(rgb, Qt.rgba(1.0, 1.0, 1.0, 1.0), 0.5)
-    }
-
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: mainColumn.height
 
         VerticalScrollDecorator {}
 
+        ViewPlaceholder {
+            enabled: (lightsColumn.count === 0) && (groupsColumn.count === 0)
+            text: qsTr("No lights or groups")
+            hintText: (HueBridge.status === HueBridge.BridgeStatusConnected)
+                      ? qsTr("Connect a light to your Hue Hub to get started")
+                      : qsTr("Not connected to a Hue Hub")
+        }
+
         PullDownMenu {
             MenuItem {
                 text: qsTr("Create group")
+                enabled: lightsColumn.count
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("GroupsAdd.qml"), {lights: lights, groups: groups})
                 }
@@ -60,9 +48,11 @@ Page {
 
             SectionHeader {
                 text: qsTr("Groups")
+                visible: groupsColumn.count > 0
             }
 
             ColumnView {
+                id: groupsColumn
                 width: parent.width
                 itemHeight: Theme.itemSizeSmall
 
@@ -160,9 +150,11 @@ Page {
 
             SectionHeader {
                 text: qsTr("Lights")
+                visible: lightsColumn.count > 0
             }
 
             ColumnView {
+                id: lightsColumn
                 width: parent.width
                 itemHeight: Theme.itemSizeSmall
 
@@ -186,7 +178,7 @@ Page {
                             height: Theme.itemSizeSmall
                             sourceOn: Qt.resolvedUrl("image://scintillon/archetypes/" + model.archetype)
                             sourceOff: Qt.resolvedUrl("image://scintillon/archetypes/" + model.archetype + "-outline")
-                            icon.color: calculateLightColor(lightsFilterModel.get(index))
+                            icon.color: Utils.calculateLightColor(lightsFilterModel.get(index))
                             icon.width: Theme.iconSizeMedium
                             icon.height: icon.width
                             text: model.name

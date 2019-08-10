@@ -16,6 +16,14 @@ Page {
 
         VerticalScrollDecorator {}
 
+        ViewPlaceholder {
+            enabled: listView.count === 0
+            text: qsTr("No alarms or timers")
+            hintText: (HueBridge.status === HueBridge.BridgeStatusConnected)
+                      ? qsTr("Create an alarm on the Lights or Scenes pages")
+                      : qsTr("Not connected to a Hue Hub")
+        }
+
         header: PageHeader {
             id: title
             title: qsTr("Alarms and timers")

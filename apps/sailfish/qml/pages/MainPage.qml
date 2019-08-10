@@ -7,6 +7,10 @@ import Hue 0.1
 Page {
     id: page
 
+    property Lights lights: app.lights
+    property Groups groups: app.groups
+    property Consistency consistency: app.consistency
+
     // The effective value will be restricted by ApplicationWindow.allowedOrientations
     allowedOrientations: Orientation.All
 
@@ -15,11 +19,17 @@ Page {
 
         if (HueBridge.discoveryError) {
             console.log("Discovery error")
-            //PopupUtils.open(errorComponent, root)
+            pageStack.push("ErrorPage.qml", {errorMessage: HueBridge.errorMessage})
         } else if (HueBridge.bridgeFound && !HueBridge.connectedBridge){
             console.log("Login")
-            //PopupUtils.open(loginComponent, root)
+            pageStack.push("LoginPage.qml", {startAPage: page})
         }
+    }
+
+    Binding {
+        target: app
+        property: "updateLights"
+        value: (pageStack.currentPage == lightsPage || pageStack.currentPage == sensorsPage)
     }
 
     Connections {
@@ -27,13 +37,13 @@ Page {
         onBridgeFoundChanged: {
             if (!HueBridge.connectedBridge) {
                 console.log("Login")
-                //PopupUtils.open(loginComponent, root)
+                pageStack.push("LoginPage.qml", {startAPage: page})
             }
         }
         onDiscoveryErrorChanged: {
             if (HueBridge.discoveryError) {
                 console.log("Discovery error")
-                //PopupUtils.open(errorComponent, root)
+                pageStack.push("ErrorPage.qml", {errorMessage: HueBridge.errorMessage})
             }
         }
         onApiKeyChanged: {
@@ -42,7 +52,7 @@ Page {
         onStatusChanged: {
             if (HueBridge.status === HueBridge.BridgeStatusAuthenticationFailure) {
                 console.log("Authentication failure")
-                //PopupUtils.open(loginComponent, root)
+                pageStack.push("LoginPage.qml", {startAPage: page})
             }
         }
     }
@@ -131,34 +141,34 @@ Page {
 
     BridgeInfoPage {
         id: bridgeInfoPage
-        lights: lights
+        lights: page.lights
     }
 
     ScenesPage {
         id: scenesPage
         scenes: scenes
-        lights: lights
+        lights: page.lights
     }
 
     LightsPage {
         id: lightsPage
-        lights: lights
-        groups: groups
+        lights: page.lights
+        groups: page.groups
         schedules: schedules
     }
 
     GroupsPage {
         id: groupsPage
-        groups: groups
-        lights: lights
+        groups: page.groups
+        lights: page.lights
     }
 
     SensorsPage {
         id: sensorsPage
         sensors: sensors
         rules: rules
-        lights: lights
-        groups: groups
+        lights: page.lights
+        groups: page.groups
         scenes: scenes
     }
 
@@ -174,45 +184,27 @@ Page {
 
     Configuration {
         id: bridgeConfig
-        autoRefresh: (pageStack.currentPage == bridgeInfoPage)// && !bigColorPicker.visible
+        autoRefresh: (pageStack.currentPage == bridgeInfoPage)
     }
 
     Scenes {
         id: scenes
-        autoRefresh: (pageStack.currentPage == scenesPage || pageStack.currentPage == sensorsPage)// && !bigColorPicker.visible
-        consistency: consistency
-    }
-
-    Lights {
-        id: lights
-        autoRefresh: (pageStack.currentPage == lightsPage || pageStack.currentPage == sensorsPage)// || bigColorPicker.visible
-        consistency: consistency
-    }
-
-    Groups {
-        id: groups
-        autoRefresh: (pageStack.currentPage == lightsPage || pageStack.currentPage == sensorsPage)// || bigColorPicker.visible
-        consistency: consistency
+        autoRefresh: (pageStack.currentPage == scenesPage || pageStack.currentPage == sensorsPage)
+        consistency: page.consistency
     }
 
     Schedules {
         id: schedules
-        autoRefresh: (pageStack.currentPage == alarmsPage)// && !bigColorPicker.visible
+        autoRefresh: (pageStack.currentPage == alarmsPage)
     }
 
     Sensors {
         id: sensors
-        autoRefresh: (pageStack.currentPage == sensorsPage)// && !bigColorPicker.visible
+        autoRefresh: (pageStack.currentPage == sensorsPage)
     }
 
     Rules {
         id: rules
-        autoRefresh: (pageStack.currentPage == rulesPage || pageStack.currentPage == sensorsPage)// && !bigColorPicker.visible
-    }
-
-    Consistency {
-        id: consistency
-        lights: lights
-        groups: groups
+        autoRefresh: (pageStack.currentPage == rulesPage || pageStack.currentPage == sensorsPage)
     }
 }

@@ -85,7 +85,7 @@ Page {
 
             onColorChanged: {
                 if (pressed) {
-                    print("light", light, "light.color", light.color, colorPicker.color)
+                    console.log("light", light, "light.color", light.color, colorPicker.color)
                     light.color = colorPicker.color;
                 }
             }

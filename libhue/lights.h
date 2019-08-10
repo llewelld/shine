@@ -53,6 +53,7 @@ public:
         RoleIconOutline,
         RoleArchetype
     };
+    Q_ENUM(Roles)
 
     explicit Lights(QObject *parent = 0);
 

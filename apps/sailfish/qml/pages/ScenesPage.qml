@@ -18,6 +18,16 @@ Page {
 
         VerticalScrollDecorator {}
 
+        ViewPlaceholder {
+            enabled: listView.count === 0
+            text: qsTr("No scenes")
+            hintText: (HueBridge.status !== HueBridge.BridgeStatusConnected)
+                      ? qsTr("Not connected to a Hue Hub")
+                      : (lights.count > 0)
+                        ? qsTr("Pull down to create a new scene")
+                        : qsTr("Connect a light to your Hue Hub to get started")
+        }
+
         PullDownMenu {
             MenuItem {
                 text: qsTr("Scene settings")
@@ -26,6 +36,7 @@ Page {
 
             MenuItem {
                 text: qsTr("Create scene")
+                enabled: lights.count > 0
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("ScenesAdd.qml"), {sceneid: null, lights: lights, scenes: scenes})
                 }

@@ -127,7 +127,7 @@ Item {
             color = Qt.rgba(1, brightness, 1 - sectionVal + brightness, 1)
             break;
         }
-//        print("got color", color.r, color.g, color.b)
+//        console.log("got color", color.r, color.g, color.b)
         return color
     }
 

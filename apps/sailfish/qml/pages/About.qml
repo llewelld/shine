@@ -34,7 +34,7 @@ Page {
             }
 
             Label {
-                text: qsTr("Measures your relative pedalo performance with others in a privacy-preserving way")
+                text: qsTr("Control your Philips Hue lighting from your phone")
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 anchors {
@@ -62,8 +62,16 @@ Page {
             }
 
             InfoRow {
+                label: qsTr("Libhue:")
+                value: "Michael Zanetti"
+                midlineRatio: 0.3
+                midlineMin: Theme.fontSizeSmall * 5
+                midlineMax: Theme.fontSizeSmall * 10
+            }
+
+            InfoRow {
                 label: qsTr("Licence:")
-                value: "MIT"
+                value: "GPLv2"
                 midlineRatio: 0.3
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10

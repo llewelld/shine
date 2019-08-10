@@ -17,6 +17,14 @@ Page {
 
         VerticalScrollDecorator {}
 
+        ViewPlaceholder {
+            enabled: listView.count === 0
+            text: qsTr("No rules")
+            hintText: (HueBridge.status === HueBridge.BridgeStatusConnected)
+                      ? qsTr("New rules are created on the Sensors and Switchs page")
+                      : qsTr("Not connected to a Hue Hub")
+        }
+
         header: PageHeader {
             id: title
             title: qsTr("Rules")

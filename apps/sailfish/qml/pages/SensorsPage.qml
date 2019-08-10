@@ -20,6 +20,14 @@ Page {
 
         VerticalScrollDecorator {}
 
+        ViewPlaceholder {
+            enabled: listView.count === 0
+            text: qsTr("No sensors or switches")
+            hintText: (HueBridge.status === HueBridge.BridgeStatusConnected)
+                      ? qsTr("Connect a switch to your Hue Hub to get started")
+                      : qsTr("Not connected to a Hue Hub")
+        }
+
         header: PageHeader {
             id: title
             title: qsTr("Sensors and switches")

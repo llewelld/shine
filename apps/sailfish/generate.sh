@@ -48,13 +48,13 @@ function archetype {
 }
 
 # Generate titles
-generate 303 86 "scintillon-title"
+generate 428 86 "scintillon-title"
 
 # Generate cover action icons
-generate 32 32 "icon-cover-journey-finish icon-cover-journey-start"
+generate 32 32 "icon-cover-action-off icon-cover-action-on"
 
 # Generate small icons
-generate 32 32 "icon-s-alarm icon-s-bright icon-s-countdown icon-s-dim"
+generate 32 32 "icon-s-alarm icon-s-bright icon-s-countdown icon-s-dim cover-lights-on cover-lights-off"
 
 # Generate medium icons
 generate 64 64 "bulbGroup bulbGroup-outline bulbsSultan bulbsSultan-outline icon-m-alarm icon-m-countdown icon-m-scene icon-m-scene-outline icon-m-weekday icon-m-lights icon-m-scenes icon-m-switches icon-m-alarms icon-m-rules icon-m-bridge icon-m-rule"
@@ -68,4 +68,6 @@ generate 64 64 "sensors/tap sensors/dimmer sensors/daylight sensors/generic"
 # Sensor buttons
 generate 96 96 "sensors/daylight-sunrise sensors/daylight-sunset sensors/dimmer-1 sensors/dimmer-2 sensors/dimmer-3 sensors/dimmer-4 sensors/generic-0 sensors/tap-1 sensors/tap-2 sensors/tap-3 sensors/tap-4"
 
+# Generate cover
+generate 117 133 "cover-background"
 

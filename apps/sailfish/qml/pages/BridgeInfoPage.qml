@@ -33,6 +33,25 @@ Page {
 
         VerticalScrollDecorator {}
 
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Search for devices")
+                enabled: !searching
+                onClicked: {
+                    lights.searchForNewLights();
+                    var now = new Date()
+                    searchTime = new Date(new Date().getTime() + 30000);
+                    searchRemaining = (searchTime - now) / 1000
+                    searching = true
+                }
+            }
+            MenuItem {
+                text: qsTr("Update now")
+                enabled: bridgeConfig.connectedToPortal && (bridgeConfig.updateState === Configuration.UpdateStateReadyToUpdate)
+                onClicked: bridgeConfig.performUpdate()
+            }
+        }
+
         Column {
             id: bridgeColumn
             width: parent.width
@@ -100,29 +119,6 @@ Page {
                 midlineRatio: 0.5
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
-            }
-
-            Row {
-                spacing: Theme.paddingLarge
-                anchors.horizontalCenter: parent.horizontalCenter
-                Button {
-                    id : deviceSearchButton
-                    text: qsTr("Search for devices")
-                    enabled: !searching
-                    onClicked: {
-                        lights.searchForNewLights();
-                        var now = new Date()
-                        searchTime = new Date(new Date().getTime() + 30000);
-                        searchRemaining = (searchTime - now) / 1000
-                        searching = true
-                    }
-                }
-                Button {
-                    id: updateButton
-                    text: qsTr("Update now")
-                    enabled: bridgeConfig.connectedToPortal && (bridgeConfig.updateState === Configuration.UpdateStateReadyToUpdate)
-                    onClicked: bridgeConfig.performUpdate()
-                }
             }
         }
     }

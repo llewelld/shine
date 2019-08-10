@@ -10,10 +10,12 @@
 LightsFilterModel::LightsFilterModel(QObject *parent):
     QSortFilterProxyModel(parent),
     m_groupId(0),
-    m_groups(0) // Only creating when we need it to avoid network calls
+    m_groups(0), // Only creating when we need it to avoid network calls
+    m_filterRoleOn(ShowAll)
 {
-
-
+    LightsFilterModel::connect(this, &LightsFilterModel::rowsInserted, this, &LightsFilterModel::countChanged);
+    LightsFilterModel::connect(this, &LightsFilterModel::rowsRemoved, this, &LightsFilterModel::countChanged);
+    LightsFilterModel::connect(this, &LightsFilterModel::dataChanged, this, &LightsFilterModel::countChanged);
 }
 
 int LightsFilterModel::groupId() const
@@ -68,6 +70,14 @@ bool LightsFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourc
     Q_UNUSED(sourceParent)
     Light *light = m_lights->get(sourceRow);
     if (m_hiddenLights.contains(light->id())) {
+        return false;
+    }
+
+    if ((m_filterRoleOn == ShowOn) && (!light->on())) {
+        return false;
+    }
+
+    if ((m_filterRoleOn == ShowOff) && (light->on())) {
         return false;
     }
 
@@ -134,4 +144,18 @@ Group *LightsFilterModel::findGroup()
         }
     }
     return 0;
+}
+
+LightsFilterModel::FilterRoleOn LightsFilterModel::filterRoleOn() const
+{
+    return m_filterRoleOn;
+}
+
+void LightsFilterModel::setFilterRoleOn(LightsFilterModel::FilterRoleOn filter)
+{
+    if (filter != m_filterRoleOn) {
+        m_filterRoleOn = filter;
+        emit filterRoleOnChanged();
+        invalidateFilter();
+    }
 }

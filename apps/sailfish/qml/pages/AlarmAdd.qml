@@ -58,8 +58,7 @@ Dialog {
 
             Row {
                 visible: light
-                width: parent.width - 2 * Theme.horizontalPageMargin
-                x: Theme.horizontalPageMargin
+                width: parent.width
                 TextSwitch {
                     id: turnOnSwitch
                     width: parent.width / 2
@@ -90,7 +89,6 @@ Dialog {
                 id: recurringSwitch
                 text: "Recurring alarm"
                 automaticCheck: true
-                x: Theme.horizontalPageMargin
             }
 
             WeekDaySelector {
