@@ -106,10 +106,8 @@ Dialog {
         sceneName.focus = false;
         var lightsList = new Array;
         for (var i = 0; i < lightsCheckboxes.count; ++i) {
-            if (lightsCheckboxes.model.get(i).checked) {
-                console.log("adding light", i)
+            if (lightsCheckboxes.itemAt(i).checked) {
                 lightsList.push(lights.get(i).id);
-                console.log("list is now", lightsList.length)
             }
         }
         if (sceneid.length > 0) {

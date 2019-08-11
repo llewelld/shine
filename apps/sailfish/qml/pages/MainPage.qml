@@ -29,7 +29,9 @@ Page {
     Binding {
         target: app
         property: "updateLights"
-        value: (pageStack.currentPage == lightsPage || pageStack.currentPage == sensorsPage)
+        value: (pageStack.currentPage == scenesPage
+                || pageStack.currentPage == lightsPage
+                || pageStack.currentPage == sensorsPage)
     }
 
     Connections {

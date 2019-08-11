@@ -9,7 +9,7 @@ function interpolateColour(from, to, x) {
 function calculateLightColor(item) {
     var rgb
     if (!item) {
-        return Qt.rbga(0.0, 0.0, 0.0, 0.0)
+        return "transparent"
     }
     if (item.colormode === Hue.LightInterface.ColorModeCT) {
         var x = (item.ct - 153) / (500.0 - 153.0)
