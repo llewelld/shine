@@ -35,86 +35,105 @@ Page {
     }
 
     Column {
-        anchors.fill: parent
-        anchors.margins: 8 * (2)
-        spacing: 8 * (2)
+        width: parent.width
+        spacing: Theme.paddingLarge
+
+        PageHeader {
+            title: qsTr("Light control")
+        }
 
         Row {
-            width: parent.width
-            spacing: Theme.paddingSmall
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2 * Theme.horizontalPageMargin
+            spacing: 0
             IconButton {
                 id: dimButton
-                width: Theme.itemSizeSmall
+                width: Theme.iconSizeMedium
                 height: Theme.itemSizeSmall
-                onClicked: light.on = false;
-                icon.source: "image://theme/icon-s-installed"
+                onClicked: light.bri = 0;
+                icon.source: "image://scintillon/icon-s-dim"
+                icon.color: "white"
+                icon.fillMode: Image.PreserveAspectFit
+                icon.verticalAlignment: Image.AlignVCenter
             }
             Slider {
                 id: brightnessSlider
-                width: parent.width - 2 * Theme.itemSizeSmall
+                width: parent.width - 2 * Theme.iconSizeMedium
+                height: Theme.itemSizeSmall
                 minimumValue: 0
                 maximumValue: 255
-                value: light ? light.bri : 0
+                //value: light ? light.bri : 0
                 onValueChanged: {
                     light.bri = value
                 }
             }
             IconButton {
                 id: brightButton
-                width: Theme.itemSizeSmall
+                width: Theme.iconSizeMedium
                 height: Theme.itemSizeSmall
-                onClicked: light.on = true;
-                icon.source: "image://theme/icon-s-installed"
+                onClicked: light.bri = 255;
+                icon.source: "image://scintillon/icon-s-bright"
+                icon.color: "white"
+                icon.fillMode: Image.PreserveAspectFit
+                icon.verticalAlignment: Image.AlignVCenter
             }
 
         }
 
-        ColorPicker {
-            id: colorPicker
-            width: parent.width
-            height: 4 * Theme.itemSizeExtraLarge
+        Column {
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2 * Theme.horizontalPageMargin
+            spacing: Theme.paddingLarge
 
-            color: light ? light.color : "black"
-            active: light ? (light.colormode == LightInterface.ColorModeHS || light.colormode == LightInterface.ColorModeXY) : false
+            ColorPicker {
+                id: colorPicker
+                width: parent.width
+                height: 4 * Theme.itemSizeExtraLarge
 
-            touchDelegate: Rectangle {
-                height: 8 * (3)
-                width: 8 * (3)
-                color: "black"
-            }
+                color: light ? light.color : "black"
+                active: light ? (light.colormode == LightInterface.ColorModeHS || light.colormode == LightInterface.ColorModeXY) : false
 
-            onColorChanged: {
-                if (pressed) {
-                    console.log("light", light, "light.color", light.color, colorPicker.color)
-                    light.color = colorPicker.color;
+                touchDelegate: Rectangle {
+                    height: 8 * (3)
+                    width: 8 * (3)
+                    color: "black"
+                }
+
+                onColorChanged: {
+                    if (pressed) {
+                        console.log("light", light, "light.color", light.color, colorPicker.color)
+                        light.color = colorPicker.color;
+                    }
                 }
             }
-        }
-        ColorPickerCt {
-            id: colorPickerCt
-            width: parent.width
-            height: width / 6
+            ColorPickerCt {
+                id: colorPickerCt
+                width: parent.width
+                height: width / 6
 
-            ct: light ? light.ct : minCt
-            active: light && light.colormode == LightInterface.ColorModeCT
+                ct: light ? light.ct : minCt
+                active: light && light.colormode == LightInterface.ColorModeCT
 
-            onCtChanged: {
-                if (pressed) {
-                    light.ct = colorPickerCt.ct;
+                onCtChanged: {
+                    if (pressed) {
+                        light.ct = colorPickerCt.ct;
+                    }
                 }
-            }
 
-            touchDelegate: Rectangle {
-                height: colorPickerCt.height
-                width: 8 * (.5)
-                color: "transparent"
-                border.color: "black"
-                border.width: 8 * (2)
+                touchDelegate: Rectangle {
+                    height: colorPickerCt.height
+                    width: 8 * (.5)
+                    color: "transparent"
+                    border.color: "black"
+                    border.width: 8 * (2)
+                }
             }
         }
 
         ComboBox {
             id: effectSelector
+            visible: false
+            enabled: false
             width: parent.width
             menu: ContextMenu {
                 id: effectModel

@@ -263,6 +263,14 @@ Please go back and try connecting again</source>
     </message>
 </context>
 <context>
+    <name>LightDetailsPage</name>
+    <message>
+        <location filename="../qml/pages/LightDetailsPage.qml" line="42"/>
+        <source>Light control</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LightEdit</name>
     <message>
         <location filename="../qml/pages/LightEdit.qml" line="34"/>
@@ -399,22 +407,17 @@ Please go back and try connecting again</source>
 <context>
     <name>RulePage</name>
     <message>
-        <location filename="../qml/pages/RulePage.qml" line="48"/>
-        <source>Rule</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/RulePage.qml" line="53"/>
+        <location filename="../qml/pages/RulePage.qml" line="60"/>
         <source>Rule name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RulePage.qml" line="62"/>
+        <location filename="../qml/pages/RulePage.qml" line="71"/>
         <source>Conditions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RulePage.qml" line="79"/>
+        <location filename="../qml/pages/RulePage.qml" line="88"/>
         <source>Actions</source>
         <translation type="unfinished"></translation>
     </message>

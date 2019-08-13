@@ -125,6 +125,7 @@ Dialog {
             }
 
             Label {
+                visible: false
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 text: "Remaining: " + remaining()

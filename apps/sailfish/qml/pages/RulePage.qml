@@ -4,7 +4,7 @@ import "../components"
 import Hue 0.1
 import harbour.scintillon.settings 1.0
 
-Dialog {
+Page {
     id: root
 
     property string ruleid: ""
@@ -13,7 +13,7 @@ Dialog {
 
     allowedOrientations: Orientation.All
 
-    canAccept: (name.length > 0)
+    //canAccept: (name.length > 0)
 
     Component.onCompleted: {
         var conditions = rules.findRule(ruleid).conditions
@@ -43,9 +43,16 @@ Dialog {
             width: parent.width
             spacing: Theme.paddingLarge
 
+            /*
             DialogHeader {
                 id: pageHeader
                 title: qsTr("Rule")
+            }
+            */
+
+            PageHeader {
+                id: pageHeader
+                title: ruleName.text
             }
 
             TextField {
@@ -56,6 +63,8 @@ Dialog {
                 inputMethodHints: Qt.ImhNone
                 //EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 //EnterKey.onClicked: passwordField.focus = true
+                visible: false
+                enabled: false
             }
 
             SectionHeader {
@@ -79,20 +88,30 @@ Dialog {
                 text: qsTr("Actions")
             }
 
-            ColumnView {
+            Repeater {
                 width: parent.width
-                itemHeight: Theme.itemSizeMedium
                 model: rules.findRule(ruleid).actions
 
-                delegate: Label {
+                delegate: Column {
                     x: Theme.horizontalPageMargin
                     width: parent.width - 2 * Theme.horizontalPageMargin
-                    text: model.modelData["address"]
+
+                    Label {
+                        text: model.modelData["address"]
+                        color: Theme.highlightColor
+                    }
+                    Label {
+                        text: JSON.stringify(model.modelData["body"], null, 4)
+                        wrapMode: Text.Wrap
+                        font.family: "Monospace"
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                    }
                 }
             }
         }
     }
 
+    /*
     onAccepted: {
         apply()
     }
@@ -104,4 +123,5 @@ Dialog {
             rule.name = root.name
         }
     }
+    */
 }
