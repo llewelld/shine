@@ -75,6 +75,17 @@ public slots:
     void setAlert(const QString &alert);
     void setEffect(const QString &effect);
 
+public:
+    Q_INVOKABLE void setOnTimed(bool on, uint transitiontime);
+    Q_INVOKABLE void setBriTimed(quint8 bri, uint transitiontime);
+    Q_INVOKABLE void setColorTimed(const QColor &color, uint transitiontime);
+    Q_INVOKABLE void setCtTimed(quint16 ct, uint transitiontime);
+
+    Q_INVOKABLE void setOnImmediate(bool on);
+    Q_INVOKABLE void setBriImmediate(quint8 bri);
+    Q_INVOKABLE void setColorImmediate(const QColor &color);
+    Q_INVOKABLE void setCtImmediate(quint16 ct);
+
 signals:
     void nameChanged();
     void lightsChanged();

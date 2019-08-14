@@ -64,7 +64,7 @@ Page {
                 maximumValue: 255
                 //value: light ? light.bri : 0
                 onValueChanged: {
-                    light.bri = value
+                    light.setBriImmediate(value)
                 }
             }
             IconButton {
@@ -77,7 +77,6 @@ Page {
                 icon.fillMode: Image.PreserveAspectFit
                 icon.verticalAlignment: Image.AlignVCenter
             }
-
         }
 
         Column {
@@ -102,7 +101,7 @@ Page {
                 onColorChanged: {
                     if (pressed) {
                         console.log("light", light, "light.color", light.color, colorPicker.color)
-                        light.color = colorPicker.color;
+                        light.setColorImmediate(colorPicker.color)
                     }
                 }
             }
@@ -116,7 +115,7 @@ Page {
 
                 onCtChanged: {
                     if (pressed) {
-                        light.ct = colorPickerCt.ct;
+                        light.setCtImmediate(colorPickerCt.ct)
                     }
                 }
 

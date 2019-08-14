@@ -118,11 +118,24 @@ bool Light::on() const
 
 void Light::setOn(bool on)
 {
+    setOnTimed(on, HUE_DEFAULT_TRANSITION_TIME);
+}
+
+void Light::setOnTimed(bool on, uint transitiontime)
+{
     if (m_on != on) {
         QVariantMap params;
         params.insert("on", on);
+        if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
+            params.insert("transitiontime", transitiontime);
+        }
         HueBridgeConnection::instance()->put("lights/" + QString::number(m_id) + "/state", params, this, "setStateFinished");
     }
+}
+
+void Light::setOnImmediate(bool on)
+{
+    setOnTimed(on, 0);
 }
 
 void Light::setOnLocal(bool on)
@@ -142,12 +155,20 @@ quint8 Light::bri() const
 
 void Light::setBri(quint8 bri)
 {
+    setBriTimed(bri, HUE_DEFAULT_TRANSITION_TIME);
+}
+
+void Light::setBriTimed(quint8 bri, uint transitiontime)
+{
     if (m_bri != bri) {
         qDebug() << "setting brightness to" << bri << m_busyStateChangeId;
         if (m_busyStateChangeId == -1) {
             QVariantMap params;
             params.insert("bri", bri);
             params.insert("on", true);
+            if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
+                params.insert("transitiontime", transitiontime);
+            }
             m_busyStateChangeId = HueBridgeConnection::instance()->put("lights/" + QString::number(m_id) + "/state", params, this, "setStateFinished");
             m_timeout.start();
         } else {
@@ -155,6 +176,11 @@ void Light::setBri(quint8 bri)
             m_briDirty = true;
         }
     }
+}
+
+void Light::setBriImmediate(quint8 bri)
+{
+    setBriTimed(bri, 0);
 }
 
 quint16 Light::hue() const
@@ -189,6 +215,11 @@ QColor Light::color() const
 }
 
 void Light::setColor(const QColor &color)
+{
+    setColorTimed(color, HUE_DEFAULT_TRANSITION_TIME);
+}
+
+void Light::setColorTimed(const QColor &color, uint transitiontime)
 {
     // Transform from RGB to Hue/Sat
     quint16 hue = color.hue() * 65535 / 360;
@@ -232,6 +263,9 @@ void Light::setColor(const QColor &color)
 
 
         params.insert("on", true);
+        if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
+            params.insert("transitiontime", transitiontime);
+        }
         m_busyStateChangeId = HueBridgeConnection::instance()->put("lights/" + QString::number(m_id) + "/state", params, this, "setStateFinished");
         m_timeout.start();
     } else {
@@ -242,6 +276,11 @@ void Light::setColor(const QColor &color)
 //        m_xyDirty = true;
 //        m_dirtyXy = QPointF(x, y);
     }
+}
+
+void Light::setColorImmediate(const QColor &color)
+{
+    setColorTimed(color, 0);
 }
 
 QPointF Light::xy() const
@@ -264,16 +303,28 @@ quint16 Light::ct() const
 
 void Light::setCt(quint16 ct)
 {
+    setCtTimed(ct, HUE_DEFAULT_TRANSITION_TIME);
+}
+
+void Light::setCtTimed(quint16 ct, uint transitiontime)
+{
     if (m_busyStateChangeId == -1) {
         QVariantMap params;
         params.insert("ct", ct);
         params.insert("on", true);
+        if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
+            params.insert("transitiontime", transitiontime);
+        }
         m_busyStateChangeId = HueBridgeConnection::instance()->put("lights/" + QString::number(m_id) + "/state", params, this, "setStateFinished");
         m_timeout.start();
     } else {
         m_dirtyCt = ct;
         m_ctDirty = true;
     }
+}
+
+void Light::setCtImmediate(quint16 ct) {
+    setCtTimed(ct, 0);
 }
 
 QString Light::alert() const

@@ -31,6 +31,8 @@
 //#define HUE_EMULATE (1)
 #undef HUE_EMULATE
 
+#define HUE_DEFAULT_TRANSITION_TIME (4)
+
 class QNetworkAccessManager;
 class QNetworkReply;
 

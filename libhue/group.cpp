@@ -67,9 +67,22 @@ bool Group::on() const
 
 void Group::setOn(bool on)
 {
+    setOnTimed(on, HUE_DEFAULT_TRANSITION_TIME);
+}
+
+void Group::setOnTimed(bool on, uint transitiontime)
+{
     QVariantMap params;
     params.insert("on", on);
+    if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
+        params.insert("transitiontime", transitiontime);
+    }
     HueBridgeConnection::instance()->put("groups/" + QString::number(m_id) + "/action", params, this, "setStateFinished");
+}
+
+void Group::setOnImmediate(bool on)
+{
+    setOnTimed(on, 0);
 }
 
 void Group::setOnLocal(bool on)
@@ -87,12 +100,25 @@ quint8 Group::bri() const
 
 void Group::setBri(quint8 bri)
 {
+    setBriTimed(bri, HUE_DEFAULT_TRANSITION_TIME);
+}
+
+void Group::setBriTimed(quint8 bri, uint transitiontime)
+{
     if (bri != m_bri) {
         QVariantMap params;
         params.insert("on", true);
         params.insert("bri", bri);
+        if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
+            params.insert("transitiontime", transitiontime);
+        }
         HueBridgeConnection::instance()->put("groups/" + QString::number(m_id) + "/action", params, this, "setStateFinished");
     }
+}
+
+void Group::setBriImmediate(quint8 bri)
+{
+    setBriTimed(bri, 0);
 }
 
 quint16 Group::hue() const
@@ -131,6 +157,11 @@ QColor Group::color() const
 }
 
 void Group::setColor(const QColor &color)
+{
+    setColorTimed(color, HUE_DEFAULT_TRANSITION_TIME);
+}
+
+void Group::setColorTimed(const QColor &color, uint transitiontime)
 {
     // Transform from RGB to Hue/Sat
     quint16 hue = color.hue() * 65535 / 360;
@@ -173,6 +204,9 @@ void Group::setColor(const QColor &color)
 
 
         params.insert("on", true);
+        if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
+            params.insert("transitiontime", transitiontime);
+        }
         m_busyStateChangeId = HueBridgeConnection::instance()->put("groups/" + QString::number(m_id) + "/action", params, this, "setStateFinished");
         m_timeout.start();
     } else {
@@ -183,6 +217,11 @@ void Group::setColor(const QColor &color)
 //        m_xyDirty = true;
 //        m_dirtyXy = QPointF(x, y);
     }
+}
+
+void Group::setColorImmediate(const QColor &color)
+{
+    setColorTimed(color, 0);
 }
 
 QPointF Group::xy() const
@@ -205,16 +244,29 @@ quint16 Group::ct() const
 
 void Group::setCt(quint16 ct)
 {
+    setCtTimed(ct, HUE_DEFAULT_TRANSITION_TIME);
+}
+
+void Group::setCtTimed(quint16 ct, uint transitiontime)
+{
     if (m_busyStateChangeId == -1) {
         QVariantMap params;
         params.insert("ct", ct);
         params.insert("on", true);
+        if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
+            params.insert("transitiontime", transitiontime);
+        }
         m_busyStateChangeId = HueBridgeConnection::instance()->put("groups/" + QString::number(m_id) + "/action", params, this, "setStateFinished");
         m_timeout.start();
     } else {
         m_dirtyCt = ct;
         m_ctDirty = true;
     }
+}
+
+void Group::setCtImmediate(quint16 ct)
+{
+    setCtTimed(ct, 0);
 }
 
 QString Group::alert() const
