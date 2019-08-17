@@ -29,9 +29,9 @@ Dialog {
             width: parent.width
             spacing: Theme.paddingLarge
 
-            PageHeader {
+            DialogHeader {
                 id: pageHeader
-                title: qsTr("Edit light")
+                title: qsTr("Rename light")
             }
 
             TextField {

@@ -15,15 +15,21 @@ Item {
 
         Column {
             id: hueGenericColumn
-            width: parent.width - hueDimmerIcon.width - Theme.paddingMedium
+            width: parent.width - hueGenericIcon.width - Theme.paddingMedium
         }
 
-        IconButton {
-            id: hueDimmerIcon
+        Item {
             width: Theme.iconSizeExtraLarge
             height: width
-            icon.source: Qt.resolvedUrl("image://scintillon/sensors/generic-0")
-            icon.color: "white"
+            Icon {
+                id: hueGenericIcon
+                width: Theme.iconSizeLarge
+                height: Theme.iconSizeLarge
+                anchors.centerIn: parent
+                source: Qt.resolvedUrl("image://scintillon/sensors/generic-0")
+                color: "white"
+                fillMode: Image.PreserveAspectFit
+            }
         }
     }
 }

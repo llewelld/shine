@@ -20,12 +20,12 @@
     </message>
     <message>
         <location filename="../qml/pages/About.qml" line="57"/>
-        <source>Author:</source>
+        <source>App author:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/About.qml" line="65"/>
-        <source>Libhue:</source>
+        <source>Libhue author:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -274,7 +274,7 @@ Please go back and try connecting again</source>
     <name>LightEdit</name>
     <message>
         <location filename="../qml/pages/LightEdit.qml" line="34"/>
-        <source>Edit light</source>
+        <source>Rename light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

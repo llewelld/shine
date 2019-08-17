@@ -70,28 +70,32 @@ Item {
             width: (parent.width) * 0.5
             spacing: Theme.paddingSmall
 
-            IconButton {
-                id: hueTapIcon
+            Item {
                 width: Theme.iconSizeExtraLarge
                 height: width
-                icon.source: {
-                    switch (hueTap.buttonId) {
-                    case 16:
-                        return Qt.resolvedUrl("image://scintillon/sensors/tap-2")
-                        break;
-                    case 17:
-                        return Qt.resolvedUrl("image://scintillon/sensors/tap-3")
-                        break;
-                    case 18:
-                        return Qt.resolvedUrl("image://scintillon/sensors/tap-4")
-                        break;
-                    case 34:
-                        return Qt.resolvedUrl("image://scintillon/sensors/tap-1")
-                        break;
+                Icon {
+                    id: hueTapIcon
+                    anchors.centerIn: parent
+                    source: {
+                        switch (hueTap.buttonId) {
+                        case 16:
+                            return Qt.resolvedUrl("image://scintillon/sensors/tap-2")
+                            break;
+                        case 17:
+                            return Qt.resolvedUrl("image://scintillon/sensors/tap-3")
+                            break;
+                        case 18:
+                            return Qt.resolvedUrl("image://scintillon/sensors/tap-4")
+                            break;
+                        case 34:
+                            return Qt.resolvedUrl("image://scintillon/sensors/tap-1")
+                            break;
+                        }
+                        return Qt.resolvedUrl("image://scintillon/sensors/tap")
                     }
-                    return Qt.resolvedUrl("image://scintillon/sensors/tap")
+                    color: "white"
+                    fillMode: Image.PreserveAspectFit
                 }
-                icon.color: "white"
             }
         }
     }

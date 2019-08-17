@@ -55,14 +55,20 @@ Item {
             width: (parent.width) * 0.5
             spacing: Theme.paddingSmall
 
-            IconButton {
-                id: hueBridgeIcon
+            Item {
                 width: Theme.iconSizeExtraLarge
                 height: width
-                icon.source: hueBridge.day
-                             ? Qt.resolvedUrl("image://scintillon/sensors/daylight-sunrise")
-                             : Qt.resolvedUrl("image://scintillon/sensors/daylight-sunset")
-                icon.color: "white"
+                Icon {
+                    id: hueBridgeIcon
+                    width: Theme.iconSizeLarge
+                    height: Theme.iconSizeLarge
+                    anchors.centerIn: parent
+                    source: hueBridge.day
+                                 ? Qt.resolvedUrl("image://scintillon/sensors/daylight-sunrise")
+                                 : Qt.resolvedUrl("image://scintillon/sensors/daylight-sunset")
+                    color: "white"
+                    fillMode: Image.PreserveAspectFit
+                }
             }
         }
     }

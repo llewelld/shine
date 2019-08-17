@@ -13,7 +13,7 @@ Page {
 
     SilicaFlickable {
         anchors.fill: parent
-        contentHeight: aboutColumn.height
+        contentHeight: aboutColumn.height + Theme.paddingLarge
         flickableDirection: Flickable.VerticalFlick
 
         VerticalScrollDecorator {}
@@ -48,23 +48,23 @@ Page {
             InfoRow {
                 label: qsTr("Version:")
                 value: version
-                midlineRatio: 0.3
+                midlineRatio: 0.4
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
             }
 
             InfoRow {
-                label: qsTr("Author:")
+                label: qsTr("App author:")
                 value: "David Llewellyn-Jones"
-                midlineRatio: 0.3
+                midlineRatio: 0.4
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
             }
 
             InfoRow {
-                label: qsTr("Libhue:")
+                label: qsTr("Libhue author:")
                 value: "Michael Zanetti"
-                midlineRatio: 0.3
+                midlineRatio: 0.4
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
             }
@@ -72,7 +72,7 @@ Page {
             InfoRow {
                 label: qsTr("Licence:")
                 value: "GPLv2"
-                midlineRatio: 0.3
+                midlineRatio: 0.4
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
             }

@@ -51,15 +51,19 @@ Page {
                 width: Theme.iconSizeMedium
                 height: Theme.itemSizeSmall
                 onClicked: light.bri = 0;
-                icon.source: "image://scintillon/icon-s-dim"
+                icon.source: "image://scintillon/icon-m-dim"
                 icon.color: "white"
                 icon.fillMode: Image.PreserveAspectFit
                 icon.verticalAlignment: Image.AlignVCenter
+                icon.width: width - 2 * Theme.paddingMedium
+                icon.height: height
             }
             Slider {
                 id: brightnessSlider
                 width: parent.width - 2 * Theme.iconSizeMedium
                 height: Theme.itemSizeSmall
+                leftMargin: Theme.paddingSmall
+                rightMargin: Theme.paddingSmall
                 minimumValue: 0
                 maximumValue: 255
                 //value: light ? light.bri : 0
@@ -72,10 +76,13 @@ Page {
                 width: Theme.iconSizeMedium
                 height: Theme.itemSizeSmall
                 onClicked: light.bri = 255;
-                icon.source: "image://scintillon/icon-s-bright"
+                icon.source: "image://scintillon/icon-m-bright"
                 icon.color: "white"
                 icon.fillMode: Image.PreserveAspectFit
                 icon.verticalAlignment: Image.AlignVCenter
+                icon.width: width - 2 * Theme.paddingMedium
+                icon.height: height
+
             }
         }
 
@@ -92,9 +99,11 @@ Page {
                 color: light ? light.color : "black"
                 active: light ? (light.colormode == LightInterface.ColorModeHS || light.colormode == LightInterface.ColorModeXY) : false
 
-                touchDelegate: Rectangle {
-                    height: 8 * (3)
-                    width: 8 * (3)
+                touchDelegate: GlassItem {
+                    width: Theme.itemSizeSmall / 2.0
+                    height: Theme.itemSizeSmall / 2.0
+                    radius: 0.17
+                    falloffRadius: 0.17
                     color: "black"
                 }
 
@@ -119,12 +128,14 @@ Page {
                     }
                 }
 
-                touchDelegate: Rectangle {
+                touchDelegate: GlassItem {
                     height: colorPickerCt.height
-                    width: 8 * (.5)
-                    color: "transparent"
-                    border.color: "black"
-                    border.width: 8 * (2)
+                    width: Theme.itemSizeSmall / 3.0
+                    dimmed: false
+                    radius: 0.17
+                    falloffRadius: 0.14
+                    ratio: 0.0
+                    color: "black"
                 }
             }
         }

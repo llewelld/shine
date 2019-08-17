@@ -40,7 +40,7 @@ Dialog {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: schedule ? "Edit alarm." : root.light ? "Create an alarm for %1. The current power, brightness and color values will be restored at the given time.".arg(root.light.name)
+                text: schedule ? "Edit alarm" : root.light ? "Create alarm for %1. Current power, brightness and color values will be restored at the given time.".arg(root.light.name)
                                  : "Create an alarm for %1. The scene will be activated at the given time.".arg(root.scene.name)
                 wrapMode: Text.WordWrap
             }

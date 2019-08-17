@@ -76,28 +76,34 @@ Item {
             width: (parent.width) * 0.5
             spacing: Theme.paddingSmall
 
-            IconButton {
-                id: hueDimmerIcon
+            Item {
                 width: Theme.iconSizeExtraLarge
                 height: (Theme.itemSizeSmall * 2) + Theme.paddingSmall
-                icon.source: {
-                    switch (hueDimmer.buttonNumber) {
-                    case 1:
-                        return Qt.resolvedUrl("image://scintillon/sensors/dimmer-1")
-                        break;
-                    case 2:
-                        return Qt.resolvedUrl("image://scintillon/sensors/dimmer-2")
-                        break;
-                    case 3:
-                        return Qt.resolvedUrl("image://scintillon/sensors/dimmer-3")
-                        break;
-                    case 4:
-                        return Qt.resolvedUrl("image://scintillon/sensors/dimmer-4")
-                        break;
+                Icon {
+                    id: hueDimmerIcon
+                    width: Theme.iconSizeLarge
+                    height: Theme.iconSizeLarge
+                    anchors.centerIn: parent
+                    source: {
+                        switch (hueDimmer.buttonNumber) {
+                        case 1:
+                            return Qt.resolvedUrl("image://scintillon/sensors/dimmer-1")
+                            break;
+                        case 2:
+                            return Qt.resolvedUrl("image://scintillon/sensors/dimmer-2")
+                            break;
+                        case 3:
+                            return Qt.resolvedUrl("image://scintillon/sensors/dimmer-3")
+                            break;
+                        case 4:
+                            return Qt.resolvedUrl("image://scintillon/sensors/dimmer-4")
+                            break;
+                        }
+                        return Qt.resolvedUrl("image://scintillon/sensors/dimmer")
                     }
-                    return Qt.resolvedUrl("image://scintillon/sensors/dimmer")
+                    color: "white"
+                    fillMode: Image.PreserveAspectFit
                 }
-                icon.color: "white"
             }
 
             TextSwitch {

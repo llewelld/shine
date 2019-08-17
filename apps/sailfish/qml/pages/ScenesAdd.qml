@@ -63,7 +63,7 @@ Dialog {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: "Check all the lights that should be controlled by this scene. The current brightness and color values will be used."
+                text: "Seect lights to be controlled by this scene. Current brightness and color values will be used."
                 wrapMode: Text.WordWrap
             }
 

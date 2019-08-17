@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32px"
+   height="32px"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="icon-m-bright.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>presetsDimmerDimup</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1352"
+     inkscape:window-height="1094"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="7.375"
+     inkscape:cx="16"
+     inkscape:cy="16"
+     inkscape:window-x="283"
+     inkscape:window-y="505"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg14" />
+  <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title2">presetsDimmerDimup</title>
+  <desc
+     id="desc4">Created with Sketch.</desc>
+  <defs
+     id="defs6" />
+  <g
+     id="g12"
+     transform="matrix(1.3326115,0,0,1.3326115,-5.330446,-5.330446)"
+     style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:0.75040627">
+    <g
+       id="g10"
+       style="fill:#101010;stroke-width:0.56310958">
+      <path
+         d="m 16.013,19.333 v -6.666 c 1.838,0 3.333,1.495 3.333,3.333 0,1.838 -1.495,3.333 -3.333,3.333 m 0,-8.333 c 2.762,0 5,2.238 5,5 0,2.762 -2.238,5 -5,5 -2.762,0 -5,-2.238 -5,-5 0,-1.579 0.747,-2.971 1.891,-3.887 C 13.759,11.427 14.831,11 16.013,11 Z m 0,12 c 0.55,0 1,0.45 1,1 v 3.013 c 0,0.549 -0.45,1 -1,1 -0.55,0 -1,-0.451 -1,-1 V 24 c 0,-0.55 0.45,-1 1,-1 z m 0,-14 c -0.55,0 -1,-0.45 -1,-1 V 5 c 0,-0.55 0.45,-1 1,-1 0.55,0 1,0.45 1,1 v 3 c 0,0.55 -0.45,1 -1,1 z m -7,7 c 0,0.55 -0.45,1 -1,1 H 5 C 4.451,17 4,16.55 4,16 4,15.45 4.451,15 5,15 h 3.013 c 0.55,0 1,0.45 1,1 z m 18,-1 c 0.55,0 1,0.45 1,1 0,0.55 -0.45,1 -1,1 h -3 c -0.55,0 -1,-0.45 -1,-1 0,-0.55 0.45,-1 1,-1 z M 9.6829,20.916 c 0.389,-0.389 1.025,-0.389 1.414,0 0.389,0.389 0.389,1.025 0,1.414 l -2.13,2.13 c -0.389,0.39 -1.025,0.39 -1.415,0 -0.389,-0.389 -0.389,-1.024 0,-1.414 z m 12.6289,-9.8711 c -0.389,0.389 -1.025,0.389 -1.414,0 -0.389,-0.389 -0.389,-1.025 0,-1.414 l 2.121,-2.121 c 0.389,-0.39 1.025,-0.39 1.414,0 0.389,0.389 0.389,1.024 0,1.414 z M 9.6683,11.1045 7.5373,8.9735 c -0.389,-0.389 -0.389,-1.024 0,-1.414 0.389,-0.389 1.026,-0.389 1.414,0 l 2.131,2.131 c 0.389,0.389 0.389,1.025 0,1.414 -0.389,0.389 -1.025,0.389 -1.414,0 z m 12.6992,9.8008 2.121,2.121 c 0.389,0.389 0.389,1.025 0,1.414 -0.389,0.389 -1.025,0.389 -1.414,0 l -2.121,-2.121 c -0.39,-0.39 -0.39,-1.025 0,-1.414 0.389,-0.39 1.025,-0.39 1.414,0 z"
+         id="path8"
+         inkscape:connector-curvature="0"
+         style="stroke-width:0.75040627" />
+    </g>
+  </g>
+</svg>

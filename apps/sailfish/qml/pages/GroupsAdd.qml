@@ -63,7 +63,7 @@ Dialog {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: "Check all the lights that should be controlled by this group."
+                text: "Select lights to be in the group"
                 wrapMode: Text.WordWrap
             }
 

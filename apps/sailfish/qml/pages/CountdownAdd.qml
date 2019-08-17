@@ -41,7 +41,7 @@ Dialog {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: schedule ? "Edit countdown timer." : root.light ? "Create a countdown timer for %1. The current power, brightness and color values will be restored after the time has elapsed.".arg(root.light.name)
+                text: schedule ? "Edit countdown timer" : root.light ? "Create countdown timer for %1. Current power, brightness and color values will be restored after the time has elapsed.".arg(root.light.name)
                                  : "Create an alarm for %1. The scene will be activated after the time has elapsed.".arg(root.scene.name)
                 wrapMode: Text.WordWrap
             }
@@ -100,6 +100,7 @@ Dialog {
             }
 
             Label {
+                visible: false
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 text: "Remaining: " + remaining()

@@ -54,10 +54,10 @@ generate 428 86 "scintillon-title"
 generate 32 32 "icon-cover-action-off icon-cover-action-on"
 
 # Generate small icons
-generate 32 32 "icon-s-alarm icon-s-bright icon-s-countdown icon-s-dim cover-lights-on cover-lights-off"
+generate 32 32 "icon-s-alarm icon-s-countdown cover-lights-on cover-lights-off"
 
 # Generate medium icons
-generate 64 64 "bulbGroup bulbGroup-outline bulbsSultan bulbsSultan-outline icon-m-alarm icon-m-countdown icon-m-scene icon-m-scene-outline icon-m-weekday icon-m-lights icon-m-scenes icon-m-switches icon-m-alarms icon-m-rules icon-m-bridge icon-m-rule"
+generate 64 64 "bulbGroup bulbGroup-outline bulbsSultan bulbsSultan-outline icon-m-alarm icon-m-countdown icon-m-scene icon-m-scene-outline icon-m-weekday icon-m-lights icon-m-scenes icon-m-switches icon-m-alarms icon-m-rules icon-m-bridge icon-m-rule icon-m-bright icon-m-dim"
 
 # Archetypes
 archetype 64 64 "classicbulb sultanbulb spotbulb floodbulb candlebulb huebloom hueiris huego huelightstrip hueplay groundspot bollard tablewash tableshade floorshade floorlantern flexiblelamp recessedfloor walllantern wallshade wallspot pendantround pendantlong ceilinground ceilingsquare singlespot doublespot recessedceiling"
