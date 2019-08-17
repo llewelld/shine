@@ -24,7 +24,7 @@
 #include <QDebug>
 #include <QGenericMatrix>
 
-Light::Light(int id, const QString &name, QObject *parent):
+Light::Light(int id, const QString &name, QObject *parent) :
     LightInterface(parent),
     m_id(id),
     m_name(name),

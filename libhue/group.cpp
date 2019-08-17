@@ -22,14 +22,13 @@
 
 #include <QColor>
 #include <QDebug>
-#include <qabstractitemmodel.h>
 #include <QGenericMatrix>
 
-Group::Group(int id, const QString &name, QObject *parent)
-    : LightInterface(parent)
-    , m_id(id)
-    , m_name(name)
-    , m_bri(0),
+Group::Group(int id, const QString &name, QObject *parent) :
+    LightInterface(parent),
+    m_id(id),
+    m_name(name),
+    m_bri(0),
     m_busyStateChangeId(-1),
     m_hueDirty(false),
     m_satDirty(false),
@@ -106,13 +105,19 @@ void Group::setBri(quint8 bri)
 void Group::setBriTimed(quint8 bri, uint transitiontime)
 {
     if (bri != m_bri) {
-        QVariantMap params;
-        params.insert("on", true);
-        params.insert("bri", bri);
-        if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
-            params.insert("transitiontime", transitiontime);
+        if (m_busyStateChangeId == -1) {
+            QVariantMap params;
+            params.insert("on", true);
+            params.insert("bri", bri);
+            if (transitiontime != HUE_DEFAULT_TRANSITION_TIME) {
+                params.insert("transitiontime", transitiontime);
+            }
+            m_busyStateChangeId = HueBridgeConnection::instance()->put("groups/" + QString::number(m_id) + "/action", params, this, "setStateFinished");
+            m_timeout.start();
+        } else {
+            m_dirtyBri = bri;
+            m_briDirty = true;
         }
-        HueBridgeConnection::instance()->put("groups/" + QString::number(m_id) + "/action", params, this, "setStateFinished");
     }
 }
 
@@ -201,6 +206,7 @@ void Group::setColorTimed(const QColor &color, uint transitiontime)
 //        QVariantList xyList;
 //        xyList << x << y;
 //        params.insert("xy", xyList);
+        Q_UNUSED(x); Q_UNUSED(y);
 
 
         params.insert("on", true);
@@ -449,7 +455,7 @@ void Group::setStateFinished(int id, const QVariant &response)
         m_timeout.stop();
         if (m_hueDirty || m_satDirty || m_briDirty) {
             QVariantMap params;
-            params.insert("transitiontime", 0);
+            //params.insert("transitiontime", 0);
             if (m_hueDirty) {
                 params.insert("hue", m_dirtyHue);
                 m_hueDirty = false;
@@ -483,7 +489,7 @@ void Group::setStateFinished(int id, const QVariant &response)
             params.insert("xy", xyList);
             m_xyDirty = false;
 
-            m_busyStateChangeId = HueBridgeConnection::instance()->put("lights/" + QString::number(m_id) + "/state", params, this, "setStateFinished");
+            m_busyStateChangeId = HueBridgeConnection::instance()->put("groups/" + QString::number(m_id) + "/action", params, this, "setStateFinished");
             m_timeout.start();
         }
     }
