@@ -24,7 +24,8 @@ Dialog {
             spacing: Theme.paddingLarge
 
             DialogHeader {
-                title: qsTr("Hue Hub error")
+                //% "Hue Hub error"
+                title: qsTrId("scintillon-error_pagetitle")
                 acceptText: ""
             }
 

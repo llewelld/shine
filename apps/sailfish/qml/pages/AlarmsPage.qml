@@ -18,15 +18,19 @@ Page {
 
         ViewPlaceholder {
             enabled: listView.count === 0
-            text: qsTr("No alarms or timers")
+            //% "No alarms or timers"
+            text: qsTrId("scintillon-alarm_placeholder_title")
             hintText: (HueBridge.status === HueBridge.BridgeStatusConnected)
-                      ? qsTr("Create an alarm on the Lights or Scenes pages")
-                      : qsTr("Not connected to a Hue Hub")
+                      //% "Create an alarm on the Lights or Scenes pages"
+                      ? qsTrId("scintillon-alarm_placeholder_summary_create_alarm")
+                      //% "Not connected to a Hue Hub"
+                      : qsTrId("scintillon-alarm_placeholder_no_hub")
         }
 
         header: PageHeader {
             id: title
-            title: qsTr("Alarms and timers")
+            //% "Alarms and timers"
+            title: qsTrId("scintillon-alarm_list_title")
         }
 
         model: schedules
@@ -66,7 +70,8 @@ Page {
                 id: alarmsMenuComponent
                 ContextMenu {
                     MenuItem {
-                        text: qsTr("Delete")
+                        //% "Delete"
+                        text: qsTrId("scintillon-alarm_delete")
                         onClicked: schedules.deleteSchedule(model.id)
                     }
                 }

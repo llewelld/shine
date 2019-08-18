@@ -38,7 +38,8 @@ Item {
             TextSwitch {
                 id: onButton
                 width: parent.width
-                text: "On"
+                //% "On"
+                text: qsTrId("scintillon-sensor_dimmer_on")
                 checked: hueDimmer.buttonNumber == 1
                 automaticCheck: false
                 onClicked: hueDimmer.buttonNumber = 1
@@ -47,7 +48,8 @@ Item {
             TextSwitch {
                 id: brighterButton
                 width: parent.width
-                text: "Brighter"
+                //% "Brighter"
+                text: qsTrId("scintillon-sensor_dimmer_brigher")
                 checked: hueDimmer.buttonNumber == 2
                 automaticCheck: false
                 onClicked: hueDimmer.buttonNumber = 2
@@ -56,7 +58,8 @@ Item {
             TextSwitch {
                 id: dimmerButton
                 width: parent.width
-                text: "Dimmer"
+                //% "Dimmer"
+                text: qsTrId("scintillon-sensor_dimmer_dimmer")
                 checked: hueDimmer.buttonNumber == 3
                 automaticCheck: false
                 onClicked: hueDimmer.buttonNumber = 3
@@ -65,7 +68,8 @@ Item {
             TextSwitch {
                 id: offButton
                 width: parent.width
-                text: "Off"
+                //% "Off"
+                text: qsTrId("scintillon-sensor_dimmer_off")
                 checked: hueDimmer.buttonNumber == 4
                 automaticCheck: false
                 onClicked: hueDimmer.buttonNumber = 4
@@ -114,7 +118,8 @@ Item {
                     pressCheckBox.checked = true;
                     holdCheckBox.checked = false;
                 }
-                text: "Press"
+                //% "Press"
+                text: qsTrId("scintillon-sensor_dimmer_press")
             }
 
             TextSwitch {
@@ -124,7 +129,8 @@ Item {
                     holdCheckBox.checked = true;
                     pressCheckBox.checked = false;
                 }
-                text: "Hold"
+                //% "Hold"
+                text: qsTrId("scintillon-sensor_dimmer_hold")
             }
         }
     }

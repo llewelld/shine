@@ -36,7 +36,8 @@ Item {
 
             TextSwitch {
                 width: parent.width
-                text: "Sunrise"
+                //% "Sunrise"
+                text: qsTrId("scintillon-sensor_sunrise")
                 checked: hueBridge.day
                 automaticCheck: false
                 onClicked: hueBridge.day = true
@@ -44,7 +45,8 @@ Item {
 
             TextSwitch {
                 width: parent.width
-                text: "Sunset"
+                //% "Sunset"
+                text: qsTrId("scintillon-sensor_sunset")
                 checked: !hueBridge.day
                 automaticCheck: false
                 onClicked: hueBridge.day = false

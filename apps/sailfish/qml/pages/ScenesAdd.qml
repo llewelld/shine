@@ -47,12 +47,17 @@ Dialog {
 
             DialogHeader {
                 id: pageHeader
-                title: sceneid.length > 0 ? qsTr("Edit scene") : qsTr("Create scene")
+                title: sceneid.length > 0
+                       //% "Edit scene"
+                       ? qsTrId("scintillon-scene_page_title_edit")
+                       //% "Create scene"
+                       : qsTrId("scintillon-scene_page_title_create")
             }
 
             TextField {
                 id: sceneName
-                label: qsTr("Scene name")
+                //% "Scene name"
+                label: qsTrId("scintillon-scene_name")
                 placeholderText: label
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNone
@@ -63,7 +68,8 @@ Dialog {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: "Seect lights to be controlled by this scene. Current brightness and color values will be used."
+                //% "Select lights to be controlled by this scene. Current brightness and color values will be used."
+                text: qsTrId("scintillon-scene_select_lights")
                 wrapMode: Text.WordWrap
             }
 

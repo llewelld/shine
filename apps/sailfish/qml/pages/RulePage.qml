@@ -46,7 +46,8 @@ Page {
             /*
             DialogHeader {
                 id: pageHeader
-                title: qsTr("Rule")
+                //% "Rule"
+                title: qsTrId("scintillon-rule_title")
             }
             */
 
@@ -57,7 +58,8 @@ Page {
 
             TextField {
                 id: ruleName
-                label: qsTr("Rule name")
+                //% "Rule name"
+                label: qsTrId("scintillon-rule_name")
                 placeholderText: label
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNone
@@ -68,7 +70,8 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Conditions")
+                //% "Conditions"
+                text: qsTrId("scintillon-rule_section_conditions")
             }
 
             ColumnView {
@@ -85,7 +88,8 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Actions")
+                //% "Actions"
+                text: qsTrId("scintillon-rule_section_actions")
             }
 
             Repeater {

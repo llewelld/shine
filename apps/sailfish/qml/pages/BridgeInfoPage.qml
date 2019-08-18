@@ -35,7 +35,8 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Search for devices")
+                //% "Search for devices"
+                text: qsTrId("scintillon-bridge_search_devices")
                 enabled: !searching
                 onClicked: {
                     lights.searchForNewLights();
@@ -46,7 +47,8 @@ Page {
                 }
             }
             MenuItem {
-                text: qsTr("Update now")
+                //% "Update now"
+                text: qsTrId("scintillon-bridge_update_now")
                 enabled: bridgeConfig.connectedToPortal && (bridgeConfig.updateState === Configuration.UpdateStateReadyToUpdate)
                 onClicked: bridgeConfig.performUpdate()
             }
@@ -58,11 +60,13 @@ Page {
             spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("Bridge control")
+                //% "Bridge control"
+                title: qsTrId("scintillon-bridge_placeholder_title")
             }
 
             InfoRow {
-                label: qsTr("Bridge name")
+                //% "Bridge name"
+                label: qsTrId("scintillon-bridge_name")
                 value: bridgeConfig.name
                 midlineRatio: 0.5
                 midlineMin: Theme.fontSizeSmall * 5
@@ -70,7 +74,8 @@ Page {
             }
 
             InfoRow {
-                label: qsTr("Bridge SW Version")
+                //% "Bridge SW version"
+                label: qsTrId("scintillon-bridge_sw_version")
                 value: bridgeConfig.swVersion
                 midlineRatio: 0.5
                 midlineMin: Theme.fontSizeSmall * 5
@@ -78,15 +83,21 @@ Page {
             }
 
             InfoRow {
-                label: qsTr("Portal services")
-                value: bridgeConfig.connectedToPortal ? "Connected" : "Not connected"
+                //% "Portal services"
+                label: qsTrId("scintillon-bridge_portal_services")
+                value: bridgeConfig.connectedToPortal
+                       //% "Connected"
+                       ? qsTrId("scintillon-bridge_connected")
+                       //% "Not connected"
+                       : qsTrId("scintillon-bridge_not_connected")
                 midlineRatio: 0.5
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
             }
 
             InfoRow {
-                label: qsTr("Timezone")
+                //% "Timezone"
+                label: qsTrId("scintillon-bridge_timezone")
                 value: bridgeConfig.timezone
                 midlineRatio: 0.5
                 midlineMin: Theme.fontSizeSmall * 5
@@ -94,17 +105,22 @@ Page {
             }
 
             InfoRow {
-                label: qsTr("Update Status")
+                //% "Update status"
+                label: qsTrId("scintillon-bridge_update_status")
                 value: {
                     switch (bridgeConfig.updateState) {
                     case Configuration.UpdateStateUpToDate:
-                        return "Up to date"
+                        //% "Up to date"
+                        return qsTrId("scintillon-bridge_update_up_to_date")
                     case Configuration.UpdateStateDownloading:
-                        return "Downloading update..."
+                        //% "Downloading update..."
+                        return qsTrId("scintillon-bridge_update_downloading")
                     case Configuration.UpdateStateUpdating:
-                        return "Updating..."
+                        //% "Updating..."
+                        return qsTrId("scintillon-bridge_update_updating")
                     case Configuration.UpdateStateReadyToUpdate:
-                        return "Update available"
+                        //% "Update available"
+                        return qsTrId("scintillon-bridge_update_available")
                     }
                     return ""
                 }
@@ -114,8 +130,13 @@ Page {
             }
 
             InfoRow {
-                label: qsTr("Device search")
-                value: searching ? "Searching " + searchRemaining + " secs" : "Not searching"
+                //% "Device search"
+                label: qsTrId("scintillon-bridge_device_search")
+                value: searching
+                       //% "Searching %1 secs"
+                       ? qsTrId("scintillon-bridge_device_searching").arg(searchRemaining)
+                       //% "Not searching"
+                       : qsTrId("scintillon-bridge_device_not_searching")
                 midlineRatio: 0.5
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10

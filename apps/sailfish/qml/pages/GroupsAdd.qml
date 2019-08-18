@@ -47,12 +47,17 @@ Dialog {
 
             DialogHeader {
                 id: pageHeader
-                title: id.length > 0 ? qsTr("Edit group") : qsTr("Create group")
+                title: id.length > 0
+                       //% "Edit group"
+                       ? qsTrId("scintillon-group_add_edit")
+                       //% "Create group"
+                       : qsTrId("scintillon-group_add_create")
             }
 
             TextField {
                 id: groupName
-                label: qsTr("Group name")
+                //% "Group name"
+                label: qsTrId("scintillon-group_add_name")
                 placeholderText: label
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNone
@@ -63,7 +68,8 @@ Dialog {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: "Select lights to be in the group"
+                //% "Select lights to be in the group"
+                text: qsTrId("scintillon-group_add_select_lights")
                 wrapMode: Text.WordWrap
             }
 

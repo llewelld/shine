@@ -40,16 +40,19 @@ Dialog {
             spacing: Theme.paddingLarge
 
             DialogHeader {
-                title: qsTr("Attempting connection")
+                //% "Attempting connection"
+                title: qsTrId("scintillon-busy_attempting_connection")
                 acceptText: ""
-                cancelText: qsTr("Retry")
+                //% "Retry"
+                cancelText: qsTrId("scintillon-busy_attempt_connection_ retry")
             }
 
             Label {
                 id: busyLabel
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: qsTr("Waiting for the connection to establish")
+                //% "Waiting for the connection to establish"
+                text: qsTrId("scintillon-busy_waiting_to_connect")
                 wrapMode: Text.WordWrap
                 visible: false
             }
@@ -58,7 +61,8 @@ Dialog {
                 id: errorLabel
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: qsTr("Error authenticating to Hue bridge\nPlease go back and try connecting again")
+                //% "Error authenticating to Hue bridge\nPlease go back and try connecting again"
+                text: qsTrId("scintillon-busy_error_authenticating")
                 wrapMode: Text.WordWrap
                 visible: false
             }

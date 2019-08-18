@@ -24,8 +24,10 @@ Dialog {
             spacing: Theme.paddingLarge
 
             DialogHeader {
-                title: qsTr("Connect to Hue bridge")
-                acceptText: qsTr("Connect")
+                //% "Connect to Hue bridge"
+                title: qsTrId("scintillon-login_page_title")
+                //% "Connect"
+                acceptText: qsTrId("scintillon-login_accept")
                 cancelText: ""
             }
 
@@ -33,7 +35,8 @@ Dialog {
                 id: pressButtonLabel
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: qsTr("Please press the button on the Hue bridge and then Connect")
+                //% "Please press the button on the Hue bridge and then Connect"
+                text: qsTrId("scintillon-login_instructions")
                 wrapMode: Text.WordWrap
                 visible: true
             }

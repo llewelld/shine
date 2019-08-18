@@ -31,12 +31,14 @@ Dialog {
 
             DialogHeader {
                 id: pageHeader
-                title: qsTr("Rename light")
+                //% "Rename light"
+                title: qsTrId("scintillon-light_edit_page_header")
             }
 
             TextField {
                 id: lightName
-                label: qsTr("Light name")
+                //% "Light name"
+                label: qsTrId("scintillon-light_edit_name")
                 text: light ? light.name : ""
                 placeholderText: label
                 width: parent.width - 2 * Theme.horizontalPageMargin

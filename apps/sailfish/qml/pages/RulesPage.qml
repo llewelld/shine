@@ -19,15 +19,19 @@ Page {
 
         ViewPlaceholder {
             enabled: listView.count === 0
-            text: qsTr("No rules")
+            //% "No rules"
+            text: qsTrId("scintillon-rules_placeholder_text")
             hintText: (HueBridge.status === HueBridge.BridgeStatusConnected)
-                      ? qsTr("New rules are created on the Sensors and Switchs page")
-                      : qsTr("Not connected to a Hue Hub")
+                      //% "New rules are created on the Sensors and Switchs page"
+                      ? qsTrId("scintillon-rules_placeholder_hint_no_sensors")
+                      //% "Not connected to a Hue Hub"
+                      : qsTrId("scintillon-rules_placeholder_hint_no_hub")
         }
 
         header: PageHeader {
             id: title
-            title: qsTr("Rules")
+            //% "Rules"
+            title: qsTrId("scintillon-rules_page_title")
         }
 
         model: rules
@@ -65,7 +69,8 @@ Page {
                 id: rulesMenuComponent
                 ContextMenu {
                     MenuItem {
-                        text: qsTr("Delete")
+                        //% "Delete"
+                        text: qsTrId("scintillon-rules_menu_rule_delete")
                         onClicked: rules.deleteRule(model.id)
                     }
                 }

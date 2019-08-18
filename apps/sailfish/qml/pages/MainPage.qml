@@ -68,7 +68,8 @@ Page {
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
-                text: qsTr("About")
+                //% "About"
+                text: qsTrId("scintillon-main_menu_about")
                 onClicked: pageStack.push(Qt.resolvedUrl("About.qml"))
             }
         }
@@ -85,13 +86,15 @@ Page {
 
             BarButton {
                 source: "image://scintillon/icon-m-lights"
-                text: qsTr("Lights and groups")
+                //% "Lights and groups"
+                text: qsTrId("scintillon-main_button_lights_and_groups")
                 onClicked: pageStack.push(lightsPage)
             }
 
             BarButton {
                 source: "image://scintillon/icon-m-scenes"
-                text: qsTr("Scenes")
+                //% "Scenes"
+                text: qsTrId("scintillon-main_button_scenes")
                 onClicked: pageStack.push(scenesPage)
             }
         }
@@ -107,13 +110,15 @@ Page {
 
             BarButton {
                 source: "image://scintillon/icon-m-switches"
-                text: qsTr("Sensors and switches")
+                //% "Sensors and switches"
+                text: qsTrId("scintillon-main_button_sensors_and_switches")
                 onClicked: pageStack.push(sensorsPage)
             }
 
             BarButton {
                 source: "image://scintillon/icon-m-alarms"
-                text: qsTr("Alarms and timers")
+                //% "Alarms and timers"
+                text: qsTrId("scintillon-main_button_alarms_and_timers")
                 onClicked: pageStack.push(alarmsPage)
             }
         }
@@ -129,13 +134,15 @@ Page {
 
             BarButton {
                 source: "image://scintillon/icon-m-rules"
-                text: qsTr("Rules")
+                //% "Rules"
+                text: qsTrId("scintillon-main_button_rules")
                 onClicked: pageStack.push(rulesPage)
             }
 
             BarButton {
                 source: "image://scintillon/icon-m-bridge"
-                text: qsTr("Bridge Control")
+                //% "Bridge Control"
+                text: qsTrId("scintillon-main_button_bridge_control")
                 onClicked: pageStack.push(bridgeInfoPage)
             }
         }

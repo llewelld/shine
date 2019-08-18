@@ -34,21 +34,29 @@ Dialog {
 
             DialogHeader {
                 id: pageHeader
-                title: qsTr("Alarm")
+                //% "Alarm"
+                title: qsTrId("scintillon-alarm_page_title")
             }
 
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: schedule ? "Edit alarm" : root.light ? "Create alarm for %1. Current power, brightness and color values will be restored at the given time.".arg(root.light.name)
-                                 : "Create an alarm for %1. The scene will be activated at the given time.".arg(root.scene.name)
+                //% "Edit alarm"
+                text: schedule ? qsTrId("scintillon-alarm_edit_description")
+                               : root.light
+                                 //% "Create alarm for %1. Current power, brightness and color values will be restored at the given time."
+                                 ? qsTrId("scintillon-alarm_create_description_light").arg(root.light.name)
+                                 //% "Create an alarm for %1. The scene will be activated at the given time."
+                                 : qsTrId("scintillon-alarm_create_description_scene").arg(root.scene.name)
                 wrapMode: Text.WordWrap
             }
 
             TextField {
                 id: alarmName
-                label: qsTr("Alarm name")
-                text: "Alarm on %1".arg(light ? light.name : scene.name)
+                //% "Alarm name"
+                label: qsTrId("scintillon-alarm_name")
+                //% "Alarm on %1"
+                text: qsTrId("scintillon-alarm_on_light").arg(light ? light.name : scene.name)
                 placeholderText: label
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNone
@@ -63,7 +71,8 @@ Dialog {
                     id: turnOnSwitch
                     width: parent.width / 2
                     enabled: light && light.on
-                    text: light ? "Turn on" : ""
+                    //% "Turn on"
+                    text: light ? qsTrId("scintillon-alarm_turn_on") : ""
                     checked: light && light.on
                     automaticCheck: false
                     onClicked: {
@@ -75,7 +84,8 @@ Dialog {
                     id: turnOffSwitch
                     width: parent.width / 2
                     enabled: light && light.on
-                    text: light ? "Turn off" : ""
+                    //% "Turn off"
+                    text: light ? qsTrId("scintillon-alarm_turn_off") : ""
                     checked: light && !light.on
                     automaticCheck: false
                     onClicked: {
@@ -87,7 +97,8 @@ Dialog {
 
             TextSwitch {
                 id: recurringSwitch
-                text: "Recurring alarm"
+                //% "Recurring alarm"
+                text: qsTrId("scintillon-alarm_recurring")
                 automaticCheck: true
             }
 
@@ -100,7 +111,8 @@ Dialog {
 
             ValueButton {
                 id: alarmDate
-                label: qsTr("Alarm date")
+                //% "Alarm date"
+                label: qsTrId("scintillon-alarm_date")
                 value: Qt.formatDate(date, 'd MMM yyyy')
                 enabled: !recurringSwitch.checked
                 onClicked: {
@@ -113,7 +125,8 @@ Dialog {
 
             ValueButton {
                 id: alarmTime
-                label: qsTr("Alarm time")
+                //% "Alarm time"
+                label: qsTrId("scintillon-alarm_time")
                 value: Qt.formatTime(date, 'hh:mm')
                 width: parent.width
                 onClicked: {

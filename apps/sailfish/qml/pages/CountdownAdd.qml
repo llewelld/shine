@@ -35,21 +35,29 @@ Dialog {
 
             DialogHeader {
                 id: pageHeader
-                title: qsTr("Countdown timer")
+                //% "Countdown timer"
+                title: qsTrId("scintillon-countdown_header")
             }
 
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                text: schedule ? "Edit countdown timer" : root.light ? "Create countdown timer for %1. Current power, brightness and color values will be restored after the time has elapsed.".arg(root.light.name)
-                                 : "Create an alarm for %1. The scene will be activated after the time has elapsed.".arg(root.scene.name)
+                //% "Edit countdown timer"
+                text: schedule ? qsTrId("scintillon-countdown_edit_timer")
+                               : root.light
+                                 //% "Create countdown timer for %1. Current power, brightness and color values will be restored after the time has elapsed."
+                                 ? qsTrId("scintillon-countdown_create_for_light").arg(root.light.name)
+                                 //% "Create a countdown timer for %1. The scene will be activated after the time has elapsed."
+                                 : qsTrId("scintillon-countdown_create_for_scene").arg(root.scene.name)
                 wrapMode: Text.WordWrap
             }
 
             TextField {
                 id: alarmName
-                label: qsTr("Timer name")
-                text: "Countdown on %1".arg(light ? light.name : scene.name)
+                //% "Timer name"
+                label: qsTrId("scintillon-countdown_timer_name")
+                //% "Countdown on %1"
+                text: qsTrId("scintillon-countdown_default_name").arg(light ? light.name : scene.name)
                 placeholderText: label
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNone
@@ -64,7 +72,8 @@ Dialog {
                     id: turnOnSwitch
                     width: parent.width / 2
                     enabled: light && light.on
-                    text: light ? "Turn on" : ""
+                    //% "Turn on"
+                    text: light ? qsTrId("scintillon-countdown_turn_on") : ""
                     checked: light.on
                     automaticCheck: false
                     onClicked: {
@@ -76,7 +85,8 @@ Dialog {
                     id: turnOffSwitch
                     width: parent.width / 2
                     enabled: light && light.on
-                    text: light ? "Turn off" : ""
+                    //% "Turn off"
+                    text: light ? qsTrId("scintillon-countdown_turn_off") : ""
                     checked: !light.on
                     automaticCheck: false
                     onClicked: {
@@ -88,7 +98,8 @@ Dialog {
 
             ValueButton {
                 id: alarmTime
-                label: qsTr("Duration")
+                //% "Duration"
+                label: qsTrId("scintillon-countdown_duration")
                 value: Qt.formatTime(date, 'hh:mm')
                 width: parent.width
                 onClicked: {

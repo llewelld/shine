@@ -20,22 +20,28 @@ Page {
 
         ViewPlaceholder {
             enabled: listView.count === 0
-            text: qsTr("No scenes")
+            //% "No scenes"
+            text: qsTrId("scintillon-scenes_placeholder_text")
             hintText: (HueBridge.status !== HueBridge.BridgeStatusConnected)
-                      ? qsTr("Not connected to a Hue Hub")
+                      //% "Not connected to a Hue Hub"
+                      ? qsTrId("scintillon-scenes_placeholder_hint_no_hub")
                       : (lights.count > 0)
-                        ? qsTr("Pull down to create a new scene")
-                        : qsTr("Connect a light to your Hue Hub to get started")
+                        //% "Pull down to create a new scene"
+                        ? qsTrId("scintillon-scenes_placeholder_hint_no_scenes")
+                        //% "Connect a light to your Hue Hub to get started"
+                        : qsTrId("scintillon-scenes_placeholder_text_no_lights")
         }
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Scene settings")
+                //% "Scene settings"
+                text: qsTrId("scintillon-scenes_menu_settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("ScenesSettings.qml"))
             }
 
             MenuItem {
-                text: qsTr("Create scene")
+                //% "Create scene"
+                text: qsTrId("scintillon-scenes_menu_create_scene")
                 enabled: lights.count > 0
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("ScenesAdd.qml"), {sceneid: null, lights: lights, scenes: scenes})
@@ -45,7 +51,8 @@ Page {
 
         header: PageHeader {
             id: title
-            title: qsTr("Scenes")
+            //% "Scenes"
+            title: qsTrId("scintillon-scenes_page_title")
         }
 
         model: ScenesFilterModel {
@@ -112,7 +119,8 @@ Page {
                 id: scenesMenuComponent
                 ContextMenu {
                     MenuItem {
-                        text: qsTr("Edit")
+                        //% "Edit"
+                        text: qsTrId("scintillon-scenes_menu_scene_edit")
                         onClicked: {
                             var scene = scenesFilterModel.get(index)
                             var checkedLights = [];
@@ -124,21 +132,24 @@ Page {
                         }
                     }
                     MenuItem {
-                        text: qsTr("Alarm")
+                        //% "Alarm"
+                        text: qsTrId("scintillon-scenes_menu_scene_alarm")
                         onClicked: {
                             var scene = scenesFilterModel.get(index)
                             var dalog = pageStack.push(Qt.resolvedUrl("AlarmAdd.qml"), {scene: scene, schedules: schedules})
                         }
                     }
                     MenuItem {
-                        text: qsTr("Timer")
+                        //% "Timer"
+                        text: qsTrId("scintillon-scenes_menu_scene_timer")
                         onClicked: {
                             var scene = scenesFilterModel.get(index)
                             var dalog = pageStack.push(Qt.resolvedUrl("CountdownAdd.qml"), {scene: scene, schedules: schedules})
                         }
                     }
                     MenuItem {
-                        text: qsTr("Delete")
+                        //% "Delete"
+                        text: qsTrId("scintillon-scenes_menu_scene_delete")
                         onClicked: scenes.deleteScene(model.id)
                     }
                 }

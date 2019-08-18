@@ -20,7 +20,8 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Create group")
+                //% "Create group"
+                text: qsTrId("scintillon-groups_menu_create")
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("GroupsAdd.qml"), {lights: lights, groups: groups})
                 }
@@ -29,7 +30,8 @@ Page {
 
         header: PageHeader {
             id: title
-            title: qsTr("Groups")
+            //% "Groups"
+            title: qsTrId("scintillon-groups_page_title")
         }
 
         model: groups
@@ -76,7 +78,8 @@ Page {
                     id: groupsMenuComponent
                     ContextMenu {
                         MenuItem {
-                            text: qsTr("Edit")
+                            //% "Edit"
+                            text: qsTrId("scintillon-groups_menu_edit")
                             onClicked: {
                                 var group = groups.get(index)
                                 var checkedLights = [];
@@ -88,7 +91,8 @@ Page {
                             }
                         }
                         MenuItem {
-                            text: qsTr("Alarm")
+                            //% "Alarm"
+                            text: qsTrId("scintillon-groups_menu_alarm")
                             onClicked: {
                                 var group = groups.get(index)
                                 group.alert = "lselect"
@@ -96,7 +100,8 @@ Page {
                             }
                         }
                         MenuItem {
-                            text: qsTr("Countdown")
+                            //% "Countdown"
+                            text: qsTrId("scintillon-groups_menu_countdown")
                             onClicked: {
                                 var group = groups.get(index)
                                 group.alert = "lselect"
@@ -104,7 +109,8 @@ Page {
                             }
                         }
                         MenuItem {
-                            text: qsTr("Delete")
+                            //% "Delete"
+                            text: qsTrId("scintillon-groups_menu_delete")
                             onClicked: groups.deleteGroup(model.id)
                         }
                     }

@@ -21,15 +21,19 @@ Page {
 
         ViewPlaceholder {
             enabled: (lightsColumn.count === 0) && (groupsColumn.count === 0)
-            text: qsTr("No lights or groups")
+            //% "No lights or groups"
+            text: qsTrId("scintillon-lights_placeholder_text")
             hintText: (HueBridge.status === HueBridge.BridgeStatusConnected)
-                      ? qsTr("Connect a light to your Hue Hub to get started")
-                      : qsTr("Not connected to a Hue Hub")
+                      //% "Connect a light to your Hue Hub to get started"
+                      ? qsTrId("scintillon-lights_placeholder_hint_no_lights")
+                      //% "Not connected to a Hue Hub"
+                      : qsTrId("scintillon-lights_placeholder_hint_no_hub")
         }
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Create group")
+                //% "Create group"
+                text: qsTrId("scintillon-lights_menu_create_group")
                 enabled: lightsColumn.count
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("GroupsAdd.qml"), {lights: lights, groups: groups})
@@ -43,11 +47,13 @@ Page {
 
             PageHeader {
                 id: title
-                title: qsTr("Lights and groups")
+                //% "Lights and groups"
+                title: qsTrId("scintillon-lights_page_title")
             }
 
             SectionHeader {
-                text: qsTr("Groups")
+                //% "Groups"
+                text: qsTrId("scintillon-lights_section_groups")
                 visible: groupsColumn.count > 0
             }
 
@@ -111,7 +117,8 @@ Page {
                             id: groupsMenuComponent
                             ContextMenu {
                                 MenuItem {
-                                    text: qsTr("Edit")
+                                    //% "Edit"
+                                    text: qsTrId("scintillon-lights_menu_group_edit")
                                     onClicked: {
                                         var group = groups.get(index)
                                         var checkedLights = [];
@@ -123,7 +130,8 @@ Page {
                                     }
                                 }
                                 MenuItem {
-                                    text: qsTr("Alarm")
+                                    //% "Alarm"
+                                    text: qsTrId("scintillon-lights_menu_group_alarm")
                                     onClicked: {
                                         var group = groups.get(index)
                                         group.alert = "lselect"
@@ -131,7 +139,8 @@ Page {
                                     }
                                 }
                                 MenuItem {
-                                    text: qsTr("Timer")
+                                    //% "Timer"
+                                    text: qsTrId("scintillon-lights_menu_group_timer")
                                     onClicked: {
                                         var group = groups.get(index)
                                         group.alert = "lselect"
@@ -139,7 +148,8 @@ Page {
                                     }
                                 }
                                 MenuItem {
-                                    text: qsTr("Delete")
+                                    //% "Delete"
+                                    text: qsTrId("scintillon-lights_menuu_group_delete")
                                     onClicked: groups.deleteGroup(model.id)
                                 }
                             }
@@ -149,7 +159,8 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Lights")
+                //% "Lights"
+                text: qsTrId("scintillon-lights_section_lights")
                 visible: lightsColumn.count > 0
             }
 
@@ -216,7 +227,8 @@ Page {
                             id: lightsMenuComponent
                             ContextMenu {
                                 MenuItem {
-                                    text: qsTr("Rename")
+                                    //% "Rename"
+                                    text: qsTrId("scintillon-lights_menu_light_rename")
                                     onClicked: {
                                         var light = lightsFilterModel.get(index)
                                         light.alert = "lselect"
@@ -224,7 +236,8 @@ Page {
                                     }
                                 }
                                 MenuItem {
-                                    text: qsTr("Alarm")
+                                    //% "Alarm"
+                                    text: qsTrId("scintillon-lights_menu_light_alarm")
                                     onClicked: {
                                         var light = lightsFilterModel.get(index)
                                         light.alert = "lselect"
@@ -232,7 +245,8 @@ Page {
                                     }
                                 }
                                 MenuItem {
-                                    text: qsTr("Timer")
+                                    //% "Timer"
+                                    text: qsTrId("scintillon-lights_menu_light_timer")
                                     onClicked: {
                                         var light = lightsFilterModel.get(index)
                                         light.alert = "lselect"

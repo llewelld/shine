@@ -39,7 +39,8 @@ Page {
         spacing: Theme.paddingLarge
 
         PageHeader {
-            title: qsTr("Light control")
+            //% "Light control"
+            title: qsTrId("scintillon-light_detail_page_title")
         }
 
         Row {
@@ -148,12 +149,14 @@ Page {
             menu: ContextMenu {
                 id: effectModel
                 MenuItem {
-                    text: "No effect"
+                    //% "No effect"
+                    text: qsTrId("scintillon-light_detail_effect_none")
                     property string value: "none"
                     onClicked: light.effect = "none"
                 }
                 MenuItem {
-                    text: "Color loop"
+                    //% "Color loop"
+                    text: qsTrId("scintillon-light_detail_effect_colour_loop")
                     property string value: "colorloop"
                     onClicked: light.effect = "colorloop"
                 }

@@ -24,7 +24,8 @@ Page {
             spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("About Scintillon")
+                //% "About Scintillon"
+                title: qsTrId("scintillon-about_title")
             }
 
             Image {
@@ -34,7 +35,8 @@ Page {
             }
 
             Label {
-                text: qsTr("Control your Philips Hue lighting from your phone")
+                //% "Control your Philips Hue lighting from your phone"
+                text: qsTrId("scintillon-about_description")
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 anchors {
@@ -46,7 +48,8 @@ Page {
             }
 
             InfoRow {
-                label: qsTr("Version:")
+                //% "Version"
+                label: qsTrId("scintillon-about_verion")
                 value: version
                 midlineRatio: 0.4
                 midlineMin: Theme.fontSizeSmall * 5
@@ -54,31 +57,38 @@ Page {
             }
 
             InfoRow {
-                label: qsTr("App author:")
-                value: "David Llewellyn-Jones"
+                //% "App author"
+                label: qsTrId("scintillon-about_app_author")
+                //% "David Llewellyn-Jones"
+                value: qsTrId("scintillon-about_app_author_name")
                 midlineRatio: 0.4
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
             }
 
             InfoRow {
-                label: qsTr("Libhue author:")
-                value: "Michael Zanetti"
+                //% "Libhue author"
+                label: qsTrId("scintillon-about_libhue_author")
+                //% "Michael Zanetti"
+                value: qsTrId("scintillon-about_libhue_author_name")
                 midlineRatio: 0.4
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
             }
 
             InfoRow {
-                label: qsTr("Licence:")
-                value: "GPLv2"
+                //% "Licence"
+                label: qsTrId("scintillon-about_licence")
+                //% "GPLv2"
+                value: qsTrId("scintillon-about_gpl_v2")
                 midlineRatio: 0.4
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
             }
 
             SectionHeader {
-                text: qsTr("Links")
+                //% "Links"
+                text: qsTrId("scintillon-about_header_links")
             }
 
             Row {
@@ -86,13 +96,15 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Button {
                     id: website
-                    text: qsTr("Website")
+                    //% "Website"
+                    text: qsTrId("scintillon-about_website")
                     enabled: true
                     onClicked: Qt.openUrlExternally("http://www.flypig.co.uk/?to=scintillon")
                 }
                 Button {
                     id : email
-                    text: qsTr("Email")
+                    //% "Email"
+                    text: qsTrId("scintillon-about_email")
                     enabled: true
                     onClicked: Qt.openUrlExternally("mailto:david@flypig.co.uk")
                 }
@@ -100,4 +112,3 @@ Page {
         }
     }
 }
-

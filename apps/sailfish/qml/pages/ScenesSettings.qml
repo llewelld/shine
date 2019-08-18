@@ -25,11 +25,13 @@ Page {
             spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("Scene settings")
+                //% "Scene settings"
+                title: qsTrId("scintillon-scene_settings_page_title")
             }
 
             TextSwitch {
-                text: qsTr("Show scenes created by other apps")
+                //% "Show scenes created by other apps"
+                text: qsTrId("scintillon-scenes_settings_show_scenes_from_other_apps")
                 checked: Settings.hideScenesByOtherApps
                 automaticCheck: false
                 onClicked: Settings.hideScenesByOtherApps = !Settings.hideScenesByOtherApps

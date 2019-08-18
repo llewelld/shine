@@ -35,7 +35,8 @@ Item {
 
             TextSwitch {
                 width: parent.width
-                text: "Button 1"
+                //% "Button 1"
+                text: qsTrId("scintillon-sensor_tap_button_1")
                 checked: hueTap.buttonId == 34
                 automaticCheck: false
                 onClicked: hueTap.buttonId = 34
@@ -43,7 +44,8 @@ Item {
 
             TextSwitch {
                 width: parent.width
-                text: "Button 2"
+                //% "Button 2"
+                text: qsTrId("scintillon-sensor_tap_button_2")
                 checked: hueTap.buttonId == 16
                 automaticCheck: false
                 onClicked: hueTap.buttonId = 16
@@ -51,7 +53,8 @@ Item {
 
             TextSwitch {
                 width: parent.width
-                text: "Button 3"
+                //% "Button 3"
+                text: qsTrId("scintillon-sensor_tap_button_3")
                 checked: hueTap.buttonId == 17
                 automaticCheck: false
                 onClicked: hueTap.buttonId = 17
@@ -59,7 +62,8 @@ Item {
 
             TextSwitch {
                 width: parent.width
-                text: "Button 4"
+                //% "Button 4"
+                text: qsTrId("scintillon-sensor_tap_button_4")
                 checked: hueTap.buttonId == 18
                 automaticCheck: false
                 onClicked: hueTap.buttonId = 18

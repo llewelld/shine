@@ -109,8 +109,10 @@ CoverBackground {
             }
             color: Theme.highlightColor
             text: (HueBridge.status === HueBridge.BridgeStatusConnected)
-                  ? qsTr("All lights off")
-                  : qsTr("No hub found")
+                  //% "All lights off"
+                  ? qsTrId("scintillon-cover_all_lights_off")
+                  //% "No hub found"
+                  : qsTrId("scintillon-cover_no_hub")
             font.pixelSize: Theme.fontSizeLarge
             wrapMode: Text.Wrap
             elide: Text.ElideNone

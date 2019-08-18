@@ -22,15 +22,19 @@ Page {
 
         ViewPlaceholder {
             enabled: listView.count === 0
-            text: qsTr("No sensors or switches")
+            //% "No sensors or switches"
+            text: qsTrId("scintillon-sensors_placeholder_text")
             hintText: (HueBridge.status === HueBridge.BridgeStatusConnected)
-                      ? qsTr("Connect a switch to your Hue Hub to get started")
-                      : qsTr("Not connected to a Hue Hub")
+                      //% "Connect a switch to your Hue Hub to get started"
+                      ? qsTrId("scintillon-sensors_placeholder_hint_no_switches")
+                      //% "Not connected to a Hue Hub"
+                      : qsTrId("scintillon-sensors_placeholder_hint_no_hub")
         }
 
         header: PageHeader {
             id: title
-            title: qsTr("Sensors and switches")
+            //% "Sensors and switches"
+            title: qsTrId("scintillon-sensors_page_title")
         }
 
         model: SensorsFilterModel {
@@ -85,7 +89,8 @@ Page {
                 id: sensorsMenuComponent
                 ContextMenu {
                     MenuItem {
-                        text: qsTr("Edit")
+                        //% "Edit"
+                        text: qsTrId("scintillon-sensors_menu_sensor_edit")
                         onClicked: {
                             var scene = scenesFilterModel.get(index)
                             var checkedLights = [];
@@ -98,13 +103,6 @@ Page {
                     }
                 }
             }
-
-
-
-
-
-
-
         }
     }
 }

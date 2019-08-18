@@ -74,16 +74,25 @@ Dialog {
 
             ComboBox {
                 id: lightsOrSceneSelector
-                label: qsTr("Action")
+                //% "Action"
+                label: qsTrId("scintillon-sensor_action")
                 menu: ContextMenu {
-                    MenuItem { text: "None"}
-                    MenuItem { text: "Toggle lights"}
-                    MenuItem { text: "Switch lights on"}
-                    MenuItem { text: "Switch lights off"}
-                    MenuItem { text: "Activate scenes"}
-                    MenuItem { text: "Dim Up"}
-                    MenuItem { text: "Dim Down"}
-                    //MenuItem { text: "Set sleep timer"}
+                    //% "None"
+                    MenuItem { text: qsTrId("scintillon-sensor_action_none")}
+                    //% "Toggle lights"
+                    MenuItem { text: qsTrId("scintillon-sensor_action_toggle_lights")}
+                    //% "Switch lights on"
+                    MenuItem { text: qsTrId("scintillon-sensor_action_lights_on")}
+                    //% "Switch lights off"
+                    MenuItem { text: qsTrId("scintillon-sensor_action_lights_off")}
+                    //% "Activate scenes"
+                    MenuItem { text: qsTrId("scintillon-sensor_action_activate_scenes")}
+                    //% "Dim up"
+                    MenuItem { text: qsTrId("scintillon-sensor_action_dim_up")}
+                    //% "Dim down"
+                    MenuItem { text: qsTrId("scintillon-sensor_action_dim_down")}
+                    //% "Set sleep timer"
+                    //MenuItem { text: qsTrId("scintillon-sensor_action_set_sleep_timer")}
                 }
             }
 
