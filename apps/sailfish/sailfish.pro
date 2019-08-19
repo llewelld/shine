@@ -106,3 +106,5 @@ modules.files += ../../plugin/Hue/libhueplugin.so \
 modules.path = /usr/share/harbour-scintillon/Hue/
 
 INSTALLS += modules
+
+OTHER_FILES += README.md
