@@ -55,6 +55,7 @@ Dialog {
                 id: alarmName
                 //% "Alarm name"
                 label: qsTrId("scintillon-alarm_name")
+                //: The initial editable name given to the alarm. The %1 is replaced with the light, group or scene name.
                 //% "Alarm on %1"
                 text: qsTrId("scintillon-alarm_on_light").arg(light ? light.name : scene.name)
                 placeholderText: label

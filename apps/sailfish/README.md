@@ -4,7 +4,7 @@ Scintillon is a Philips Hue compatible smart home app that lets you control your
 
 ## Building from source
 
-Scintillon uses libhue which is included in the same repository. The library and app can be built using the Sailfish SDK. To get it to work you need to edit the `apps/apps.pro` to replace the `SUBDIRS += qtcontrols2` line with `SUBDIRS += sailfish`. Then load the root `shine.pro` project into the Sailfish SDK and build as normal.
+Scintillon uses libhue which is included in the same repository. The library and app can be built using the Sailfish SDK. To get it to work you need to edit the `apps/apps.pro` file to replace the `SUBDIRS += qtcontrols2` line with `SUBDIRS += sailfish`. Then load the root `shine.pro` project into the Sailfish SDK and build as normal.
 
 ## Compatibility
 
@@ -24,5 +24,5 @@ A packaged binary can be downloaded from the Jolla store or OpenRepos: https://o
 
 I can be contacted via one of the following.
 
-    Website: http://www.flypig.co.uk
-    Email: david@flypig.co.uk
+- Website: http://www.flypig.co.uk
+- Email: david@flypig.co.uk
