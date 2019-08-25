@@ -164,32 +164,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="scintillon-alarm_on_light">
-        <location filename="../qml/pages/AlarmAdd.qml" line="59"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="60"/>
         <source>Alarm on %1</source>
+        <extracomment>The initial editable name given to the alarm. The %1 is replaced with the light, group or scene name.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message id="scintillon-alarm_turn_on">
-        <location filename="../qml/pages/AlarmAdd.qml" line="75"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="76"/>
         <source>Turn on</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="scintillon-alarm_turn_off">
-        <location filename="../qml/pages/AlarmAdd.qml" line="88"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="89"/>
         <source>Turn off</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="scintillon-alarm_recurring">
-        <location filename="../qml/pages/AlarmAdd.qml" line="101"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="102"/>
         <source>Recurring alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="scintillon-alarm_date">
-        <location filename="../qml/pages/AlarmAdd.qml" line="115"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="116"/>
         <source>Alarm date</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="scintillon-alarm_time">
-        <location filename="../qml/pages/AlarmAdd.qml" line="129"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="130"/>
         <source>Alarm time</source>
         <translation type="unfinished"></translation>
     </message>

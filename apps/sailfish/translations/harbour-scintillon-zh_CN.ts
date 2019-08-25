@@ -118,18 +118,23 @@
         <source>GPLv2</source>
         <translation>GPLv2</translation>
     </message>
-    <message id="scintillon-about_header_links">
+    <message id="scintillon-about_header_contributors">
         <location filename="../qml/pages/About.qml" line="91"/>
+        <source>Contributors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="scintillon-about_header_links">
+        <location filename="../qml/pages/About.qml" line="108"/>
         <source>Links</source>
         <translation>链接</translation>
     </message>
     <message id="scintillon-about_website">
-        <location filename="../qml/pages/About.qml" line="100"/>
+        <location filename="../qml/pages/About.qml" line="117"/>
         <source>Website</source>
         <translation>网址</translation>
     </message>
     <message id="scintillon-about_email">
-        <location filename="../qml/pages/About.qml" line="107"/>
+        <location filename="../qml/pages/About.qml" line="124"/>
         <source>Email</source>
         <translation>电子邮件</translation>
     </message>
@@ -159,32 +164,33 @@
         <translation>通知名称</translation>
     </message>
     <message id="scintillon-alarm_on_light">
-        <location filename="../qml/pages/AlarmAdd.qml" line="59"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="60"/>
         <source>Alarm on %1</source>
+        <extracomment>The initial editable name given to the alarm. The %1 is replaced with the light, group or scene name.</extracomment>
         <translation>在 %1 通知</translation>
     </message>
     <message id="scintillon-alarm_turn_on">
-        <location filename="../qml/pages/AlarmAdd.qml" line="75"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="76"/>
         <source>Turn on</source>
         <translation>打开</translation>
     </message>
     <message id="scintillon-alarm_turn_off">
-        <location filename="../qml/pages/AlarmAdd.qml" line="88"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="89"/>
         <source>Turn off</source>
         <translation>关闭</translation>
     </message>
     <message id="scintillon-alarm_recurring">
-        <location filename="../qml/pages/AlarmAdd.qml" line="101"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="102"/>
         <source>Recurring alarm</source>
         <translation>重复通知</translation>
     </message>
     <message id="scintillon-alarm_date">
-        <location filename="../qml/pages/AlarmAdd.qml" line="115"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="116"/>
         <source>Alarm date</source>
         <translation>通知日期</translation>
     </message>
     <message id="scintillon-alarm_time">
-        <location filename="../qml/pages/AlarmAdd.qml" line="129"/>
+        <location filename="../qml/pages/AlarmAdd.qml" line="130"/>
         <source>Alarm time</source>
         <translation>通知时间</translation>
     </message>

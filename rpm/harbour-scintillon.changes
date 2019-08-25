@@ -12,7 +12,11 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sun Aug 25 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.1-2
+- Added Chinese (simplified) translation provided by Rui Kon
+
 * Sat Jun 01 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.1-1
 - Scrubbed the deck
 - Hoisted the sails
 - Created initial beta version with basic functionality
+
