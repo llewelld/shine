@@ -118,18 +118,23 @@
         <source>GPLv2</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="scintillon-about_header_links">
+    <message id="scintillon-about_header_contributors">
         <location filename="../qml/pages/About.qml" line="91"/>
+        <source>Contributors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="scintillon-about_header_links">
+        <location filename="../qml/pages/About.qml" line="108"/>
         <source>Links</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="scintillon-about_website">
-        <location filename="../qml/pages/About.qml" line="100"/>
+        <location filename="../qml/pages/About.qml" line="117"/>
         <source>Website</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="scintillon-about_email">
-        <location filename="../qml/pages/About.qml" line="107"/>
+        <location filename="../qml/pages/About.qml" line="124"/>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>

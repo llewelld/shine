@@ -94,6 +94,7 @@ CONFIG += sailfishapp_i18n_unfinished
 TRANSLATIONS += translations/harbour-scintillon.ts
 TRANSLATIONS += translations/harbour-scintillon-de.ts
 TRANSLATIONS += translations/harbour-scintillon-en.ts
+TRANSLATIONS += translations/harbour-scintillon-zh_CN.ts
 
 HEADERS += \
     src/settings.h \

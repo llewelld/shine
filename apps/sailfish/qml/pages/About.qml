@@ -40,8 +40,8 @@ Page {
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 anchors {
-                    leftMargin: Theme.paddingLarge
-                    rightMargin: Theme.paddingLarge
+                    leftMargin: Theme.horizontalPageMargin
+                    rightMargin: Theme.horizontalPageMargin
                     left: parent.left
                     right: parent.right
                 }
@@ -84,6 +84,23 @@ Page {
                 midlineRatio: 0.4
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
+            }
+
+            SectionHeader {
+                //% "Contributors"
+                text: qsTrId("scintillon-about_header_contributors")
+            }
+
+            Label {
+                text: "Rui Kon"
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                anchors {
+                    leftMargin: Theme.horizontalPageMargin
+                    rightMargin: Theme.horizontalPageMargin
+                    left: parent.left
+                    right: parent.right
+                }
             }
 
             SectionHeader {
