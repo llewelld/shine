@@ -121,7 +121,7 @@
     <message id="scintillon-about_header_contributors">
         <location filename="../qml/pages/About.qml" line="91"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>贡献者</translation>
     </message>
     <message id="scintillon-about_header_links">
         <location filename="../qml/pages/About.qml" line="108"/>
