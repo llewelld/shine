@@ -36,8 +36,6 @@ SOURCES += \
 
 DISTFILES += \
     ../../rpm/harbour-scintillon.spec \
-    ../../rpm/harbour-scintillon.yaml \
-    ../../rpm/harbour-scintillon.changes.run.in \
     ../../rpm/harbour-scintillon.changes \
     translations/*.ts \
     harbour-scintillon.desktop \
