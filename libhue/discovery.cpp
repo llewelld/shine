@@ -56,7 +56,7 @@ void Discovery::findBridges()
               "MAN: \"ssdp:discover\"\r\n"
               "MX: %1\r\n"
               "ST: libhue:idl\r\n");
-    b.arg(DISCOVERY_TIMEOUT);
+    b = b.arg(DISCOVERY_TIMEOUT);
 
 //    qDebug() << "writing datagram" << b;
     m_timeout->start(DISCOVERY_TIMEOUT * 1000);
