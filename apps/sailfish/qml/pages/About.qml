@@ -92,7 +92,7 @@ Page {
             }
 
             Label {
-                text: "Rui Kon"
+                text: "Rui Kon, Francesco Vaccaro"
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 anchors {

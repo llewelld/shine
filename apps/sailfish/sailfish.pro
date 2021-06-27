@@ -95,6 +95,7 @@ TRANSLATIONS += translations/harbour-scintillon.ts
 TRANSLATIONS += translations/harbour-scintillon-de.ts
 TRANSLATIONS += translations/harbour-scintillon-en.ts
 TRANSLATIONS += translations/harbour-scintillon-zh_CN.ts
+TRANSLATIONS += translations/harbour-scintillon-it.ts
 
 HEADERS += \
     src/settings.h \

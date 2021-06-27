@@ -24,11 +24,12 @@ A packaged binary can be downloaded from the Jolla store or OpenRepos: https://o
 
 I can be contacted via one of the following.
 
-- Website: http://www.flypig.co.uk
+- Website: https://www.flypig.co.uk
 - Email: david@flypig.co.uk
 
 ## Contributors
 
 David Llewellyn-Jones <david@flypig.co.uk>, Scintillon app
 Michael Zanetti <michael_zanetti@gmx.net>, libhue
-Rui Kon <dashinfantry@gamil.com>, Chinese translation
+Rui Kon <dashinfantry@gamil.com>, Chinese localisation
+Francesco Vaccaro <fravaccaro90@gmail.com>, Italian localisation
