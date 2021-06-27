@@ -12,6 +12,10 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Mon Aug 26 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.2-1
+- Improve build process
+- Fix minor bugs
+
 * Sun Aug 25 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.1-2
 - Added Chinese (simplified) translation provided by Rui Kon
 
