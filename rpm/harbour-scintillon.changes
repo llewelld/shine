@@ -12,6 +12,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sun Jul 4 2021 David Llewellyn-Jones <david@flypig.co.uk> 0.4-1
+- Update Chinese translations provided by dashinfantry
+
 * Sun Jun 27 2021 David Llewellyn-Jones <david@flypig.co.uk> 0.3-2
 - Update for Sailfish OS 4 including an aarch64 build
 - Removed yaml build file; the spec is used instead

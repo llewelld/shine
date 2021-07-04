@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS += qtcontrols2
+SUBDIRS += sailfish
